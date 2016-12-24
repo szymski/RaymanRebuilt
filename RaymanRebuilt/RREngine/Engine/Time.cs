@@ -9,7 +9,7 @@ namespace RREngine.Engine
     public static class Time
     {
         /// <summary>
-        /// Seconds elapsed since since the application has started.
+        /// Seconds elapsed since the application has started.
         /// </summary>
         public static float Elapsed { get; set; }
 
