@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.25914.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RREngine", "RREngine\RREngine.csproj", "{5BAA9E2B-5958-4F9F-B98F-AB86969CFF30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRTestApp", "RRTestApp\RRTestApp.csproj", "{58B242A8-8737-421E-ACAF-182959C311B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RREngineTests", "RREngineTests\RREngineTests.csproj", "{9A32519B-FABF-4748-BE81-16619ACC2B3D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BAA9E2B-5958-4F9F-B98F-AB86969CFF30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BAA9E2B-5958-4F9F-B98F-AB86969CFF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BAA9E2B-5958-4F9F-B98F-AB86969CFF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BAA9E2B-5958-4F9F-B98F-AB86969CFF30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B242A8-8737-421E-ACAF-182959C311B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B242A8-8737-421E-ACAF-182959C311B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B242A8-8737-421E-ACAF-182959C311B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B242A8-8737-421E-ACAF-182959C311B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A32519B-FABF-4748-BE81-16619ACC2B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A32519B-FABF-4748-BE81-16619ACC2B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A32519B-FABF-4748-BE81-16619ACC2B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A32519B-FABF-4748-BE81-16619ACC2B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
