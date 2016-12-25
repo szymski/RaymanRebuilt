@@ -32,9 +32,17 @@ namespace RREngine.Engine
             GameWindow.Run();
         }
 
+        public event EventHandler<EventArgs> Load;
+
+        void OnLoad(EventArgs e)
+        {
+            Load?.Invoke(this, e);
+        }
+
         void OnGameWindowLoad(object sender, EventArgs e)
         {
             ConnectViewport(Viewport);
+            OnLoad(EventArgs.Empty);
         }
 
         void OnGameWindowResize(object sender, EventArgs e)

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
+using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace RRTestApp
 {
@@ -16,6 +19,21 @@ namespace RRTestApp
             Window window = new Window(400, 400);
 
             var viewport = window.Viewport;
+
+            Texture texture = null;
+
+            window.Load += (sender, eventArgs) =>
+            {
+                texture = new Texture();
+                Bitmap bitmap = new Bitmap("doge.png");
+                var data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                    ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+                texture.LoadImage(512, 512, data.Scan0, PixelFormat.Bgra);
+
+                bitmap.UnlockBits(data);
+            };
+
             viewport.RenderFrame += (sender, eventArgs) =>
             {
                 GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
@@ -32,13 +50,27 @@ namespace RRTestApp
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix);
 
-                GL.Begin(PrimitiveType.Triangles);
-                GL.Color3(1f, 0.5f, 0.1f);
+                GL.Enable(EnableCap.Texture2D);
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                texture.Bind();
+
+                GL.Color3(1f, 1f, 1f);
+
+                GL.Begin(PrimitiveType.Quads);
+
+                GL.TexCoord2(0f, 0f);
                 GL.Vertex2(0f, 0f);
-                GL.Color3(0.1f, 1f, 0.5f);
-                GL.Vertex2(150f, 150f);
-                GL.Color3(1f, 0.1f, 0.5f);
+
+                GL.TexCoord2(0f, 1f);
                 GL.Vertex2(0f, 150f);
+
+                GL.TexCoord2(1f, 1f);
+                GL.Vertex2(150f, 150f);
+
+                GL.TexCoord2(1f, 0f);
+                GL.Vertex2(150f, 0f);
+
                 GL.End();
             };
 

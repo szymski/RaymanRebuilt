@@ -53,6 +53,7 @@
     <Compile Include="Engine\Objects\EntityComponents.cs" />
     <Compile Include="Engine\Objects\Geometry.cs" />
     <Compile Include="Engine\Scene.cs" />
+    <Compile Include="Engine\Texture.cs" />
     <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Viewport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
