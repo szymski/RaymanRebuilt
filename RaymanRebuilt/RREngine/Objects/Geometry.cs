@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -133,7 +134,7 @@ namespace RREngine.Objects
     {
         public Mesh parentMesh;
         public Vec3 position;
-        public GL.Color3 color = new GL.Color3(255, 255, 255);
+        public Color color = Color.FromArgb(255, 255, 255);
 
         public Vertex(float x, float y, float z)
         {
