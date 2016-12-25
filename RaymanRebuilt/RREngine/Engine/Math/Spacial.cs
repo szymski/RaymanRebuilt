@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RREngine.Computations
+namespace RREngine.Engine.Math
 {
     /// <summary>
     /// Represents a three-dimensional vector.
@@ -24,8 +24,8 @@ namespace RREngine.Computations
         /// </summary>
         public static float GetDistance(Vec3 a, Vec3 b)
         {
-            float b2 = (float)Math.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
-            return (float)Math.Sqrt(b2 * b2 + (a.z - b.z) * (a.z - b.z));
+            float b2 = Mathf.Sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y));
+            return Mathf.Sqrt(b2 * b2 + (a.z - b.z) * (a.z - b.z));
         }
 
         #region operators
@@ -92,7 +92,7 @@ namespace RREngine.Computations
         /// </summary>
         public static float GetDistance(Vec2 a, Vec2 b)
         {
-            return (float)Math.Sqrt(Math.Pow(a.x - b.x, 2) + Math.Pow(a.y - b.y, 2));
+            return Mathf.Sqrt(Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2));
         }
 
         #region operators
@@ -160,8 +160,8 @@ namespace RREngine.Computations
         {
             return new Direction
             (
-                (float)Math.Cos(Math.PI * (angle / 180)),
-                (float)Math.Sin(Math.PI * (angle / 180))
+                Mathf.Cos(Mathf.PI * (angle / 180)),
+                Mathf.Sin(Mathf.PI * (angle / 180))
             );
         }
 

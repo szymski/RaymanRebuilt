@@ -45,13 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Utils\Mathf.cs" />
+    <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Screen.cs" />
-    <Compile Include="Computations\Spacial.cs" />
-    <Compile Include="Objects\Dynamic.cs" />
-    <Compile Include="Objects\EntityComponents.cs" />
-    <Compile Include="Objects\Geometry.cs" />
+    <Compile Include="Engine\Math\Spacial.cs" />
+    <Compile Include="Engine\Objects\Dynamic.cs" />
+    <Compile Include="Engine\Objects\EntityComponents.cs" />
+    <Compile Include="Engine\Objects\Geometry.cs" />
     <Compile Include="Engine\Scene.cs" />
     <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Viewport.cs" />
