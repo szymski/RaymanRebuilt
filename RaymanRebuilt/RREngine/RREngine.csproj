@@ -47,6 +47,11 @@
   <ItemGroup>
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Screen.cs" />
+    <Compile Include="Computations\Spacial.cs" />
+    <Compile Include="Objects\Dynamic.cs" />
+    <Compile Include="Objects\EntityComponents.cs" />
+    <Compile Include="Objects\Geometry.cs" />
+    <Compile Include="Engine\Scene.cs" />
     <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Viewport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,5 +61,6 @@
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
