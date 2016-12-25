@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utils\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Screen.cs" />
     <Compile Include="Computations\Spacial.cs" />
