@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace RREngine.Engine
 {
-    public static class Time
+    public class Time
     {
         /// <summary>
         /// Seconds elapsed since the application has started.
         /// </summary>
-        public static float Elapsed { get; set; }
+        public float Elapsed { get; set; }
 
         /// <summary>
         /// Seconds elapsed since the last frame.
         /// </summary>
-        public static float DeltaTime { get; set; }
+        public float DeltaTime { get; set; }
+
+        /// <summary>
+        /// Delta time is multiplied by this value.
+        /// </summary>
+        public float TimeScale { get; set; } = 1f;
     }
 }
