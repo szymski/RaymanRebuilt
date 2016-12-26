@@ -14,11 +14,11 @@ namespace RREngine.Engine.Objects
     /// <summary>
     /// A static mesh comprising vertex buffer objects.
     /// </summary>
-    public class Brush
+    public class MeshStatic
     {
-        public Vec3 position;
-        public Vec3 rotation;
-        public Vec3 scale;
+        public Vector3 position;
+        public Vector3 rotation;
+        public Vector3 scale;
 
         // VBO stuff
     }
@@ -30,9 +30,9 @@ namespace RREngine.Engine.Objects
     /// </summary>
     public class Mesh
     {
-        public Vec3 position;
-        public Vec3 rotation;
-        public Vec3 scale;
+        public Vector3 position;
+        public Vector3 rotation;
+        public Vector3 scale;
 
         public List<Face> faces;
         public List<Vertex> vertices;
@@ -42,7 +42,7 @@ namespace RREngine.Engine.Objects
         {
             vertices.Add(vertex);
         }
-        public void AddVertex(Vec3 position)
+        public void AddVertex(Vector3 position)
         {
             vertices.Add(new Vertex(position));
         }
@@ -65,13 +65,13 @@ namespace RREngine.Engine.Objects
             faces.Add(new Face(v1, v2, v3, v4));
         }
 
-        // Add mesh
-        public void AddMesh(Mesh mesh)
+        // Combine mesh
+        public void Combine(Mesh mesh)
         {
             int countHold = vertices.Count;
 
             foreach (Vertex vert in mesh.vertices)
-                AddVertex(vert.position.x + mesh.position.x, vert.position.y + mesh.position.y, vert.position.z + mesh.position.z);
+                AddVertex(vert.position.X + mesh.position.X, vert.position.Y + mesh.position.Y, vert.position.Z + mesh.position.Z);
 
             foreach (Face face in mesh.faces)
             {
@@ -95,7 +95,7 @@ namespace RREngine.Engine.Objects
         public int v1, v2, v3, v4;
 
         public bool hasUV;
-        public Vec2 uv1, uv2, uv3, uv4;
+        public Vector2 uv1, uv2, uv3, uv4;
 
         public bool hasTexture;
         public uint textureID;
@@ -133,20 +133,20 @@ namespace RREngine.Engine.Objects
     public class Vertex
     {
         public Mesh parentMesh;
-        public Vec3 position;
+        public Vector3 position;
         public Color color = Color.FromArgb(255, 255, 255);
 
         public Vertex(float x, float y, float z)
         {
-            position.x = x;
-            position.y = y;
-            position.z = z;
+            position.X = x;
+            position.Y = y;
+            position.Z = z;
         }
-        public Vertex(Vec3 position)
+        public Vertex(Vector3 position)
         {
-            this.position.x = position.x;
-            this.position.y = position.y;
-            this.position.z = position.z;
+            this.position.X = position.X;
+            this.position.Y = position.Y;
+            this.position.Z = position.Z;
         }
     }
 }

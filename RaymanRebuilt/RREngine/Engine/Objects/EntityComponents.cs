@@ -7,22 +7,29 @@ using RREngine.Engine.Math;
 
 namespace RREngine.Engine.Objects
 {
-    public partial class Entity
+    // This system doesn't let you interact with the components
+    // at all via code, which is a problem, but I haven't thought
+    // much of this through and it's not a pressing issue.
+
+
+    public enum EntityComponent : uint
     {
-        public class Components
-        {
-            public class Transform
-            {
-                public Vec3 position;
-                public Vec3 rotation;
-                public Vec3 scale;
-            }
-
-            public class Light
-            {
-
-            }
-        }
+        Geometry = 0
     }
     
+    public partial class Entity
+    {
+        public void AddComponent(EntityComponent component)
+        {
+            if (component == EntityComponent.Geometry)
+                components.Add(new Geometry());
+        }
+
+
+
+        public class Geometry
+        {
+            Mesh mesh = new Mesh();
+        }
+    }
 }

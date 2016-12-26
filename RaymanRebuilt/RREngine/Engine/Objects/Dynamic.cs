@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RREngine.Engine.Math;
+using System.Dynamic;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace RREngine.Engine.Objects
 {
     public class Camera
     {
-        public Vec3 position = new Vec3();
-        public Vec3 rotation = new Vec3();
+        public Vector3 position = new Vector3();
+        public Vector3 rotation = new Vector3();
 
         public float fov = 60;
         public float clipNear;
@@ -20,6 +24,9 @@ namespace RREngine.Engine.Objects
     public partial class Entity
     {
         public string name = "";
-        List<Components> components = new List<Components>();
+        public Vector3 position;
+        public Vector3 rotation;
+
+        public List<object> components = new List<object>(); // derp
     }
 }

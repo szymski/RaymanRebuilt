@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
+using RREngine.Engine.Objects;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace RRTestApp
@@ -75,6 +76,8 @@ namespace RRTestApp
             };
 
             window.Run();
+
+            MeshStatic b = Scene.scenes[0].AddBrush();
         }
     }
 }

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using RREngine.Engine.Objects;
 using RREngine.Engine.Math;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace RREngine.Engine.Objects
 {
     public static class Primitives
     {
-        public static Mesh Mesh_Cube(float size_x, float size_y, float size_z, Vec3 position, Vec3 rotation)
+        public static Mesh Mesh_Cube(float size_x, float size_y, float size_z, Vector3 position, Vector3 rotation)
         {
             Mesh cube = new Mesh();
             cube.position = position;
@@ -28,14 +31,13 @@ namespace RREngine.Engine.Objects
 
             cube.AddFace(0, 1, 3, 2);
             cube.AddFace(4, 5, 7, 6);
-
             cube.AddFace(0, 1, 5, 4);
             cube.AddFace(2, 3, 7, 6);
 
             return cube;
         }
 
-        public static Mesh Mesh_Plane(float size_x, float size_z, Vec3 position, Vec3 rotation)
+        public static Mesh Mesh_Plane(float size_x, float size_z, Vector3 position, Vector3 rotation)
         {
             Mesh cube = new Mesh();
             cube.position = position;
@@ -55,7 +57,7 @@ namespace RREngine.Engine.Objects
             return cube;
         }
 
-        public static Mesh Mesh_Cyllinder(float radius, float height, int sides, Vec3 position, Vec3 rotation)
+        public static Mesh Mesh_Cyllinder(float radius, float height, int sides, Vector3 position, Vector3 rotation)
         {
             Mesh cyl = new Mesh();
             cyl.position = position;
@@ -89,7 +91,7 @@ namespace RREngine.Engine.Objects
             return cyl;
         }
 
-        public static Mesh Mesh_Cone(float radius, float height, int sides, Vec3 position, Vec3 rotation)
+        public static Mesh Mesh_Cone(float radius, float height, int sides, Vector3 position, Vector3 rotation)
         {
             Mesh cone = new Mesh();
             cone.position = position;
@@ -115,17 +117,17 @@ namespace RREngine.Engine.Objects
             return cone;
         }
 
-        public static Mesh Mesh_Arrow(float radius, float length, Vec3 position, Vec3 rotation)
+        public static Mesh Mesh_Arrow(float radius, float length, Vector3 position, Vector3 rotation)
         {
-            Mesh cyl = Primitives.Mesh_Cyllinder(radius, length, 8, new Vec3(0, length / 2, 0), new Vec3());
-            Mesh cone = Primitives.Mesh_Cone(radius * 2.5f, radius * 4, 16, new Vec3(0, length, 0), new Vec3());
+            Mesh cyl = Primitives.Mesh_Cyllinder(radius, length, 8, new Vector3(0, length / 2, 0), new Vector3());
+            Mesh cone = Primitives.Mesh_Cone(radius * 2.5f, radius * 4, 16, new Vector3(0, length, 0), new Vector3());
 
             Mesh arrow = new Mesh();
             arrow.position = position;
             arrow.rotation = rotation;
 
-            arrow.AddMesh(cyl);
-            arrow.AddMesh(cone);
+            arrow.Combine(cyl);
+            arrow.Combine(cone);
 
             return arrow;
         }
