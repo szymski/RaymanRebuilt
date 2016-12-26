@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Graphics\RenderTarget.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Objects\Primitives.cs" />
@@ -54,7 +55,7 @@
     <Compile Include="Engine\Objects\EntityComponents.cs" />
     <Compile Include="Engine\Objects\Geometry.cs" />
     <Compile Include="Engine\Objects\Scene.cs" />
-    <Compile Include="Engine\Texture.cs" />
+    <Compile Include="Engine\Graphics\Texture.cs" />
     <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Viewport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

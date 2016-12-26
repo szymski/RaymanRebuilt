@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
+using RREngine.Engine.Graphics;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
@@ -23,6 +24,7 @@ namespace RRTestApp
             var viewport = window.Viewport;
 
             Texture texture = null;
+            RenderTarget rt = new RenderTarget(400, 400);
 
             window.Load += (sender, eventArgs) =>
             {
@@ -38,7 +40,10 @@ namespace RRTestApp
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
-                GL.ClearColor(0.1f, 0.1f, 0.1f, 1f);
+                rt.Resize(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+                rt.Bind();
+
+                GL.ClearColor(0.1f, 0.1f, 0.1f, 0f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
@@ -76,6 +81,44 @@ namespace RRTestApp
                 GL.Vertex2(2f, 0f);
 
                 GL.End();
+
+                rt.Unbind();
+
+                GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
+                GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
+
+                GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+                var projectionMatrix2 = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height, -1f, 1f);
+                GL.MatrixMode(MatrixMode.Projection);
+                GL.LoadMatrix(ref projectionMatrix2);
+
+                var modelMatrix2 = Matrix4.Identity;
+
+                for (int i = 0; i < 20; i++)
+                {
+                    modelMatrix2 *= Matrix4.CreateRotationZ(Viewport.Current.Time.Elapsed * 0.05f);
+                    GL.MatrixMode(MatrixMode.Modelview);
+                    GL.LoadMatrix(ref modelMatrix2);
+
+                    GL.Enable(EnableCap.Texture2D);
+                    rt.BindTexture();
+
+                    GL.Begin(PrimitiveType.Quads);
+
+                    GL.TexCoord2(0f, 0f);
+                    GL.Vertex2(0f, 0f);
+
+                    GL.TexCoord2(0f, 1f);
+                    GL.Vertex2(0f, 200f);
+
+                    GL.TexCoord2(1f, 1f);
+                    GL.Vertex2(200f, 200f);
+
+                    GL.TexCoord2(1f, 0f);
+                    GL.Vertex2(200f, 0f);
+
+                    GL.End();
+                }
             };
 
             window.Run();
