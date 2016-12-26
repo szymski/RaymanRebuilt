@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
+    <Compile Include="Engine\Objects\Primitives.cs" />
     <Compile Include="Engine\Screen.cs" />
     <Compile Include="Engine\Math\Spacial.cs" />
     <Compile Include="Engine\Objects\Dynamic.cs" />
