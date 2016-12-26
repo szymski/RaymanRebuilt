@@ -9,6 +9,8 @@ namespace RREngine.Engine.Math
     public static class Mathf
     {
         public const float PI = (float)System.Math.PI;
+        public const float DegToRad = PI / 180f;
+        public const float RadToDeg = 180f / PI;
 
         public static float Acos(float d) => (float)System.Math.Acos(d);
         public static float Asin(float d) => (float)System.Math.Asin(d);

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
+using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
@@ -41,13 +42,15 @@ namespace RRTestApp
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-                var projectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height, -1f, 1f);
+                //var projectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height, -1f, 1f);
+                var projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(90f * Mathf.DegToRad, Viewport.Current.Screen.Width / (float)Viewport.Current.Screen.Height, 0.01f, 1000f);
                 GL.MatrixMode(MatrixMode.Projection);
                 GL.LoadMatrix(ref projectionMatrix);
 
                 var modelMatrix = Matrix4.Identity;
-                modelMatrix *= Matrix4.CreateTranslation(-75f, -75f, 0);
-                modelMatrix *= Matrix4.CreateRotationZ((float)Math.Sin(Viewport.Current.Time.Elapsed) * (float)Math.PI);
+                modelMatrix *= Matrix4.CreateTranslation(-1f, -1f, 0f);
+                modelMatrix *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
+                modelMatrix *= Matrix4.CreateTranslation(0f, 0f, -3f);
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix);
 
@@ -64,13 +67,13 @@ namespace RRTestApp
                 GL.Vertex2(0f, 0f);
 
                 GL.TexCoord2(0f, 1f);
-                GL.Vertex2(0f, 150f);
+                GL.Vertex2(0f, 2f);
 
                 GL.TexCoord2(1f, 1f);
-                GL.Vertex2(150f, 150f);
+                GL.Vertex2(2f, 2f);
 
                 GL.TexCoord2(1f, 0f);
-                GL.Vertex2(150f, 0f);
+                GL.Vertex2(2f, 0f);
 
                 GL.End();
             };
