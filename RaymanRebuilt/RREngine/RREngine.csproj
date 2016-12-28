@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Graphics\RenderTarget.cs" />
+    <Compile Include="Engine\Graphics\Shader.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Objects\Primitives.cs" />

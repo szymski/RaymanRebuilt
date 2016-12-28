@@ -12,6 +12,7 @@ using RREngine.Engine.Graphics;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
+using ShaderType = RREngine.Engine.Graphics.ShaderType;
 
 namespace RRTestApp
 {
@@ -25,6 +26,7 @@ namespace RRTestApp
 
             Texture texture = null;
             RenderTarget rt = new RenderTarget(400, 400);
+            Shader shader = new Shader(ShaderType.Fragment);
 
             window.Load += (sender, eventArgs) =>
             {
@@ -36,6 +38,14 @@ namespace RRTestApp
                 texture.LoadImage(512, 512, data.Scan0, PixelFormat.Bgra);
 
                 bitmap.UnlockBits(data);
+
+                shader.Compile(@"
+#version 120
+
+void main() {
+    gl_FragColor = vec4(0.0, 1.0, 0.0, 0.1);
+}
+");
             };
 
             viewport.RenderFrame += (sender, eventArgs) =>
@@ -43,7 +53,7 @@ namespace RRTestApp
                 rt.Resize(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
                 rt.Bind();
 
-                GL.ClearColor(0.1f, 0.1f, 0.1f, 0f);
+                GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
@@ -94,6 +104,8 @@ namespace RRTestApp
 
                 var modelMatrix2 = Matrix4.Identity;
 
+                shader.Bind();
+
                 for (int i = 0; i < 20; i++)
                 {
                     modelMatrix2 *= Matrix4.CreateRotationZ(Viewport.Current.Time.Elapsed * 0.05f);
@@ -119,11 +131,11 @@ namespace RRTestApp
 
                     GL.End();
                 }
+
+                shader.Unbind();
             };
 
             window.Run();
-
-            MeshStatic b = Scene.scenes[0].AddBrush();
         }
     }
 }

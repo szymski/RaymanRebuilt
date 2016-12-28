@@ -76,6 +76,13 @@ namespace RREngine.Engine.Graphics
             GL.BindTexture(TextureTarget.Texture2D, Id);
         }
 
+        public void Bind(int unit)
+        {
+            GL.ActiveTexture(TextureUnit.Texture0 + unit);
+            _previousTextureId = GL.GetInteger(GetPName.Texture2D);
+            GL.BindTexture(TextureTarget.Texture2D, Id);
+        }
+
         public void Unbind()
         {
             GL.BindTexture(TextureTarget.Texture2D, _previousTextureId);
