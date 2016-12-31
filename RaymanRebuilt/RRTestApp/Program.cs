@@ -11,8 +11,10 @@ using RREngine.Engine;
 using RREngine.Engine.Graphics;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
+using Mesh = RREngine.Engine.Graphics.Mesh;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 using ShaderType = RREngine.Engine.Graphics.ShaderType;
+using Vertex = RREngine.Engine.Graphics.Vertex;
 
 namespace RRTestApp
 {
@@ -24,76 +26,30 @@ namespace RRTestApp
 
             var viewport = window.Viewport;
 
-            Texture texture = null;
-            RenderTarget rt = new RenderTarget(400, 400);
             Shader shader = new Shader(ShaderType.Fragment);
+            Mesh mesh = null;
 
             window.Load += (sender, eventArgs) =>
             {
-                texture = new Texture();
-                Bitmap bitmap = new Bitmap("doge.png");
-                var data = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-                    ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-                texture.LoadImage(512, 512, data.Scan0, PixelFormat.Bgra);
-
-                bitmap.UnlockBits(data);
 
                 shader.Compile(@"
 #version 120
 
 void main() {
-    gl_FragColor = vec4(0.0, 1.0, 0.0, 0.1);
+    gl_FragColor = vec4(0.0, 1.0, 0.0, 1);
 }
 ");
+                mesh = new Mesh(new Vertex[] {
+                    new Vertex() { Position = new Vector3(0, 0, 0) },
+                    new Vertex() { Position = new Vector3(100, 0, 0) },
+                    new Vertex() { Position = new Vector3(100, -100, 0) },
+                    new Vertex() { Position = new Vector3(100, 100, 0) },
+                }, new int[] { 0, 1, 2, 0, 1, 3 });
             };
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
-                rt.Resize(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-                rt.Bind();
-
-                GL.ClearColor(0.1f, 0.1f, 0.1f, 0.1f);
-                GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
-
-                GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-                //var projectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height, -1f, 1f);
-                var projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(90f * Mathf.DegToRad, Viewport.Current.Screen.Width / (float)Viewport.Current.Screen.Height, 0.01f, 1000f);
-                GL.MatrixMode(MatrixMode.Projection);
-                GL.LoadMatrix(ref projectionMatrix);
-
-                var modelMatrix = Matrix4.Identity;
-                modelMatrix *= Matrix4.CreateTranslation(-1f, -1f, 0f);
-                modelMatrix *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
-                modelMatrix *= Matrix4.CreateTranslation(0f, 0f, -3f);
-                GL.MatrixMode(MatrixMode.Modelview);
-                GL.LoadMatrix(ref modelMatrix);
-
-                GL.Enable(EnableCap.Texture2D);
-                GL.Enable(EnableCap.Blend);
-                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
-                texture.Bind();
-
-                GL.Color3(1f, 1f, 1f);
-
-                GL.Begin(PrimitiveType.Quads);
-
-                GL.TexCoord2(0f, 0f);
-                GL.Vertex2(0f, 0f);
-
-                GL.TexCoord2(0f, 1f);
-                GL.Vertex2(0f, 2f);
-
-                GL.TexCoord2(1f, 1f);
-                GL.Vertex2(2f, 2f);
-
-                GL.TexCoord2(1f, 0f);
-                GL.Vertex2(2f, 0f);
-
-                GL.End();
-
-                rt.Unbind();
-
                 GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
@@ -103,34 +59,13 @@ void main() {
                 GL.LoadMatrix(ref projectionMatrix2);
 
                 var modelMatrix2 = Matrix4.Identity;
+                GL.MatrixMode(MatrixMode.Modelview);
+                GL.LoadMatrix(ref modelMatrix2);
 
+                GL.Enable(EnableCap.Blend);
                 shader.Bind();
 
-                for (int i = 0; i < 20; i++)
-                {
-                    modelMatrix2 *= Matrix4.CreateRotationZ(Viewport.Current.Time.Elapsed * 0.05f);
-                    GL.MatrixMode(MatrixMode.Modelview);
-                    GL.LoadMatrix(ref modelMatrix2);
-
-                    GL.Enable(EnableCap.Texture2D);
-                    rt.BindTexture();
-
-                    GL.Begin(PrimitiveType.Quads);
-
-                    GL.TexCoord2(0f, 0f);
-                    GL.Vertex2(0f, 0f);
-
-                    GL.TexCoord2(0f, 1f);
-                    GL.Vertex2(0f, 200f);
-
-                    GL.TexCoord2(1f, 1f);
-                    GL.Vertex2(200f, 200f);
-
-                    GL.TexCoord2(1f, 0f);
-                    GL.Vertex2(200f, 0f);
-
-                    GL.End();
-                }
+                mesh.Draw();
 
                 shader.Unbind();
             };
