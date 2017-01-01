@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
+using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
@@ -40,12 +41,7 @@ void main() {
     gl_FragColor = vec4(0.0, 1.0, 0.0, 1);
 }
 ");
-                mesh = new Mesh(new Vertex[] {
-                    new Vertex() { Position = new Vector3(0, 0, 0) },
-                    new Vertex() { Position = new Vector3(100, 0, 0) },
-                    new Vertex() { Position = new Vector3(100, -100, 0) },
-                    new Vertex() { Position = new Vector3(100, 100, 0) },
-                }, new int[] { 0, 1, 2, 0, 1, 3 });
+                mesh = new ModelAsset("teapot.obj").GenerateMesh();
             };
 
             viewport.RenderFrame += (sender, eventArgs) =>
@@ -54,11 +50,13 @@ void main() {
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-                var projectionMatrix2 = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height, -1f, 1f);
+                var projectionMatrix2 = Matrix4.CreatePerspectiveFieldOfView(90f * Mathf.DegToRad, Viewport.Current.Screen.Width / (float)Viewport.Current.Screen.Height, 0.1f, 1000f);
                 GL.MatrixMode(MatrixMode.Projection);
                 GL.LoadMatrix(ref projectionMatrix2);
 
                 var modelMatrix2 = Matrix4.Identity;
+                modelMatrix2 *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
+                modelMatrix2 *= Matrix4.CreateTranslation(0, 0, -10f);
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix2);
 
