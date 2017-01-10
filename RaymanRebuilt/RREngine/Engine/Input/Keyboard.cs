@@ -10,10 +10,10 @@ namespace RREngine.Engine.Input
     {
         enum KeyState
         {
+            Released,
+            JustReleased,
             JustPressed,
             Pressed,
-            JustReleased,
-            Released
         }
 
         private KeyState[] _keyStates = new KeyState[Enum.GetValues(typeof(KeyboardKey)).Cast<int>().Max()];
@@ -26,12 +26,21 @@ namespace RREngine.Engine.Input
             Viewport.Current.PostUpdate += PostUpdate;
         }
 
+        public bool GetKey(KeyboardKey key)
+            => _keyStates[(int)key] == KeyState.JustPressed || _keyStates[(int)key] == KeyState.Pressed;
+
+        public bool GetKeyDown(KeyboardKey key)
+            => _keyStates[(int)key] == KeyState.JustPressed;
+
+        public bool GetKeyUp(KeyboardKey key)
+            => _keyStates[(int)key] == KeyState.JustReleased;
+
         void PreUpdate(object sender, EventArgs e)
         {
             var pressedKeys = new List<KeyboardKey>();
 
-            for(int i = 0; i < _keyStates.Length; i++)
-                if(_keyStates[i] == KeyState.JustPressed || _keyStates[i] == KeyState.Pressed)
+            for (int i = 0; i < _keyStates.Length; i++)
+                if (_keyStates[i] == KeyState.JustPressed || _keyStates[i] == KeyState.Pressed)
                     pressedKeys.Add((KeyboardKey)i);
 
             PressedKeys = pressedKeys.ToArray();

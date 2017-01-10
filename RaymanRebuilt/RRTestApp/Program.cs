@@ -10,6 +10,7 @@ using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
+using RREngine.Engine.Input;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
 using Mesh = RREngine.Engine.Graphics.Mesh;
@@ -44,10 +45,24 @@ void main() {
                 mesh = new ModelAsset("teapot.obj").GenerateMesh();
             };
 
-            // THIS LINE CAUSES THE PROGRAM TO THROW AN EXCEPTION
-            Console.WriteLine(viewport.Keyboard);
+            viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
 
-            //viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
+            Vector3 cameraPos = new Vector3(0, 0, 10f);
+
+            viewport.UpdateFrame += (sender, eventArgs) =>
+            {
+                if (viewport.Keyboard.GetKey(KeyboardKey.A))
+                    cameraPos.X -= viewport.Time.DeltaTime * 10f;
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.D))
+                    cameraPos.X += viewport.Time.DeltaTime * 10f;
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.Q))
+                    cameraPos.Y += viewport.Time.DeltaTime * 10f;
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.Z))
+                    cameraPos.Y -= viewport.Time.DeltaTime * 10f;
+            };
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
@@ -61,7 +76,7 @@ void main() {
 
                 var modelMatrix2 = Matrix4.Identity;
                 modelMatrix2 *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
-                modelMatrix2 *= Matrix4.CreateTranslation(0, 0, -10f);
+                modelMatrix2 *= Matrix4.CreateTranslation(-cameraPos);
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix2);
 
