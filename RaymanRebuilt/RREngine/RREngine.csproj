@@ -56,6 +56,9 @@
     <Compile Include="Engine\Graphics\RenderTarget.cs" />
     <Compile Include="Engine\Graphics\Shader.cs" />
     <Compile Include="Engine\Graphics\Vertex.cs" />
+    <Compile Include="Engine\Input\KeyboardKey.cs" />
+    <Compile Include="Engine\Input\Keyboard.cs" />
+    <Compile Include="Engine\Input\Mouse.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Objects\Primitives.cs" />

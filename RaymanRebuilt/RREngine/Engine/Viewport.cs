@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
+using RREngine.Engine.Input;
 
 namespace RREngine.Engine
 {
@@ -25,6 +27,8 @@ namespace RREngine.Engine
 
         public Time Time { get; }
         public Screen Screen { get; }
+        public Input.Keyboard Keyboard { get; }
+        public Input.Mouse Mouse { get; }
 
         public Viewport()
         {
@@ -32,6 +36,8 @@ namespace RREngine.Engine
 
             Time = new Time();
             Screen = new Screen();
+            Keyboard = new Input.Keyboard();
+            Mouse = new Input.Mouse();
 
             _stopwatch.Start();
         }
@@ -72,6 +78,8 @@ namespace RREngine.Engine
         public void OnUpdateFrame()
         {
             SetAsCurrent();
+            PreUpdate?.Invoke(this, EventArgs.Empty);
+
             UpdateFrame?.Invoke(this, EventArgs.Empty);
 
             Time.DeltaTime = ((float)_stopwatch.Elapsed.TotalSeconds - Time.Elapsed) * Time.TimeScale;
@@ -80,12 +88,23 @@ namespace RREngine.Engine
 
         public event EventHandler<EventArgs> RenderFrame;
 
-
         public void OnRenderFrame()
         {
             SetAsCurrent();
             RenderFrame?.Invoke(this, EventArgs.Empty);
+
+            PostUpdate?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Called before UpdateFrame. Used by input controllers.
+        /// </summary>
+        public event EventHandler PreUpdate;
+
+        /// <summary>
+        /// Called after RenderFrame. Used by input controllers.
+        /// </summary>
+        public event EventHandler PostUpdate;
 
         #endregion
 

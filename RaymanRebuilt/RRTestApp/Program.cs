@@ -44,6 +44,11 @@ void main() {
                 mesh = new ModelAsset("teapot.obj").GenerateMesh();
             };
 
+            // THIS LINE CAUSES THE PROGRAM TO THROW AN EXCEPTION
+            Console.WriteLine(viewport.Keyboard);
+
+            //viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
+
             viewport.RenderFrame += (sender, eventArgs) =>
             {
                 GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
