@@ -32,6 +32,11 @@ namespace RREngine.Engine
 
             GameWindow.Keyboard.KeyDown += OnGameWindowKeyDown;
             GameWindow.Keyboard.KeyUp += OnGameWindowKeyUp;
+
+            GameWindow.Mouse.ButtonDown += OnGameWindowMouseButtonDown;
+            GameWindow.Mouse.ButtonUp += OnGameWindowMouseButtonUp;
+            GameWindow.Mouse.Move += OnGameWindowMouseMove;
+            GameWindow.Mouse.WheelChanged += OnGameWindowMouseWheelChanged;
         }
 
         public void Run()
@@ -93,6 +98,44 @@ namespace RREngine.Engine
                 IsRepeat = e.IsRepeat,
             });
         }
+
+        private void OnGameWindowMouseButtonDown(object sender, OpenTK.Input.MouseButtonEventArgs e)
+        {
+            Viewport.Mouse.OnButtonDown(new MouseButtonEventArgs()
+            {
+                Button = (Input.MouseButton)e.Button,
+                X = e.X,
+                Y = e.Y,
+            });
+        }
+
+        private void OnGameWindowMouseButtonUp(object sender, OpenTK.Input.MouseButtonEventArgs e)
+        {
+            Viewport.Mouse.OnButtonUp(new MouseButtonEventArgs()
+            {
+                Button = (Input.MouseButton)e.Button,
+                X = e.X,
+                Y = e.Y,
+            });
+        }
+
+        private void OnGameWindowMouseMove(object sender, OpenTK.Input.MouseMoveEventArgs e)
+        {
+            Viewport.Mouse.OnMove(new MouseMoveEventArgs()
+            {
+                X = e.X,
+                Y = e.Y,
+            });
+        }
+
+        private void OnGameWindowMouseWheelChanged(object sender, OpenTK.Input.MouseWheelEventArgs e)
+        {
+            Viewport.Mouse.OnWheelChanged(new MouseWheelEventArgs()
+            {
+                Delta = e.DeltaPrecise,
+            });
+        }
+
 
         #endregion
 

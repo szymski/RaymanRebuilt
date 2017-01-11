@@ -48,20 +48,31 @@ void main() {
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
 
             Vector3 cameraPos = new Vector3(0, 0, 10f);
+            float cameraPitch = 0f, cameraYaw = 0f;
+            Quaternion cameraRotation = Quaternion.Identity;
 
             viewport.UpdateFrame += (sender, eventArgs) =>
             {
+                if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
+                    window.GameWindow.Close();
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.W))
+                    cameraPos += cameraRotation * Vector3Directions.Forward * viewport.Time.DeltaTime * 10f;
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.S))
+                    cameraPos += cameraRotation * Vector3Directions.Backward * viewport.Time.DeltaTime * 10f;
+
                 if (viewport.Keyboard.GetKey(KeyboardKey.A))
-                    cameraPos.X -= viewport.Time.DeltaTime * 10f;
+                    cameraPos += cameraRotation * Vector3Directions.Left * viewport.Time.DeltaTime * 10f;
 
                 if (viewport.Keyboard.GetKey(KeyboardKey.D))
-                    cameraPos.X += viewport.Time.DeltaTime * 10f;
+                    cameraPos += cameraRotation * Vector3Directions.Right * viewport.Time.DeltaTime * 10f;
 
-                if (viewport.Keyboard.GetKey(KeyboardKey.Q))
-                    cameraPos.Y += viewport.Time.DeltaTime * 10f;
+                cameraPitch += -viewport.Mouse.DeltaPosition.Y * viewport.Time.DeltaTime * 2f;
+                cameraYaw += -viewport.Mouse.DeltaPosition.X * viewport.Time.DeltaTime * 2f;
 
-                if (viewport.Keyboard.GetKey(KeyboardKey.Z))
-                    cameraPos.Y -= viewport.Time.DeltaTime * 10f;
+                cameraRotation = Quaternion.FromEulerAngles(0, cameraYaw, 0);
+                cameraRotation *= Quaternion.FromEulerAngles(0, 0, cameraPitch); // TODO: WTF? Swapped pitch and roll?
             };
 
             viewport.RenderFrame += (sender, eventArgs) =>
@@ -77,6 +88,7 @@ void main() {
                 var modelMatrix2 = Matrix4.Identity;
                 modelMatrix2 *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
                 modelMatrix2 *= Matrix4.CreateTranslation(-cameraPos);
+                modelMatrix2 *= Matrix4.CreateFromQuaternion(cameraRotation.Inverted());
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix2);
 

@@ -8,15 +8,7 @@ namespace RREngine.Engine.Input
 {
     public class Keyboard
     {
-        enum KeyState
-        {
-            Released,
-            JustReleased,
-            JustPressed,
-            Pressed,
-        }
-
-        private KeyState[] _keyStates = new KeyState[Enum.GetValues(typeof(KeyboardKey)).Cast<int>().Max()];
+        private InputState[] _inputStates = new InputState[Enum.GetValues(typeof(KeyboardKey)).Cast<int>().Max()];
 
         public KeyboardKey[] PressedKeys = new KeyboardKey[0];
 
@@ -26,37 +18,51 @@ namespace RREngine.Engine.Input
             Viewport.Current.PostUpdate += PostUpdate;
         }
 
+        #region Getting keys
+
         public bool GetKey(KeyboardKey key)
-            => _keyStates[(int)key] == KeyState.JustPressed || _keyStates[(int)key] == KeyState.Pressed;
+            => _inputStates[(int)key] == InputState.JustPressed || _inputStates[(int)key] == InputState.Pressed;
 
         public bool GetKeyDown(KeyboardKey key)
-            => _keyStates[(int)key] == KeyState.JustPressed;
+            => _inputStates[(int)key] == InputState.JustPressed;
 
         public bool GetKeyUp(KeyboardKey key)
-            => _keyStates[(int)key] == KeyState.JustReleased;
+            => _inputStates[(int)key] == InputState.JustReleased;
 
+        #endregion
+
+        #region Updating
+
+        /// <summary>
+        /// Updates PressedKeys array.
+        /// </summary>
         void PreUpdate(object sender, EventArgs e)
         {
             var pressedKeys = new List<KeyboardKey>();
 
-            for (int i = 0; i < _keyStates.Length; i++)
-                if (_keyStates[i] == KeyState.JustPressed || _keyStates[i] == KeyState.Pressed)
+            for (int i = 0; i < _inputStates.Length; i++)
+                if (_inputStates[i] == InputState.JustPressed || _inputStates[i] == InputState.Pressed)
                     pressedKeys.Add((KeyboardKey)i);
 
             PressedKeys = pressedKeys.ToArray();
         }
 
+        /// <summary>
+        /// Changes key states from JustPressed to Pressed and JustReleased to released.
+        /// </summary>
         void PostUpdate(object sender, EventArgs e)
         {
-            for (int i = 0; i < _keyStates.Length; i++)
+            for (int i = 0; i < _inputStates.Length; i++)
             {
-                if (_keyStates[i] == KeyState.JustPressed)
-                    _keyStates[i] = KeyState.Pressed;
+                if (_inputStates[i] == InputState.JustPressed)
+                    _inputStates[i] = InputState.Pressed;
 
-                if (_keyStates[i] == KeyState.JustReleased)
-                    _keyStates[i] = KeyState.Released;
+                if (_inputStates[i] == InputState.JustReleased)
+                    _inputStates[i] = InputState.Released;
             }
         }
+
+        #endregion
 
         #region Events
 
@@ -65,14 +71,14 @@ namespace RREngine.Engine.Input
 
         public void OnKeyDown(KeyEventArgs args)
         {
-            _keyStates[(int)args.Key] = KeyState.JustPressed;
+            _inputStates[(int)args.Key] = InputState.JustPressed;
 
             KeyDown?.Invoke(this, args);
         }
 
         public void OnKeyUp(KeyEventArgs args)
         {
-            _keyStates[(int)args.Key] = KeyState.JustReleased;
+            _inputStates[(int)args.Key] = InputState.JustReleased;
 
             KeyUp?.Invoke(this, args);
         }
