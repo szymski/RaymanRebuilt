@@ -46,4 +46,9 @@ namespace RREngine.Engine
     {
         public float Delta { get; set; }
     }
+
+    public class WindowModeEventArgs : EventArgs
+    {
+        public bool Fullscreen { get; set; }
+    }
 }

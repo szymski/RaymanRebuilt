@@ -68,6 +68,9 @@ void main() {
                 if (viewport.Keyboard.GetKey(KeyboardKey.D))
                     cameraPos += cameraRotation * Vector3Directions.Right * viewport.Time.DeltaTime * 10f;
 
+                if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
+                    Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
+
                 cameraPitch += -viewport.Mouse.DeltaPosition.Y * viewport.Time.DeltaTime * 2f;
                 cameraYaw += -viewport.Mouse.DeltaPosition.X * viewport.Time.DeltaTime * 2f;
 
@@ -92,7 +95,6 @@ void main() {
                 GL.MatrixMode(MatrixMode.Modelview);
                 GL.LoadMatrix(ref modelMatrix2);
 
-                GL.Enable(EnableCap.Blend);
                 shader.Bind();
 
                 mesh.Draw();

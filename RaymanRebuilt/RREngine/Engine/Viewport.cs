@@ -24,6 +24,7 @@ namespace RREngine.Engine
     public class Viewport
     {
         private Stopwatch _stopwatch = new Stopwatch();
+        private Stopwatch _fpsStopwatch = new Stopwatch();
 
         public Time Time { get; }
         public Screen Screen { get; }
@@ -40,6 +41,7 @@ namespace RREngine.Engine
             Mouse = new Input.Mouse();
 
             _stopwatch.Start();
+            _fpsStopwatch.Start();
         }
 
         /// <summary>
@@ -78,15 +80,20 @@ namespace RREngine.Engine
         public void OnUpdateFrame()
         {
             SetAsCurrent();
+
             PreUpdate?.Invoke(this, EventArgs.Empty);
 
             UpdateFrame?.Invoke(this, EventArgs.Empty);
 
-            Time.DeltaTime = ((float)_stopwatch.Elapsed.TotalSeconds - Time.Elapsed) * Time.TimeScale;
+            Time.RealDeltaTime = ((float)_stopwatch.Elapsed.TotalSeconds - Time.Elapsed);
+            Time.DeltaTime = Time.RealDeltaTime * Time.TimeScale;
             Time.Elapsed = (float)_stopwatch.Elapsed.TotalSeconds;
         }
 
         public event EventHandler<EventArgs> RenderFrame;
+
+        private int _frames = 0;
+        private float _secondsRest = 0f;
 
         public void OnRenderFrame()
         {
@@ -94,6 +101,16 @@ namespace RREngine.Engine
             RenderFrame?.Invoke(this, EventArgs.Empty);
 
             PostUpdate?.Invoke(this, EventArgs.Empty);
+
+            // FPS counting
+            if (_fpsStopwatch.Elapsed.TotalSeconds >= 1 - _secondsRest)
+            {
+                _secondsRest = (float)_fpsStopwatch.Elapsed.TotalSeconds - 1f;
+                Time.FPS = _frames;
+                _fpsStopwatch.Restart();
+                _frames = 0;
+            }
+            _frames++;
         }
 
         /// <summary>
