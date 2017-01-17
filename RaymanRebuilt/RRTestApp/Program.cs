@@ -71,6 +71,12 @@ void main() {
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
                     Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
 
+                if (viewport.Keyboard.GetKeyUp(KeyboardKey.L))
+                {
+                    Viewport.Current.Mouse.Locked = !Viewport.Current.Mouse.Locked;
+                    Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
+                }
+
                 cameraPitch += -viewport.Mouse.DeltaPosition.Y * viewport.Time.DeltaTime * 2f;
                 cameraYaw += -viewport.Mouse.DeltaPosition.X * viewport.Time.DeltaTime * 2f;
 

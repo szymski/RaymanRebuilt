@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -41,6 +43,9 @@ namespace RREngine.Engine
             GameWindow.Mouse.WheelChanged += OnGameWindowMouseWheelChanged;
 
             Viewport.Screen.WindowModeChangeRequested += OnViewportScreenWindowModeChangeRequested;
+            Viewport.Keyboard.RepeatChangeRequested += OnViewportKeyboardRepeatChangeRequested;
+            Viewport.Mouse.ChangeLockedRequested += OnViewportMouseLockedChangeRequest;
+            Viewport.Mouse.ChangeCursorVisibleRequested += OnViewportMouseCursorVisibleRequested;
         }
 
         public void Run()
@@ -157,6 +162,9 @@ namespace RREngine.Engine
                 X = e.X,
                 Y = e.Y,
             });
+
+            if (_mouseLocked)
+                Cursor.Position = new Point(GameWindow.X + GameWindow.Width / 2, GameWindow.Y + GameWindow.Height / 2);
         }
 
         private void OnGameWindowMouseWheelChanged(object sender, OpenTK.Input.MouseWheelEventArgs e)
@@ -174,6 +182,26 @@ namespace RREngine.Engine
             GameWindow.WindowState = e.Fullscreen ? WindowState.Fullscreen : WindowState.Normal;
             Viewport.Screen.OnWindowModeChanged(e);
             Viewport.OnResolutionChanged(new ResolutionEventArgs(GameWindow.Width, GameWindow.Height));
+        }
+
+        private void OnViewportKeyboardRepeatChangeRequested(object sender, KeyRepeatEventArgs e)
+        {
+            GameWindow.Keyboard.KeyRepeat = e.Repeat;
+            Viewport.Keyboard.OnRepeatChanged(e);
+        }
+
+        private bool _mouseLocked = false;
+
+        private void OnViewportMouseLockedChangeRequest(object sender, MouseLockedEventArgs e)
+        {
+            _mouseLocked = e.Locked;
+            Viewport.Mouse.OnLockedChanged(e);
+        }
+
+        private void OnViewportMouseCursorVisibleRequested(object sender, CursorVisibleEventArgs e)
+        {
+            GameWindow.CursorVisible = e.Visible;
+            Viewport.Mouse.OnCursorVisibleChanged(e);
         }
 
         #endregion

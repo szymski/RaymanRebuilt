@@ -64,10 +64,22 @@ namespace RREngine.Engine.Input
 
         #endregion
 
+        private bool _repeat = false;
+        public bool Repeat
+        {
+            get { return _repeat; }
+            set
+            {
+                RepeatChangeRequested?.Invoke(this, new KeyRepeatEventArgs(value));
+            }
+        }
+
         #region Events
 
         public event EventHandler<KeyEventArgs> KeyDown;
         public event EventHandler<KeyEventArgs> KeyUp;
+        public event EventHandler<KeyRepeatEventArgs> RepeatChangeRequested;
+        public event EventHandler<KeyRepeatEventArgs> RepeatChange;
 
         public void OnKeyDown(KeyEventArgs args)
         {
@@ -81,6 +93,13 @@ namespace RREngine.Engine.Input
             _inputStates[(int)args.Key] = InputState.JustReleased;
 
             KeyUp?.Invoke(this, args);
+        }
+
+        public void OnRepeatChanged(KeyRepeatEventArgs args)
+        {
+            _repeat = args.Repeat;
+
+            RepeatChange?.Invoke(this, args);
         }
 
         #endregion

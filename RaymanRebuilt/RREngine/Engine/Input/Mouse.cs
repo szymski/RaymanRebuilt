@@ -37,6 +37,26 @@ namespace RREngine.Engine.Input
 
         #endregion
 
+        private bool _locked = false;
+        public bool Locked
+        {
+            get { return _locked; }
+            set
+            {
+                ChangeLockedRequested?.Invoke(this, new MouseLockedEventArgs(value));
+            }
+        }
+
+        private bool _cursorVisible = false;
+        public bool CursorVisible
+        {
+            get { return _cursorVisible; }
+            set
+            {
+                ChangeCursorVisibleRequested?.Invoke(this, new CursorVisibleEventArgs(value));
+            }
+        }
+
         #region Updating
 
         /// <summary>
@@ -62,10 +82,14 @@ namespace RREngine.Engine.Input
 
         #region Events
 
-        private event EventHandler<MouseButtonEventArgs> ButtonDown;
-        private event EventHandler<MouseButtonEventArgs> ButtonUp;
-        private event EventHandler<MouseMoveEventArgs> Move;
-        private event EventHandler<MouseWheelEventArgs> WheelChanged;
+        public event EventHandler<MouseButtonEventArgs> ButtonDown;
+        public event EventHandler<MouseButtonEventArgs> ButtonUp;
+        public event EventHandler<MouseMoveEventArgs> Move;
+        public event EventHandler<MouseWheelEventArgs> WheelChanged;
+        public event EventHandler<MouseLockedEventArgs> ChangeLockedRequested;
+        public event EventHandler<MouseLockedEventArgs> LockedChanged;
+        public event EventHandler<CursorVisibleEventArgs> ChangeCursorVisibleRequested;
+        public event EventHandler<CursorVisibleEventArgs> CursorVisibleChanged;
 
         public void OnButtonDown(MouseButtonEventArgs args)
         {
@@ -89,7 +113,7 @@ namespace RREngine.Engine.Input
 
         public void OnMove(MouseMoveEventArgs args)
         {
-            _deltaPosition.X = args.X - _position.X; 
+            _deltaPosition.X = args.X - _position.X;
             _deltaPosition.Y = args.Y - _position.Y;
 
             _position.X = args.X;
@@ -103,6 +127,18 @@ namespace RREngine.Engine.Input
             WheelDelta = args.Delta;
 
             WheelChanged?.Invoke(this, args);
+        }
+
+        public void OnLockedChanged(MouseLockedEventArgs args)
+        {
+            _locked = args.Locked;
+            LockedChanged?.Invoke(this, args);
+        }
+
+        public void OnCursorVisibleChanged(CursorVisibleEventArgs args)
+        {
+            _cursorVisible = args.Visible;
+            CursorVisibleChanged?.Invoke(this, args);
         }
 
         #endregion

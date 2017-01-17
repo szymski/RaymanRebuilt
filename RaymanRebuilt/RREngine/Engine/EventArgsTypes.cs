@@ -51,4 +51,34 @@ namespace RREngine.Engine
     {
         public bool Fullscreen { get; set; }
     }
+
+    public class KeyRepeatEventArgs : EventArgs
+    {
+        public bool Repeat { get; set; }
+
+        public KeyRepeatEventArgs(bool repeat)
+        {
+            Repeat = repeat;
+        }
+    }
+
+    public class MouseLockedEventArgs : EventArgs
+    {
+        public bool Locked { get; set; }
+
+        public MouseLockedEventArgs(bool locked)
+        {
+            Locked = locked;
+        }
+    }
+
+    public class CursorVisibleEventArgs : EventArgs
+    {
+        public bool Visible { get; set; }
+
+        public CursorVisibleEventArgs(bool visible)
+        {
+            Visible = visible;
+        }
+    }
 }
