@@ -8,18 +8,6 @@ using RREngine.Engine.Input;
 
 namespace RREngine.Engine
 {
-    public class ResolutionEventArgs : EventArgs
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-
-        public ResolutionEventArgs(int width, int height)
-        {
-            Width = width;
-            Height = height;
-        }
-    }
-
     public class KeyEventArgs : EventArgs
     {
         public KeyboardKey Key { get; set; }
@@ -49,6 +37,8 @@ namespace RREngine.Engine
 
     public class WindowModeEventArgs : EventArgs
     {
+        public int Width { get; set; }
+        public int Height { get; set; }
         public bool Fullscreen { get; set; }
     }
 

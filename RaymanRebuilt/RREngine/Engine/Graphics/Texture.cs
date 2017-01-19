@@ -40,13 +40,11 @@ namespace RREngine.Engine.Graphics
 
             GL.BindTexture(TextureTarget.Texture2D, Id);
 
-            // TODO: Move these to separate methods/properties
+            MinFilter = TextureMinFilter.Linear;
+            MagFilter = TextureMagFilter.Linear;
 
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Linear);
-
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+            WrapS = TextureWrapMode.Repeat; 
+            WrapT = TextureWrapMode.Repeat;
         }
 
         public void LoadImage(int width, int height, IntPtr data, PixelFormat format)
@@ -69,6 +67,54 @@ namespace RREngine.Engine.Graphics
             Bind();
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (byte[])null);
         }
+
+        #region Texture parameters
+
+        /// <summary>
+        /// Note: Texture has to be binded.
+        /// </summary>
+        public TextureMinFilter MinFilter
+        {
+            set
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)value);
+            }
+        }
+
+        /// <summary>
+        /// Note: Texture has to be binded.
+        /// </summary>
+        public TextureMagFilter MagFilter
+        {
+            set
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)value);
+            }
+        }
+
+        /// <summary>
+        /// Note: Texture has to be binded.
+        /// </summary>
+        public TextureWrapMode WrapS
+        {
+            set
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)value);
+            }
+        }
+
+        /// <summary>
+        /// Note: Texture has to be binded.
+        /// </summary>
+        public TextureWrapMode WrapT
+        {
+            set
+            {
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)value);
+            }
+        }
+
+        #endregion
 
         public void Bind()
         {

@@ -24,7 +24,7 @@ namespace RRTestApp
     {
         static void Main(string[] args)
         {
-            Window window = new Window(400, 400);
+            Window window = new Window(1280, 720);
 
             var viewport = window.Viewport;
 

@@ -29,7 +29,6 @@ namespace RREngine.Engine.Graphics
 
         public void Destroy()
         {
-            DestroyShaders();
             GL.DeleteProgram(ProgramId);
         }
 
@@ -121,10 +120,9 @@ namespace RREngine.Engine.Graphics
                 GL.ValidateProgram(ProgramId);
                 CheckProgramLinkingError(ProgramId);
             }
-            catch
+            finally
             {
                 DestroyShaders();
-                throw;
             }
         }
 

@@ -55,26 +55,6 @@ namespace RREngine.Engine
 
         #region Events
 
-        public event EventHandler<ResolutionEventArgs> ChangeResolution;
-
-        /// <summary>
-        /// Requests resolution change.
-        /// </summary>
-        public void OnChangeResolution(ResolutionEventArgs e)
-        {
-            ChangeResolution?.Invoke(this, e);
-        }
-
-        public event EventHandler<ResolutionEventArgs> ResolutionChanged;
-
-        /// <summary>
-        /// Called by window when the resolution changes.
-        /// </summary>
-        public void OnResolutionChanged(ResolutionEventArgs e)
-        {
-            ResolutionChanged?.Invoke(this, e);
-        }
-
         public event EventHandler<EventArgs> UpdateFrame;
 
         public void OnUpdateFrame()

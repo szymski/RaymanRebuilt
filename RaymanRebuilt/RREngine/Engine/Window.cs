@@ -25,8 +25,18 @@ namespace RREngine.Engine
 
             GameWindow = new GameWindow(width, height);
             Viewport = new Viewport();
-            Viewport.OnResolutionChanged(new ResolutionEventArgs(width, height));
+            Viewport.Screen.OnWindowModeChanged(new WindowModeEventArgs()
+            {
+                Width = GameWindow.Width,
+                Height = GameWindow.Height,
+                Fullscreen = GameWindow.WindowState == WindowState.Fullscreen,
+            });
 
+            ConnectViewport(Viewport);
+        }
+
+        void ConnectViewport(Viewport viewport)
+        {
             GameWindow.Load += OnGameWindowLoad;
 
             GameWindow.Resize += OnGameWindowResize;
@@ -75,7 +85,6 @@ namespace RREngine.Engine
         {
             SetAsCurrent();
 
-            ConnectViewport(Viewport);
             OnLoad(EventArgs.Empty);
         }
 
@@ -83,7 +92,12 @@ namespace RREngine.Engine
         {
             SetAsCurrent();
 
-            Viewport.OnResolutionChanged(new ResolutionEventArgs(GameWindow.Width, GameWindow.Height));
+            Viewport.Screen.OnWindowModeChanged(new WindowModeEventArgs()
+            {
+                Width = GameWindow.Width,
+                Height = GameWindow.Height,
+                Fullscreen = GameWindow.WindowState == WindowState.Fullscreen,
+            });
         }
 
         void OnGameWindowUpdateFrame(object sender, EventArgs e)
@@ -153,6 +167,7 @@ namespace RREngine.Engine
             });
         }
 
+
         private void OnGameWindowMouseMove(object sender, OpenTK.Input.MouseMoveEventArgs e)
         {
             SetAsCurrent();
@@ -163,7 +178,7 @@ namespace RREngine.Engine
                 Y = e.Y,
             });
 
-            if (_mouseLocked)
+            if (_mouseCursorLocked)
                 Cursor.Position = new Point(GameWindow.X + GameWindow.Width / 2, GameWindow.Y + GameWindow.Height / 2);
         }
 
@@ -180,8 +195,9 @@ namespace RREngine.Engine
         private void OnViewportScreenWindowModeChangeRequested(object sender, WindowModeEventArgs e)
         {
             GameWindow.WindowState = e.Fullscreen ? WindowState.Fullscreen : WindowState.Normal;
+            GameWindow.Size = new Size(e.Width, e.Height);
+
             Viewport.Screen.OnWindowModeChanged(e);
-            Viewport.OnResolutionChanged(new ResolutionEventArgs(GameWindow.Width, GameWindow.Height));
         }
 
         private void OnViewportKeyboardRepeatChangeRequested(object sender, KeyRepeatEventArgs e)
@@ -190,11 +206,11 @@ namespace RREngine.Engine
             Viewport.Keyboard.OnRepeatChanged(e);
         }
 
-        private bool _mouseLocked = false;
+        private bool _mouseCursorLocked = false;
 
         private void OnViewportMouseLockedChangeRequest(object sender, MouseLockedEventArgs e)
         {
-            _mouseLocked = e.Locked;
+            _mouseCursorLocked = e.Locked;
             Viewport.Mouse.OnLockedChanged(e);
         }
 
@@ -205,14 +221,6 @@ namespace RREngine.Engine
         }
 
         #endregion
-
-        void ConnectViewport(Viewport viewport)
-        {
-            Viewport.ChangeResolution += (sender, args) =>
-            {
-                GameWindow.ClientSize = new System.Drawing.Size(args.Width, args.Height);
-            };
-        }
 
         [ThreadStatic]
         private static Window _current;

@@ -19,6 +19,8 @@ namespace RREngine.Engine
             {
                 WindowModeChangeRequested?.Invoke(this, new WindowModeEventArgs()
                 {
+                    Width = Width,
+                    Height = Height,
                     Fullscreen = value
                 });
             }
@@ -26,16 +28,17 @@ namespace RREngine.Engine
 
         public Screen()
         {
-            Viewport.Current.ResolutionChanged += (sender, args) =>
-            {
-                Width = args.Width;
-                Height = args.Height;
-            };
+
         }
 
         public void SetResolution(int width, int height)
         {
-            Viewport.Current.OnChangeResolution(new ResolutionEventArgs(width, height));
+            WindowModeChangeRequested?.Invoke(this, new WindowModeEventArgs()
+            {
+                Width = width,
+                Height = height, 
+                Fullscreen = _isFullscreen,
+            });
         }
 
         #region Events
@@ -47,6 +50,8 @@ namespace RREngine.Engine
         {
             WindowModeChanged?.Invoke(this, args);
 
+            Width = args.Width;
+            Height = args.Height;
             _isFullscreen = args.Fullscreen;
         }
 
