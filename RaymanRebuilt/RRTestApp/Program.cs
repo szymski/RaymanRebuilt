@@ -10,6 +10,8 @@ using OpenTK.Graphics.OpenGL;
 using RREngine.Engine;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
+using RREngine.Engine.Hierarchy;
+using RREngine.Engine.Hierarchy.Components;
 using RREngine.Engine.Input;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
@@ -31,6 +33,9 @@ namespace RRTestApp
             Shader shader = new Shader(ShaderType.Fragment);
             Mesh mesh = null;
 
+            Scene scene = new Scene();
+            GameObject camera, teapot;
+
             window.Load += (sender, eventArgs) =>
             {
 
@@ -43,30 +48,29 @@ void main() {
 }
 ");
                 mesh = new ModelAsset("teapot.obj").GenerateMesh();
+
+                camera = scene.CreateGameObject();
+                camera.AddComponent<Transform>().Position = Vector3Directions.Backward * 20f;
+                var camComponent = camera.AddComponent<PerspectiveCamera>();
+                scene.CurrentCamera = camComponent;
+                camera.AddComponent<FlyingCamera>();
+
+                teapot = scene.CreateGameObject();
+                var transform = teapot.AddComponent<Transform>();
+                transform.Position = Vector3Directions.Forward * 10f;
+                var renderer = teapot.AddComponent<MeshRenderer>();
+                renderer.Mesh = mesh;
+                teapot.AddComponent<RotatingComponent>();
+
+                scene.Init();
             };
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
-
-            Vector3 cameraPos = new Vector3(0, 0, 10f);
-            float cameraPitch = 0f, cameraYaw = 0f;
-            Quaternion cameraRotation = Quaternion.Identity;
 
             viewport.UpdateFrame += (sender, eventArgs) =>
             {
                 if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
                     window.GameWindow.Close();
-
-                if (viewport.Keyboard.GetKey(KeyboardKey.W))
-                    cameraPos += cameraRotation * Vector3Directions.Forward * viewport.Time.DeltaTime * 10f;
-
-                if (viewport.Keyboard.GetKey(KeyboardKey.S))
-                    cameraPos += cameraRotation * Vector3Directions.Backward * viewport.Time.DeltaTime * 10f;
-
-                if (viewport.Keyboard.GetKey(KeyboardKey.A))
-                    cameraPos += cameraRotation * Vector3Directions.Left * viewport.Time.DeltaTime * 10f;
-
-                if (viewport.Keyboard.GetKey(KeyboardKey.D))
-                    cameraPos += cameraRotation * Vector3Directions.Right * viewport.Time.DeltaTime * 10f;
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
                     Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
@@ -77,11 +81,7 @@ void main() {
                     Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
                 }
 
-                cameraPitch += -viewport.Mouse.DeltaPosition.Y * viewport.Time.DeltaTime * 2f;
-                cameraYaw += -viewport.Mouse.DeltaPosition.X * viewport.Time.DeltaTime * 2f;
-
-                cameraRotation = Quaternion.FromEulerAngles(0, cameraYaw, 0);
-                cameraRotation *= Quaternion.FromEulerAngles(0, 0, cameraPitch); // TODO: WTF? Swapped pitch and roll?
+                scene.Update();
             };
 
             viewport.RenderFrame += (sender, eventArgs) =>
@@ -89,23 +89,7 @@ void main() {
                 GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-                var projectionMatrix2 = Matrix4.CreatePerspectiveFieldOfView(90f * Mathf.DegToRad, Viewport.Current.Screen.Width / (float)Viewport.Current.Screen.Height, 0.1f, 1000f);
-                GL.MatrixMode(MatrixMode.Projection);
-                GL.LoadMatrix(ref projectionMatrix2);
-
-                var modelMatrix2 = Matrix4.Identity;
-                modelMatrix2 *= Matrix4.CreateRotationY(Viewport.Current.Time.Elapsed);
-                modelMatrix2 *= Matrix4.CreateTranslation(-cameraPos);
-                modelMatrix2 *= Matrix4.CreateFromQuaternion(cameraRotation.Inverted());
-                GL.MatrixMode(MatrixMode.Modelview);
-                GL.LoadMatrix(ref modelMatrix2);
-
-                shader.Bind();
-
-                mesh.Draw();
-
-                shader.Unbind();
+                scene.Render();
             };
 
             window.Run();
