@@ -46,6 +46,9 @@ namespace RREngine.Engine.Hierarchy
             T instance = (T)Activator.CreateInstance(typeof(T), this);
             _components.Add(instance);
 
+            if(Scene.Initialized)
+                instance.OnInit();
+
             return instance;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ namespace RREngine.Engine.Hierarchy.Components
 
             if (Viewport.Current.Keyboard.GetKey(KeyboardKey.D))
                 _transform.Position += _transform.Rotation * Vector3Directions.Right * Viewport.Current.Time.DeltaTime * 10f;
+
         }
     }
 }

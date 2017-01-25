@@ -14,7 +14,7 @@ namespace RREngine.Engine.Hierarchy
     /// </summary>
     public class Scene
     {
-        private bool _initialized = false;
+        public bool Initialized { get; set; }
 
         private List<GameObject> _gameObjects = new List<GameObject>();
         public IEnumerable<GameObject> GameObjects => _gameObjects.AsEnumerable();
@@ -23,7 +23,7 @@ namespace RREngine.Engine.Hierarchy
 
         public void Init()
         {
-            if (_initialized)
+            if (Initialized)
                 throw new Exception("Already initialized.");
 
             foreach (var gameObject in _gameObjects)
@@ -31,12 +31,12 @@ namespace RREngine.Engine.Hierarchy
                     if (component.Enabled)
                         component.OnInit();
 
-            _initialized = true;
+            Initialized = true;
         }
 
         public void Update()
         {
-            if (!_initialized)
+            if (!Initialized)
                 throw new Exception("Please call Scene.Init() first.");
 
             foreach (var gameObject in _gameObjects)
@@ -45,7 +45,7 @@ namespace RREngine.Engine.Hierarchy
 
         public void Render()
         {
-            if (!_initialized)
+            if (!Initialized)
                 throw new Exception("Please call Scene.Init() first.");
 
             PrepareCamera();
@@ -56,7 +56,7 @@ namespace RREngine.Engine.Hierarchy
 
         private void PrepareCamera()
         {
-            if(CurrentCamera == null)
+            if (CurrentCamera == null)
                 return;
 
             CurrentCamera.LoadMatrix();
@@ -68,7 +68,7 @@ namespace RREngine.Engine.Hierarchy
         {
             var gameObject = new GameObject(this);
 
-            // TODO: Logs
+            Viewport.Current.Logger.Log(new[] { "scene" }, "Created a new GameObject"); // TODO: GameObject id
 
             _gameObjects.Add(gameObject);
 
@@ -77,7 +77,7 @@ namespace RREngine.Engine.Hierarchy
 
         public void RemoveGameObject(GameObject gameObject)
         {
-            // TODO: Logs
+            Viewport.Current.Logger.Log(new[] { "scene" }, "Destroying a GameObject"); // TODO: GameObject id
 
             gameObject.OnDestroy();
             _gameObjects.Remove(gameObject);

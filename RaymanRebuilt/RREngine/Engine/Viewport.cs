@@ -8,6 +8,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using RREngine.Engine.Input;
+using RREngine.Engine.Logging;
 
 namespace RREngine.Engine
 {
@@ -26,6 +27,7 @@ namespace RREngine.Engine
         private Stopwatch _stopwatch = new Stopwatch();
         private Stopwatch _fpsStopwatch = new Stopwatch();
 
+        public MultiLogger Logger { get; } // TODO: Should each viewport have its own logger?
         public Time Time { get; }
         public Screen Screen { get; }
         public Input.Keyboard Keyboard { get; }
@@ -35,9 +37,19 @@ namespace RREngine.Engine
         {
             SetAsCurrent();
 
+            Logger = new MultiLogger();
+            Logger.Loggers.Add(new ConsoleLogger());
+            Logger.Loggers.Add(new FileLogger("log.txt"));
+
+            Logger.Log(new[] { "init" }, "Initializing the viewport");
+
+            Logger.Log(new[] { "init" }, "Initializing Time sub-system");
             Time = new Time();
+            Logger.Log(new[] { "init" }, "Initializing Screen sub-system");
             Screen = new Screen();
+            Logger.Log(new[] { "init" }, "Initializing Keyboard sub-system");
             Keyboard = new Input.Keyboard();
+            Logger.Log(new[] { "init" }, "Initializing Mouse sub-system");
             Mouse = new Input.Mouse();
 
             _stopwatch.Start();
@@ -59,11 +71,19 @@ namespace RREngine.Engine
 
         public void OnUpdateFrame()
         {
-            SetAsCurrent();
+            try
+            {
+                SetAsCurrent();
 
-            PreUpdate?.Invoke(this, EventArgs.Empty);
+                PreUpdate?.Invoke(this, EventArgs.Empty);
 
-            UpdateFrame?.Invoke(this, EventArgs.Empty);
+                UpdateFrame?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
 
             Time.RealDeltaTime = ((float)_stopwatch.Elapsed.TotalSeconds - Time.Elapsed);
             Time.DeltaTime = Time.RealDeltaTime * Time.TimeScale;
@@ -78,9 +98,17 @@ namespace RREngine.Engine
         public void OnRenderFrame()
         {
             SetAsCurrent();
-            RenderFrame?.Invoke(this, EventArgs.Empty);
 
-            PostUpdate?.Invoke(this, EventArgs.Empty);
+            try
+            {
+                RenderFrame?.Invoke(this, EventArgs.Empty);
+                PostUpdate?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                Logger.LogException(e);
+                throw;
+            }
 
             // FPS counting
             if (_fpsStopwatch.Elapsed.TotalSeconds >= 1 - _secondsRest)

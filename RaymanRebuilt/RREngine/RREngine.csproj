@@ -70,6 +70,11 @@
     <Compile Include="Engine\Input\Keyboard.cs" />
     <Compile Include="Engine\Input\Mouse.cs" />
     <Compile Include="Engine\Input\MouseButton.cs" />
+    <Compile Include="Engine\Logging\ConsoleLogger.cs" />
+    <Compile Include="Engine\Logging\FileLogger.cs" />
+    <Compile Include="Engine\Logging\ILogger.cs" />
+    <Compile Include="Engine\Logging\MultiLogger.cs" />
+    <Compile Include="Engine\Logging\SimplifiedLogger.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Math\Vector3Directions.cs" />

@@ -36,7 +36,7 @@ namespace RREngine.Engine
             WindowModeChangeRequested?.Invoke(this, new WindowModeEventArgs()
             {
                 Width = width,
-                Height = height, 
+                Height = height,
                 Fullscreen = _isFullscreen,
             });
         }
@@ -53,6 +53,8 @@ namespace RREngine.Engine
             Width = args.Width;
             Height = args.Height;
             _isFullscreen = args.Fullscreen;
+
+            Viewport.Current.Logger.Log(new[] { "screen" }, $"Changed screen mode {Width}x{Height}, fullscreen: {_isFullscreen}");
         }
 
         #endregion
