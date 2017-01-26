@@ -31,7 +31,7 @@ namespace RREngineTests.Hierarchy
         [TestMethod]
         public void TestComponents()
         {
-            GameObject obj = new GameObject(new Scene());
+            GameObject obj = new GameObject(new Scene(), 0);
 
             // With one component added
             var component = obj.AddComponent<TestComponent1>();

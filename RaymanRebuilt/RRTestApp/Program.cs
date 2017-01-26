@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace RRTestApp
 
             var viewport = window.Viewport;
 
-            Shader shader = new Shader(ShaderType.Fragment);
+            Shader shader = new Shader(ShaderType.Fragment | ShaderType.Vertex);
             Mesh mesh = null;
 
             Scene scene = new Scene();
@@ -38,15 +39,9 @@ namespace RRTestApp
 
             window.Load += (sender, eventArgs) =>
             {
+                shader.Compile(File.ReadAllText("shaders/test.vs"), File.ReadAllText("shaders/test.fs"));
+                //shader.AddUniform("uniformFloat");
 
-
-                shader.Compile(@"
-#version 120
-
-void main() {
-    gl_FragColor = vec4(0.0, 1.0, 0.0, 1);
-}
-");
                 mesh = new ModelAsset("teapot.obj").GenerateMesh();
 
                 camera = scene.CreateGameObject();
@@ -89,7 +84,10 @@ void main() {
                 GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
+                shader.Bind();
+                //shader.SetUniform("uniformFloat", Viewport.Current.Time.Elapsed);
                 scene.Render();
+                shader.Unbind();
             };
 
             window.Run();
