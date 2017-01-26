@@ -13,7 +13,6 @@ namespace RREngine.Engine.Hierarchy.Components
         private Transform _transform;
         public Mesh Mesh { get; set; }
 
-
         public MeshRenderer(GameObject owner) : base(owner)
         {
         }
@@ -36,6 +35,7 @@ namespace RREngine.Engine.Hierarchy.Components
 
             if (Mesh != null)
             {
+                GL.Enable(EnableCap.Texture2D);
                 GL.Color3(1f, 1f, 1f);
                 Mesh.Draw();
             }

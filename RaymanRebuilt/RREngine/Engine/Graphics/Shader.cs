@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace RREngine.Engine.Graphics
@@ -20,7 +21,10 @@ namespace RREngine.Engine.Graphics
         public ShaderType Type { get; private set; }
         public bool Compiled { get; private set; } = false;
 
-        List<int> _shaderIds = new List<int>();
+        private List<int> _shaderIds = new List<int>();
+
+        private Dictionary<string, int> _uniforms = new Dictionary<string, int>();
+        public IEnumerable<KeyValuePair<string, int>> Uniforms => _uniforms.AsEnumerable();
 
         public Shader(ShaderType type)
         {
@@ -39,7 +43,11 @@ namespace RREngine.Engine.Graphics
                 GL.DetachShader(ProgramId, id);
                 GL.DeleteShader(id);
             }
+
+            _shaderIds.Clear();
         }
+
+        #region Compiling
 
         public void Compile(string source)
         {
@@ -156,9 +164,11 @@ namespace RREngine.Engine.Graphics
             }
         }
 
+        #endregion
+
         public void Bind()
         {
-            if(!Compiled)
+            if (!Compiled)
                 throw new Exception("This shader hasn't been compiled yet.");
 
             GL.UseProgram(ProgramId);
@@ -169,19 +179,56 @@ namespace RREngine.Engine.Graphics
             // TODO: Make this use the last program
             GL.UseProgram(0);
         }
+
+        #region Uniforms
+
+        public void AddUniform(string name)
+        {
+            var location = GL.GetUniformLocation(ProgramId, name);
+
+            if (location == -1)
+                throw new ShaderUniformNotFoundException(this, name);
+
+            _uniforms.Add(name, location);
+        }
+
+        public void SetUniform(string name, int value)
+            => GL.Uniform1(_uniforms[name], value);
+
+        public void SetUniform(string name, float value)
+            => GL.Uniform1(_uniforms[name], value);
+
+        public void SetUniform(string name, Vector2 value)
+            => GL.Uniform2(_uniforms[name], value);
+
+        public void SetUniform(string name, Vector3 value)
+            => GL.Uniform3(_uniforms[name], value);
+
+        public void SetUniform(string name, Matrix4 value)
+            => GL.UniformMatrix4(_uniforms[name], false, ref value);
+
+        #endregion
     }
 
     public class ShaderCompilationException : Exception
     {
         public ShaderCompilationException(string message) : base(message)
         {
-            
+
         }
     }
 
     public class ShaderLinkingException : Exception
     {
         public ShaderLinkingException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class ShaderUniformNotFoundException : Exception
+    {
+        public ShaderUniformNotFoundException(Shader shader, string uniformName) : base($"No such uniform {uniformName} in program id {shader.ProgramId}.")
         {
 
         }

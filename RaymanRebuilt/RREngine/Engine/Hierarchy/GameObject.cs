@@ -11,15 +11,19 @@ namespace RREngine.Engine.Hierarchy
     public sealed class GameObject
     {
         public Scene Scene { get; }
+        public uint Id { get; }
+        public string Name { get; set; }
+        public bool Enabled { get; set; } = true;
 
         private List<Component> _components = new List<Component>();
         public IEnumerable<Component> Components => _components.AsEnumerable();
 
         public DateTime TimeCreated { get; } = DateTime.Now;
 
-        public GameObject(Scene scene)
+        public GameObject(Scene scene, uint id)
         {
             Scene = scene;
+            Id = id;
         }
 
         public void Update()

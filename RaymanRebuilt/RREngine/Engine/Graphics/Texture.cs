@@ -34,7 +34,7 @@ namespace RREngine.Engine.Graphics
             GL.DeleteTexture(Id);
         }
 
-        public void GenerateTexture()
+        private void GenerateTexture()
         {
             Id = GL.GenTexture();
 

@@ -99,16 +99,16 @@ namespace RREngine.Engine
         {
             SetAsCurrent();
 
-            try
-            {
+            //try
+            //{
                 RenderFrame?.Invoke(this, EventArgs.Empty);
                 PostUpdate?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception e)
-            {
-                Logger.LogException(e);
-                throw;
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.LogException(e);
+            //    throw;
+            //}
 
             // FPS counting
             if (_fpsStopwatch.Elapsed.TotalSeconds >= 1 - _secondsRest)
