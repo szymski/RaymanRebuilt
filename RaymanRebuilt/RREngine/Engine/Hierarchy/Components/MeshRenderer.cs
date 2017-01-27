@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using RREngine.Engine.Graphics;
 
 namespace RREngine.Engine.Hierarchy.Components
@@ -24,19 +24,22 @@ namespace RREngine.Engine.Hierarchy.Components
 
         protected void LoadMatrix()
         {
-            GL.MatrixMode(MatrixMode.Modelview);
-            var matrix = _transform.ModelMatrix * Owner.Scene.CurrentCamera.ViewMatrix;
-            GL.LoadMatrix(ref matrix);
+            var model = _transform.ModelMatrix;
+            var view = Owner.Scene.CurrentCamera.ViewMatrix;
+            var projection = Owner.Scene.CurrentCamera.ProjectionMatrix;
+
+            Viewport.Current.ShaderManager.CurrentShader.SetUniform("modelMatrix", model);
+            Viewport.Current.ShaderManager.CurrentShader.SetUniform("viewMatrix", view);
+            Viewport.Current.ShaderManager.CurrentShader.SetUniform("projectionMatrix", projection);
         }
 
         public override void OnRender()
         {
-            LoadMatrix();
-
             if (Mesh != null)
             {
-                GL.Enable(EnableCap.Texture2D);
-                GL.Color3(1f, 1f, 1f);
+                LoadMatrix();
+                GL.Enable(EnableCap.DepthTest);
+                GL.DepthFunc(DepthFunction.Less);
                 Mesh.Draw();
             }
         }

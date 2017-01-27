@@ -1,8 +1,19 @@
-#version 120
+#version 330
 
-varying vec3 vertex_color;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+
+in vec3 vertexPos;
+in vec3 vertexNormal;
+
+out vec4 gl_FragColor;
+
+vec3 lightPos = vec3(0.0, 0.0, 0.0);
 
 void main()
 {
-    gl_FragColor = vec4(sin(vertex_color.x), sin(vertex_color.y), sin(vertex_color.z), 1.0);
+    float lightDot = dot(vertexNormal, normalize((viewMatrix * vec4(lightPos, 1)).xyz - vertexPos));
+
+    gl_FragColor = vec4(lightDot, 0, 0, 1);
 }

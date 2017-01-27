@@ -10,6 +10,7 @@ using RREngine.Engine.Graphics;
 using RREngine.Engine.Objects;
 using Mesh = RREngine.Engine.Graphics.Mesh;
 using Scene = Assimp.Scene;
+using Vertex = RREngine.Engine.Graphics.Vertex;
 
 namespace RREngine.Engine.Assets
 {
@@ -26,16 +27,27 @@ namespace RREngine.Engine.Assets
 
         public Mesh GenerateMesh()
         {
-            var vertices = Scene.Meshes[0].Vertices.Select(v => new Graphics.Vertex()
-            {
-                Position = new Vector3(v.X, v.Y, v.Z)
-            }).ToArray();
+            var assimpMesh = Scene.Meshes[0];
+
+            var vertices = new List<Vertex>();
+
+            for (int i = 0; i < assimpMesh.Vertices.Count; i++)
+                vertices.Add(new Vertex()
+                {
+                    Position = AssimpVectorToEngine(assimpMesh.Vertices[i]),
+                    Normal = AssimpVectorToEngine(assimpMesh.Normals[i]),
+                }); 
 
             var indices = Scene.Meshes[0].GetIndices();
 
-            Mesh mesh = new Mesh(vertices, indices);
+            Mesh mesh = new Mesh(vertices.ToArray(), indices);
 
             return mesh;
+        }
+
+        private Vector3 AssimpVectorToEngine(Vector3D value)
+        {
+            return new Vector3(value.X, value.Y, value.Z);
         }
     }
 }

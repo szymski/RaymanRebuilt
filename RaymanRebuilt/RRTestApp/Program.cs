@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using RREngine.Engine;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
@@ -17,7 +17,7 @@ using RREngine.Engine.Input;
 using RREngine.Engine.Math;
 using RREngine.Engine.Objects;
 using Mesh = RREngine.Engine.Graphics.Mesh;
-using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
+using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 using ShaderType = RREngine.Engine.Graphics.ShaderType;
 using Vertex = RREngine.Engine.Graphics.Vertex;
 
@@ -32,6 +32,7 @@ namespace RRTestApp
             var viewport = window.Viewport;
 
             Shader shader = new Shader(ShaderType.Fragment | ShaderType.Vertex);
+            viewport.ShaderManager.AddShader(shader);
             Mesh mesh = null;
 
             Scene scene = new Scene();
@@ -40,7 +41,9 @@ namespace RRTestApp
             window.Load += (sender, eventArgs) =>
             {
                 shader.Compile(File.ReadAllText("shaders/test.vs"), File.ReadAllText("shaders/test.fs"));
-                //shader.AddUniform("uniformFloat");
+                shader.AddUniform("modelMatrix");
+                shader.AddUniform("viewMatrix");
+                shader.AddUniform("projectionMatrix");
 
                 mesh = new ModelAsset("teapot.obj").GenerateMesh();
 
@@ -81,13 +84,13 @@ namespace RRTestApp
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
-                GL.ClearColor(0.4f, 0.1f, 0.8f, 1f);
+                GL.ClearColor(0.05f, 0.05f, 0.2f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                shader.Bind();
+                viewport.ShaderManager.BindShader(shader);
                 //shader.SetUniform("uniformFloat", Viewport.Current.Time.Elapsed);
                 scene.Render();
-                shader.Unbind();
+                viewport.ShaderManager.UnbindShader();
             };
 
             window.Run();

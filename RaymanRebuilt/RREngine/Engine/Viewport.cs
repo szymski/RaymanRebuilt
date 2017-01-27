@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
+using RREngine.Engine.Graphics;
 using RREngine.Engine.Input;
 using RREngine.Engine.Logging;
 
@@ -32,6 +33,7 @@ namespace RREngine.Engine
         public Screen Screen { get; }
         public Input.Keyboard Keyboard { get; }
         public Input.Mouse Mouse { get; }
+        public ShaderManager ShaderManager { get; set; }
 
         public Viewport()
         {
@@ -51,6 +53,7 @@ namespace RREngine.Engine
             Keyboard = new Input.Keyboard();
             Logger.Log(new[] { "init" }, "Initializing Mouse sub-system");
             Mouse = new Input.Mouse();
+            ShaderManager = new ShaderManager();
 
             _stopwatch.Start();
             _fpsStopwatch.Start();

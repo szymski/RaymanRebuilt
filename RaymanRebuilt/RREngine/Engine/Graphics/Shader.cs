@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
@@ -96,7 +96,7 @@ namespace RREngine.Engine.Graphics
         /// <returns>ID of the compiled shader.</returns>
         int CompileShader(string source, ShaderType type)
         {
-            var id = GL.CreateShader(type == ShaderType.Fragment ? OpenTK.Graphics.OpenGL.ShaderType.FragmentShader : OpenTK.Graphics.OpenGL.ShaderType.VertexShader);
+            var id = GL.CreateShader(type == ShaderType.Fragment ? OpenTK.Graphics.OpenGL4.ShaderType.FragmentShader : OpenTK.Graphics.OpenGL4.ShaderType.VertexShader);
 
             GL.ShaderSource(id, source);
             GL.CompileShader(id);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 using RREngine.Engine.Math;
 
 namespace RREngine.Engine.Hierarchy.Components
@@ -37,11 +37,7 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void LoadMatrix()
         {
-            var projectionMatrix = ProjectionMatrix;
-
             GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-            GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(ref projectionMatrix);
         }
     }
 }

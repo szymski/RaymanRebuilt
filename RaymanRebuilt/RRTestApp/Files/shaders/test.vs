@@ -1,9 +1,25 @@
-#version 120
+#version 330
 
-varying vec3 vertex_color;
+layout(location = 0) in vec3 mdl_vertexPos;
+layout(location = 1) in vec3 mdl_vertexNormal;
+
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+
+out vec3 vertexPos;
+out vec3 vertexNormal;
+
+out mat4 normalMatrix;
 
 void main()
 {
-    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-    vertex_color = gl_Vertex.xyz;
+    mat4 mvp = projectionMatrix * viewMatrix * modelMatrix;
+    mat4 mv = viewMatrix * modelMatrix;
+    normalMatrix = transpose(inverse(mv));
+
+    vertexPos = (mv * vec4(mdl_vertexPos, 1.0)).xyz;
+    vertexNormal = normalize((normalMatrix * vec4(mdl_vertexNormal, 1.0)).xyz);
+
+    gl_Position = mvp * vec4(mdl_vertexPos, 1.0);
 }

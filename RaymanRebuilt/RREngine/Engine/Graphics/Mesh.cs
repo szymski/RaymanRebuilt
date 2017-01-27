@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
@@ -14,6 +14,7 @@ namespace RREngine.Engine.Graphics
     {
         public int VertexArrayId { get; private set; }
         public int VertexBufferId { get; private set; }
+        public int NormalBufferId { get; private set; }
         public int IndexBufferId { get; private set; }
         public Vertex[] Vertices { get; private set; }
         public int[] Indices { get; private set; }
@@ -37,6 +38,7 @@ namespace RREngine.Engine.Graphics
             GL.BindVertexArray(VertexArrayId);
 
             SendVertices();
+            SendNormals();
             SendIndices();
 
             GL.BindVertexArray(0);
@@ -50,6 +52,17 @@ namespace RREngine.Engine.Graphics
             GL.BufferData(BufferTarget.ArrayBuffer, vertexData.Length * 4, vertexData, BufferUsageHint.StaticDraw);
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
+        }
+
+        void SendNormals()
+        {
+            NormalBufferId = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, NormalBufferId);
+
+            float[] vertexData = Vertices.Select(v => new float[] { v.Normal.X, v.Normal.Y, v.Normal.Z }).Aggregate((a, b) => a.Concat(b).ToArray());
+            GL.BufferData(BufferTarget.ArrayBuffer, vertexData.Length * 4, vertexData, BufferUsageHint.StaticDraw);
+            GL.EnableVertexAttribArray(1);
+            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 0, 0);
         }
 
         void SendIndices()

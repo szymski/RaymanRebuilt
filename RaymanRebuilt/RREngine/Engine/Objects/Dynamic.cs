@@ -7,7 +7,7 @@ using RREngine.Engine.Math;
 using System.Dynamic;
 using OpenTK;
 using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Objects
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assimp;
+using RREngine.Engine.Graphics;
 using RREngine.Engine.Hierarchy.Components;
 using Camera = RREngine.Engine.Hierarchy.Components.Camera;
 
@@ -19,6 +20,8 @@ namespace RREngine.Engine.Hierarchy
         private uint _lastGameObjectId = 0;
         private List<GameObject> _gameObjects = new List<GameObject>();
         public IEnumerable<GameObject> GameObjects => _gameObjects.AsEnumerable();
+
+        public StandardShader StandardShader { get; private set; } // TODO
 
         public Camera CurrentCamera { get; set; }
 
