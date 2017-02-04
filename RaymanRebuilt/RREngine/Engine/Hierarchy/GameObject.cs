@@ -11,6 +11,7 @@ namespace RREngine.Engine.Hierarchy
     public sealed class GameObject
     {
         public Scene Scene { get; }
+        public SceneRenderer SceneRenderer { get; set; }
         public uint Id { get; }
         public string Name { get; set; }
         public bool Enabled { get; set; } = true;

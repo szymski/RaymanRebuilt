@@ -52,7 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Assets\Asset.cs" />
+    <Compile Include="Engine\Assets\AssetManager.cs" />
     <Compile Include="Engine\Assets\ModelAsset.cs" />
+    <Compile Include="Engine\Assets\RawAsset.cs" />
+    <Compile Include="Engine\Assets\TextureAsset.cs" />
+    <Compile Include="Engine\Graphics\Material.cs" />
     <Compile Include="Engine\Graphics\Mesh.cs" />
     <Compile Include="Engine\Graphics\RenderTarget.cs" />
     <Compile Include="Engine\Graphics\Shader.cs" />
@@ -65,8 +70,10 @@
     <Compile Include="Engine\Hierarchy\Components\MeshRenderer.cs" />
     <Compile Include="Engine\Hierarchy\Components\PerspectiveCamera.cs" />
     <Compile Include="Engine\Hierarchy\Components\RotatingComponent.cs" />
+    <Compile Include="Engine\Hierarchy\Components\PlaneGenerator.cs" />
     <Compile Include="Engine\Hierarchy\Components\Transform.cs" />
     <Compile Include="Engine\Hierarchy\GameObject.cs" />
+    <Compile Include="Engine\Hierarchy\SceneRenderer.cs" />
     <Compile Include="Engine\Input\InputState.cs" />
     <Compile Include="Engine\Input\KeyboardKey.cs" />
     <Compile Include="Engine\Input\Keyboard.cs" />

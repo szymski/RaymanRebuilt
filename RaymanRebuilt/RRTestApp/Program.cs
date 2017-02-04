@@ -31,36 +31,59 @@ namespace RRTestApp
 
             var viewport = window.Viewport;
 
-            Shader shader = new Shader(ShaderType.Fragment | ShaderType.Vertex);
-            viewport.ShaderManager.AddShader(shader);
             Mesh mesh = null;
 
             Scene scene = new Scene();
-            GameObject camera, teapot;
+            SceneRenderer sceneRenderer = new SceneRenderer(scene);
+            GameObject camera, teapot, plane;
 
             window.Load += (sender, eventArgs) =>
             {
-                shader.Compile(File.ReadAllText("shaders/test.vs"), File.ReadAllText("shaders/test.fs"));
-                shader.AddUniform("modelMatrix");
-                shader.AddUniform("viewMatrix");
-                shader.AddUniform("projectionMatrix");
+                scene.SceneRenderer = sceneRenderer;
 
-                mesh = new ModelAsset("teapot.obj").GenerateMesh();
+                mesh = AssetManager.Instance.LoadAsset<ModelAsset>("dragon.obj").GenerateMesh();
+                var texture = AssetManager.Instance.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
 
                 camera = scene.CreateGameObject();
                 camera.AddComponent<Transform>().Position = Vector3Directions.Backward * 20f;
                 var camComponent = camera.AddComponent<PerspectiveCamera>();
-                scene.CurrentCamera = camComponent;
+                sceneRenderer.CurrentCamera = camComponent;
                 camera.AddComponent<FlyingCamera>();
 
-                teapot = scene.CreateGameObject();
-                var transform = teapot.AddComponent<Transform>();
-                transform.Position = Vector3Directions.Forward * 10f;
-                var renderer = teapot.AddComponent<MeshRenderer>();
-                renderer.Mesh = mesh;
-                teapot.AddComponent<RotatingComponent>();
+                plane = scene.CreateGameObject();
+                plane.AddComponent<Transform>();
+                plane.AddComponent<MeshRenderer>().Material = new Material()
+                {
+                    BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                    Texture = texture,
+                };
+                var planeGen = plane.AddComponent<PlaneGenerator>();
+                planeGen.TexCoordScaling = 10f;
+                planeGen.MinBounds = Vector2.One * 10;
+                planeGen.MaxBounds = Vector2.One * 10;
+
+                Random rand = new Random();
+
+                for (int i = -2; i < -1; i++)
+                {
+                    Material mat = new Material()
+                    {
+                        BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                       // Texture = texture,
+                    };
+
+                    teapot = scene.CreateGameObject();
+                    var transform = teapot.AddComponent<Transform>();
+                    transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Right * 10f * i;
+                    //transform.Scale *= 0.3f;
+                    var renderer = teapot.AddComponent<MeshRenderer>();
+                    renderer.Mesh = mesh;
+                    renderer.Material = mat;
+                    teapot.AddComponent<RotatingComponent>();
+                }
 
                 scene.Init();
+                sceneRenderer.Init();
             };
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
@@ -87,10 +110,7 @@ namespace RRTestApp
                 GL.ClearColor(0.05f, 0.05f, 0.2f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
-                viewport.ShaderManager.BindShader(shader);
-                //shader.SetUniform("uniformFloat", Viewport.Current.Time.Elapsed);
-                scene.Render();
-                viewport.ShaderManager.UnbindShader();
+                sceneRenderer.Render();
             };
 
             window.Run();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace RREngine.Engine.Hierarchy
     /// <summary>
     /// A container and a handler for GameObjects.
     /// </summary>
-    public class Scene
+    public sealed class Scene
     {
         public bool Initialized { get; set; }
 
@@ -21,14 +22,13 @@ namespace RREngine.Engine.Hierarchy
         private List<GameObject> _gameObjects = new List<GameObject>();
         public IEnumerable<GameObject> GameObjects => _gameObjects.AsEnumerable();
 
-        public StandardShader StandardShader { get; private set; } // TODO
-
-        public Camera CurrentCamera { get; set; }
+        public SceneRenderer SceneRenderer { get; set; }
 
         public void Init()
         {
             if (Initialized)
                 throw new Exception("Already initialized.");
+
 
             foreach (var gameObject in _gameObjects)
                 foreach (var component in gameObject.Components)
@@ -41,31 +41,11 @@ namespace RREngine.Engine.Hierarchy
         public void Update()
         {
             if (!Initialized)
-                throw new Exception("Scene have to be initialized first.");
+                throw new Exception("Scene has to be initialized first.");
 
             foreach (var gameObject in _gameObjects)
                 if (gameObject.Enabled)
                     gameObject.Update();
-        }
-
-        public void Render()
-        {
-            if (!Initialized)
-                throw new Exception("Scene have to be initialized first.");
-
-            PrepareCamera();
-
-            foreach (var gameObject in _gameObjects)
-                if (gameObject.Enabled)
-                    gameObject.Render();
-        }
-
-        private void PrepareCamera()
-        {
-            if (CurrentCamera == null)
-                return;
-
-            CurrentCamera.LoadMatrix();
         }
 
         #region Game objects
@@ -73,6 +53,7 @@ namespace RREngine.Engine.Hierarchy
         public GameObject CreateGameObject()
         {
             var gameObject = new GameObject(this, _lastGameObjectId++); // TODO: Weird things can happen, if we create more than 2^32 - 1 game objects.
+            gameObject.SceneRenderer = SceneRenderer;
 
             Viewport.Current.Logger.Log(new[] { "scene" }, $"Created a new GameObject id {gameObject.Id}");
 

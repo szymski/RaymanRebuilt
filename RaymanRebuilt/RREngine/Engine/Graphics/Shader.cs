@@ -33,6 +33,7 @@ namespace RREngine.Engine.Graphics
 
         public void Destroy()
         {
+            Viewport.Current.Logger.Log(new[] { "shader" }, $"Destroying shader program id {ProgramId}");
             GL.DeleteProgram(ProgramId);
         }
 
@@ -91,6 +92,7 @@ namespace RREngine.Engine.Graphics
         void CreateProgram()
         {
             ProgramId = GL.CreateProgram();
+            Viewport.Current.Logger.Log(new[] { "shader" }, $"Created shader program id {ProgramId}");
         }
 
         /// <returns>ID of the compiled shader.</returns>
@@ -100,6 +102,8 @@ namespace RREngine.Engine.Graphics
 
             GL.ShaderSource(id, source);
             GL.CompileShader(id);
+
+            Viewport.Current.Logger.Log(new[] { "shader" }, $"Compiling shader id {id} of type {type}");
 
             try
             {
@@ -192,8 +196,21 @@ namespace RREngine.Engine.Graphics
             _uniforms.Add(name, location);
         }
 
+        public void AddUniformBlockIndex(string name)
+        {
+            var location = GL.GetUniformBlockIndex(ProgramId, name);
+
+            if (location == -1)
+                throw new ShaderUniformNotFoundException(this, name);
+
+            _uniforms.Add(name, location);
+        }
+
         public void SetUniform(string name, int value)
             => GL.Uniform1(_uniforms[name], value);
+
+        public void SetUniform(string name, bool value)
+            => GL.Uniform1(_uniforms[name], value ? 1 : 0);
 
         public void SetUniform(string name, float value)
             => GL.Uniform1(_uniforms[name], value);
@@ -204,8 +221,14 @@ namespace RREngine.Engine.Graphics
         public void SetUniform(string name, Vector3 value)
             => GL.Uniform3(_uniforms[name], value);
 
+        public void SetUniform(string name, Vector4 value)
+            => GL.Uniform4(_uniforms[name], value);
+
         public void SetUniform(string name, Matrix4 value)
             => GL.UniformMatrix4(_uniforms[name], false, ref value);
+
+        public void SetUniform(string name, Texture value)
+            => GL.Uniform1(_uniforms[name], value.Id);
 
         #endregion
     }

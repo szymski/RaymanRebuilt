@@ -13,9 +13,12 @@ namespace RREngine.Engine.Graphics
     public class Mesh
     {
         public int VertexArrayId { get; private set; }
+
         public int VertexBufferId { get; private set; }
         public int NormalBufferId { get; private set; }
+        public int TexCoordBufferId { get; private set; }
         public int IndexBufferId { get; private set; }
+
         public Vertex[] Vertices { get; private set; }
         public int[] Indices { get; private set; }
 
@@ -40,6 +43,7 @@ namespace RREngine.Engine.Graphics
             SendVertices();
             SendNormals();
             SendIndices();
+            SendTexCoords();
 
             GL.BindVertexArray(0);
         }
@@ -48,8 +52,16 @@ namespace RREngine.Engine.Graphics
             VertexBufferId = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferId);
 
-            float[] vertexData = Vertices.Select(v => new float[] { v.Position.X, v.Position.Y, v.Position.Z }).Aggregate((a, b) => a.Concat(b).ToArray());
-            GL.BufferData(BufferTarget.ArrayBuffer, vertexData.Length * 4, vertexData, BufferUsageHint.StaticDraw);
+            float[] data = new float[Vertices.Length * 3];
+
+            for (int i = 0; i < Vertices.Length; i++)
+            {
+                data[i * 3 + 0] = Vertices[i].Position.X;
+                data[i * 3 + 1] = Vertices[i].Position.Y;
+                data[i * 3 + 2] = Vertices[i].Position.Z;
+            }
+
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * 4, data, BufferUsageHint.StaticDraw);
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
         }
@@ -59,10 +71,36 @@ namespace RREngine.Engine.Graphics
             NormalBufferId = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, NormalBufferId);
 
-            float[] vertexData = Vertices.Select(v => new float[] { v.Normal.X, v.Normal.Y, v.Normal.Z }).Aggregate((a, b) => a.Concat(b).ToArray());
-            GL.BufferData(BufferTarget.ArrayBuffer, vertexData.Length * 4, vertexData, BufferUsageHint.StaticDraw);
+            float[] data = new float[Vertices.Length * 3];
+
+            for (int i = 0; i < Vertices.Length; i++)
+            {
+                data[i * 3 + 0] = Vertices[i].Normal.X;
+                data[i * 3 + 1] = Vertices[i].Normal.Y;
+                data[i * 3 + 2] = Vertices[i].Normal.Z;
+            }
+
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * 4, data, BufferUsageHint.StaticDraw);
             GL.EnableVertexAttribArray(1);
             GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 0, 0);
+        }
+
+        void SendTexCoords()
+        {
+            TexCoordBufferId = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, TexCoordBufferId);
+
+            float[] data = new float[Vertices.Length * 3];
+
+            for (int i = 0; i < Vertices.Length; i++)
+            {
+                data[i * 2 + 0] = Vertices[i].TexCoord.X;
+                data[i * 2 + 1] = Vertices[i].TexCoord.Y;
+            }
+
+            GL.BufferData(BufferTarget.ArrayBuffer, data.Length * 4, data, BufferUsageHint.StaticDraw);
+            GL.EnableVertexAttribArray(2);
+            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 0, 0);
         }
 
         void SendIndices()

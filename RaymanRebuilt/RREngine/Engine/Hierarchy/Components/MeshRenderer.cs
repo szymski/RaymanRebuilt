@@ -12,6 +12,7 @@ namespace RREngine.Engine.Hierarchy.Components
     {
         private Transform _transform;
         public Mesh Mesh { get; set; }
+        public Material Material { get; set; }
 
         public MeshRenderer(GameObject owner) : base(owner)
         {
@@ -24,20 +25,18 @@ namespace RREngine.Engine.Hierarchy.Components
 
         protected void LoadMatrix()
         {
-            var model = _transform.ModelMatrix;
-            var view = Owner.Scene.CurrentCamera.ViewMatrix;
-            var projection = Owner.Scene.CurrentCamera.ProjectionMatrix;
-
-            Viewport.Current.ShaderManager.CurrentShader.SetUniform("modelMatrix", model);
-            Viewport.Current.ShaderManager.CurrentShader.SetUniform("viewMatrix", view);
-            Viewport.Current.ShaderManager.CurrentShader.SetUniform("projectionMatrix", projection);
+            Owner.SceneRenderer.StandardShader.ModelMatrix = _transform.ModelMatrix;
         }
 
         public override void OnRender()
         {
             if (Mesh != null)
             {
+                if(Material != null) 
+                    Owner.SceneRenderer.StandardShader.UseMaterial(Material);
+
                 LoadMatrix();
+
                 GL.Enable(EnableCap.DepthTest);
                 GL.DepthFunc(DepthFunction.Less);
                 Mesh.Draw();

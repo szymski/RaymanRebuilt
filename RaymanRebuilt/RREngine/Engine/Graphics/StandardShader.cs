@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
@@ -13,24 +14,48 @@ namespace RREngine.Engine.Graphics
         {
             Compile(vertex, fragment);
 
-            AddUniform("modelMatrix");
-            AddUniform("viewMatrix");
-            AddUniform("projectionMatrix");
+            AddUniform("u_modelMatrix");
+            AddUniform("u_viewMatrix");
+            AddUniform("u_projectionMatrix");
+
+            AddUniform("u_ambientLight");
+
+            AddUniform("u_material.hasTexture");
+            AddUniform("u_material.texture");
+            AddUniform("u_material.baseColor");
         }
 
         public Matrix4 ModelMatrix
         {
-            set { SetUniform("modelMatrix", value); }
+            set { SetUniform("u_modelMatrix", value); }
         }
 
         public Matrix4 ViewMatrix
         {
-            set { SetUniform("viewMatrix", value); }
+            set { SetUniform("u_viewMatrix", value); }
         }
 
         public Matrix4 ProjectionMatrix
         {
-            set { SetUniform("projectionMatrix", value); }
+            set { SetUniform("u_projectionMatrix", value); }
+        }
+
+        public Vector3 AmbientLight
+        {
+            set { SetUniform("u_ambientLight", value); }
+        }
+
+        public void UseMaterial(Material material)
+        {
+            SetUniform("u_material.hasTexture", material.Texture != null);
+            if (material.Texture != null)
+            {
+                GL.Enable(EnableCap.Texture2D);
+                material.Texture.Bind();
+                SetUniform("u_material.texture", 0);
+            }
+
+            SetUniform("u_material.baseColor", material.BaseColor);
         }
     }
 }

@@ -21,6 +21,6 @@ namespace RREngine.Engine.Hierarchy.Components
         /// </summary>
         public abstract Matrix4 ViewMatrix { get; }
 
-        public abstract void LoadMatrix();
+        public abstract void Use();
     }
 }
