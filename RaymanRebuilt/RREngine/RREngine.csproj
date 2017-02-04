@@ -84,6 +84,7 @@
     <Compile Include="Engine\Logging\ILogger.cs" />
     <Compile Include="Engine\Logging\MultiLogger.cs" />
     <Compile Include="Engine\Logging\SimplifiedLogger.cs" />
+    <Compile Include="Engine\Math\Rng.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Math\Vector3Directions.cs" />
