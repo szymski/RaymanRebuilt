@@ -48,6 +48,7 @@ vec4 calculateDirectionalLight() {
 }
 
 vec4 calculateSpecular(BaseLight baseLight, vec3 direction) {
+    //vec3 directionToEye = normalize(-vertexPos);
     float angleCos = dot(-direction, vertexNormal);
 
     if(angleCos < 0)
