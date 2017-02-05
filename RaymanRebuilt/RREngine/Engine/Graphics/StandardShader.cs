@@ -8,8 +8,21 @@ using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
+    public class BaseLight
+    {
+        public Vector3 Color { get; set; } = new Vector3(1f, 1f, 1f);
+        public float Intensity { get; set; } = 1f;
+    }
+
+    public class DirectionalLight : BaseLight
+    {
+        public Vector3 Direction { get; set; } = new Vector3(-1f, -1f, -1f).Normalized();
+    }
+
     public class StandardShader : Shader
     {
+        public DirectionalLight DirectionalLight { get; } = new DirectionalLight();
+
         public StandardShader(string vertex, string fragment) : base(ShaderType.Fragment | ShaderType.Vertex)
         {
             Compile(vertex, fragment);
@@ -23,6 +36,12 @@ namespace RREngine.Engine.Graphics
             AddUniform("u_material.hasTexture");
             AddUniform("u_material.texture");
             AddUniform("u_material.baseColor");
+            AddUniform("u_material.specularPower");
+            AddUniform("u_material.specularIntensity");
+
+            AddUniform("u_directionalLight.base.color");
+            AddUniform("u_directionalLight.base.intensity");
+            AddUniform("u_directionalLight.direction");
         }
 
         public Matrix4 ModelMatrix
@@ -47,6 +66,10 @@ namespace RREngine.Engine.Graphics
 
         public void UseMaterial(Material material)
         {
+            SetUniform("u_directionalLight.base.color", DirectionalLight.Color);
+            SetUniform("u_directionalLight.base.intensity", DirectionalLight.Intensity);
+            SetUniform("u_directionalLight.direction", DirectionalLight.Direction);
+
             SetUniform("u_material.hasTexture", material.Texture != null);
             if (material.Texture != null)
             {
@@ -56,6 +79,8 @@ namespace RREngine.Engine.Graphics
             }
 
             SetUniform("u_material.baseColor", material.BaseColor);
+            SetUniform("u_material.specularPower", material.SpecularPower);
+            SetUniform("u_material.specularIntensity", material.SpecularIntensity);
         }
     }
 }

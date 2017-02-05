@@ -33,6 +33,13 @@ namespace RREngine.Engine
             });
 
             ConnectViewport(Viewport);
+
+            //GameWindow.TargetRenderFrequency = 0f;
+            //GameWindow.TargetRenderPeriod = 0f;
+            //GameWindow.TargetUpdateFrequency = 0f;
+            //GameWindow.TargetUpdatePeriod = 0f;
+
+            //GameWindow.VSync = VSyncMode.Off;
         }
 
         void ConnectViewport(Viewport viewport)

@@ -31,17 +31,18 @@ namespace RRTestApp
 
             var viewport = window.Viewport;
 
-            Mesh mesh = null;
+            Mesh dragonMesh = null;
 
             Scene scene = new Scene();
             SceneRenderer sceneRenderer = new SceneRenderer(scene);
-            GameObject camera, teapot, plane;
+            GameObject camera, dragon, plane, teapot;
 
             window.Load += (sender, eventArgs) =>
             {
                 scene.SceneRenderer = sceneRenderer;
 
-                mesh = AssetManager.Instance.LoadAsset<ModelAsset>("dragon.obj").GenerateMesh();
+                dragonMesh = AssetManager.Instance.LoadAsset<ModelAsset>("dragon.obj").GenerateMesh();
+                var teapotMesh = AssetManager.Instance.LoadAsset<ModelAsset>("teapot.obj").GenerateMesh();
                 var texture = AssetManager.Instance.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
 
                 camera = scene.CreateGameObject();
@@ -70,17 +71,30 @@ namespace RRTestApp
                     {
                         BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
                        // Texture = texture,
-                    };
+                    }; 
 
-                    teapot = scene.CreateGameObject();
-                    var transform = teapot.AddComponent<Transform>();
+                    dragon = scene.CreateGameObject();
+                    var transform = dragon.AddComponent<Transform>();
                     transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Right * 10f * i;
                     //transform.Scale *= 0.3f;
-                    var renderer = teapot.AddComponent<MeshRenderer>();
-                    renderer.Mesh = mesh;
+                    var renderer = dragon.AddComponent<MeshRenderer>();
+                    renderer.Mesh = dragonMesh;
                     renderer.Material = mat;
-                    teapot.AddComponent<RotatingComponent>();
+                    dragon.AddComponent<RotatingComponent>();
                 }
+
+                Material mat2 = new Material()
+                {
+                    BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                    Texture = texture,
+                };
+
+                teapot = scene.CreateGameObject();
+                var transform2 = teapot.AddComponent<Transform>();
+                transform2.Position = Vector3Directions.Up * 2f;
+                var renderer2 = teapot.AddComponent<MeshRenderer>();
+                renderer2.Mesh = teapotMesh;
+                renderer2.Material = mat2;
 
                 scene.Init();
                 sceneRenderer.Init();

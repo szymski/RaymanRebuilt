@@ -120,6 +120,8 @@ namespace RREngine.Engine
                 Time.FPS = _frames;
                 _fpsStopwatch.Restart();
                 _frames = 0;
+
+                Console.WriteLine(Time.FPS);
             }
             _frames++;
         }

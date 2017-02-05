@@ -18,7 +18,7 @@ void main()
 {
     mat4 mvp = u_projectionMatrix * u_viewMatrix * u_modelMatrix;
     mat4 mv = u_viewMatrix * u_modelMatrix;
-    normalMatrix = transpose(inverse(mv));
+    normalMatrix = transpose(inverse(u_modelMatrix));
 
     vertexPos = (mv * vec4(mdl_vertexPos, 1.0)).xyz;
     vertexNormal = normalize((normalMatrix * vec4(mdl_vertexNormal, 1.0)).xyz);
