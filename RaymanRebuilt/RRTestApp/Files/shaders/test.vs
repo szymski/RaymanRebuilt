@@ -8,7 +8,10 @@ uniform mat4 u_modelMatrix;
 uniform mat4 u_viewMatrix;
 uniform mat4 u_projectionMatrix;
 
+uniform vec3 u_cameraPosition;
+
 out vec3 vertexPos;
+out vec3 worldVertexPos;
 out vec3 vertexNormal;
 out vec2 vertexTexCoord;
 
@@ -21,6 +24,7 @@ void main()
     normalMatrix = transpose(inverse(u_modelMatrix));
 
     vertexPos = (mv * vec4(mdl_vertexPos, 1.0)).xyz;
+    worldVertexPos = (u_modelMatrix * vec4(mdl_vertexPos, 1.0)).xyz;
     vertexNormal = normalize((normalMatrix * vec4(mdl_vertexNormal, 1.0)).xyz);
     vertexTexCoord = mdl_vertexTexCoord;
 

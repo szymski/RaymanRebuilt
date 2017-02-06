@@ -40,6 +40,7 @@ namespace RREngine.Engine.Hierarchy.Components
             GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
             Owner.SceneRenderer.StandardShader.ProjectionMatrix = ProjectionMatrix;
             Owner.SceneRenderer.StandardShader.ViewMatrix = ViewMatrix;
+            Owner.SceneRenderer.StandardShader.CameraPosition = _transform.Position;
         }
     }
 }

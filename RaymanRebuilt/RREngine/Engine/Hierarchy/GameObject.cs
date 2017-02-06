@@ -14,7 +14,22 @@ namespace RREngine.Engine.Hierarchy
         public SceneRenderer SceneRenderer { get; set; }
         public uint Id { get; }
         public string Name { get; set; }
-        public bool Enabled { get; set; } = true;
+
+        private bool _enabled = true;
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (value != _enabled)
+                    if (value)
+                        OnEnable();
+                    else
+                        OnDisable();
+
+                _enabled = value;
+            }
+        }
 
         private List<Component> _components = new List<Component>();
         public IEnumerable<Component> Components => _components.AsEnumerable();
@@ -30,7 +45,7 @@ namespace RREngine.Engine.Hierarchy
         public void Update()
         {
             foreach (var component in _components)
-                if(component.Enabled)
+                if (component.Enabled)
                     component.OnUpdate();
         }
 
@@ -46,22 +61,33 @@ namespace RREngine.Engine.Hierarchy
         /// <summary>
         /// Creates a component of specific type and adds it to the object.
         /// </summary>
-        public T AddComponent<T>() where T : Component
+        public T AddComponent<T>(bool enabled = true) where T : Component
         {
             T instance = (T)Activator.CreateInstance(typeof(T), this);
             _components.Add(instance);
 
-            if(Scene.Initialized)
+            instance.Enabled = enabled;
+
+            if (Scene.Initialized)
+            {
                 instance.OnInit();
+
+                if (enabled)
+                    instance.OnEnable();
+            }
 
             return instance;
         }
 
+        /// <summary>
+        /// Removes specified component from from the object.
+        /// Throws an exception, if no such component was attached.
+        /// </summary>
         public void RemoveComponent(Component component)
         {
-            component.OnRemove();
+            component.OnRemove(false);
 
-            if(!_components.Remove(component))
+            if (!_components.Remove(component))
                 throw new Exception("No such component attached to this object.");
         }
 
@@ -88,13 +114,33 @@ namespace RREngine.Engine.Hierarchy
         public void OnInit()
         {
             foreach (Component component in _components)
+            {
                 component.OnInit();
+
+                if (component.Enabled)
+                    component.OnEnable();
+            }
         }
 
         public void OnDestroy()
         {
             foreach (Component component in _components)
-                component.OnRemove();
+            {
+                component.OnRemove(true);
+                component.OnDestroy();
+            }
+        }
+
+        public void OnEnable()
+        {
+            foreach (Component component in _components)
+                component.OnEnable();
+        }
+
+        public void OnDisable()
+        {
+            foreach (Component component in _components)
+                component.OnDisable();
         }
 
         #endregion

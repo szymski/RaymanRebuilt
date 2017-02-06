@@ -4,6 +4,8 @@ uniform mat4 u_modelMatrix;
 uniform mat4 u_viewMatrix;
 uniform mat4 u_projectionMatrix;
 
+uniform vec3 u_cameraPosition;
+
 uniform vec3 u_ambientLight;
 
 struct Material {
@@ -30,7 +32,24 @@ struct DirectionalLight {
 
 uniform DirectionalLight u_directionalLight;
 
+struct Attenuation {
+    float constant;
+    float linear;
+    float exponential;
+};
+
+struct PointLight {
+    BaseLight base;
+    Attenuation attenuation;
+    vec3 position;
+};
+
+#define MAX_POINT_LIGHTS 8
+
+uniform PointLight u_pointLights[MAX_POINT_LIGHTS];
+
 in vec3 vertexPos;
+in vec3 worldVertexPos;
 in vec3 vertexNormal;
 in vec2 vertexTexCoord;
 
@@ -38,23 +57,47 @@ out vec4 gl_FragColor;
 
 vec3 lightPos = vec3(0, 10, 0);
 
-vec4 calculateDirectionalLight() {
-    float angleCos = dot(-u_directionalLight.direction, vertexNormal);
+// vec4 calculateSpecular(BaseLight baseLight, vec3 direction) {
+//     vec3 directionToEye = normalize(u_cameraPosition - worldVertexPos);
+//     vec3 directionReflect = normalize(reflect(direction, vertexNormal));
+//     float angleCos = dot(directionToEye, directionReflect);
 
-    if(angleCos < 0)
-        return vec4(0, 0, 0, 1);
+//     if(angleCos < 0)
+//         return vec4(0, 0, 0, 1);
 
-    return vec4(u_directionalLight.base.color * u_directionalLight.base.intensity * angleCos, 1);
+//     return vec4(baseLight.color * baseLight.intensity * pow(angleCos, u_material.specularPower) * u_material.specularIntensity, 1);
+// }
+
+vec3 calculateLight(BaseLight base, vec3 direction) {
+    if(base.intensity == 0)
+        return vec3(0, 0, 0);
+
+    float diffuseFactor = dot(vertexNormal, -direction);
+
+    vec3 diffuseColor = vec3(0, 0, 0);
+    vec3 specularColor = vec3(0, 0, 0);
+
+    if(diffuseFactor > 0) {
+        // Diffuse
+
+        diffuseColor = base.color * base.intensity * diffuseFactor;
+
+        // Specular
+
+        vec3 directionToEye = normalize(u_cameraPosition - worldVertexPos);
+        vec3 directionReflect = normalize(reflect(direction, vertexNormal));
+
+        float specularFactor = dot(directionToEye, directionReflect);
+
+        if(specularFactor > 0)
+            specularColor = base.color * base.intensity * pow(specularFactor, u_material.specularPower) * u_material.specularIntensity;
+    }
+
+    return diffuseColor + specularColor;
 }
 
-vec4 calculateSpecular(BaseLight baseLight, vec3 direction) {
-    //vec3 directionToEye = normalize(-vertexPos);
-    float angleCos = dot(-direction, vertexNormal);
-
-    if(angleCos < 0)
-        return vec4(0, 0, 0, 1);
-
-    return vec4(baseLight.color * pow(angleCos, u_material.specularPower) * u_material.specularIntensity, 1);
+vec3 calculateDirectionalLight() {
+    return calculateLight(u_directionalLight.base, u_directionalLight.direction);
 }
 
 void main()
@@ -64,10 +107,22 @@ void main()
     if(u_material.hasTexture)
         materialColor *= texture2D(u_material.texture, vertexTexCoord);
 
-    vec4 dirLightColor = calculateDirectionalLight();
-    vec4 specularColor = calculateSpecular(u_directionalLight.base, u_directionalLight.direction);
+    vec4 dirLightColor = vec4(calculateDirectionalLight(), 1);
 
-    vec4 totalColor = materialColor * (dirLightColor + vec4(u_ambientLight, 1)) + specularColor;
+    vec3 pointLightsColor = vec3(0, 0, 0);
+    for(int i = 0; i < MAX_POINT_LIGHTS; i++) {
+        PointLight light = u_pointLights[i];
+
+        if(light.base.intensity == 0)
+            continue;
+
+        float dist = length(light.position - worldVertexPos);
+        float attenuation = 1.0 / (1 + light.attenuation.constant + light.attenuation.linear * dist + light.attenuation.exponential * dist * dist);
+        
+        pointLightsColor += calculateLight(light.base, normalize(worldVertexPos - light.position)) * attenuation;
+    }
+
+    vec4 totalColor = materialColor * (dirLightColor + vec4(u_ambientLight, 1) + vec4(pointLightsColor, 1));
     totalColor.w = u_material.baseColor.w * materialColor.w;
 
     gl_FragColor = totalColor;

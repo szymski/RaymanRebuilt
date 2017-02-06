@@ -74,19 +74,19 @@ namespace RREngine.Engine
 
         public void OnUpdateFrame()
         {
-            try
-            {
+            //try
+            //{
                 SetAsCurrent();
 
                 PreUpdate?.Invoke(this, EventArgs.Empty);
 
                 UpdateFrame?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception e)
-            {
-                Logger.LogException(e);
-                throw;
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.LogException(e);
+            //    throw;
+            //}
 
             Time.RealDeltaTime = ((float)_stopwatch.Elapsed.TotalSeconds - Time.Elapsed);
             Time.DeltaTime = Time.RealDeltaTime * Time.TimeScale;

@@ -30,6 +30,8 @@ namespace RREngine.Engine.Hierarchy.Components
             _pitch -= Viewport.Current.Mouse.DeltaPosition.Y * Viewport.Current.Time.DeltaTime * 2f;
             _yaw -= Viewport.Current.Mouse.DeltaPosition.X * Viewport.Current.Time.DeltaTime * 2f;
 
+            _pitch = Mathf.Clamp(_pitch, -Mathf.PI / 2f, Mathf.PI / 2f);
+
             _transform.Rotation = Quaternion.FromEulerAngles(0, _yaw, 0);
             _transform.Rotation *= Quaternion.FromEulerAngles(0, 0, _pitch); // TODO: Pitch is swapped with roll, what am I doing wrong?
 

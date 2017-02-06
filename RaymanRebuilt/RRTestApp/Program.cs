@@ -25,6 +25,39 @@ namespace RRTestApp
 {
     class Program
     {
+        class RandomLight : Component
+        {
+            private Transform _transform;
+            private PointLightComponent _pointLight;
+
+            private Vector3 _startPosition;
+            private float _distance = 5f;
+            private float _timeFactor = Rng.Instance.GetFloat(0.5f, 1.5f);
+
+            public RandomLight(GameObject owner) : base(owner)
+            {
+            }
+
+            public override void OnInit()
+            {
+                _transform = Owner.GetComponent<Transform>();
+                _pointLight = Owner.GetComponent<PointLightComponent>();
+
+                _startPosition = _transform.Position;
+            }
+
+            public override void OnUpdate()
+            {
+                var elapsed = Viewport.Current.Time.Elapsed * _timeFactor;
+
+                _transform.Position = _startPosition +
+                                      Vector3Directions.Right * Mathf.Sin(elapsed) * _distance +
+                                      Vector3Directions.Forward * Mathf.Cos(elapsed) * _distance;
+
+                _pointLight.Color = new Vector3(0.5f + Mathf.Sin(elapsed) * 0.5f, 0.5f + Mathf.Sin(elapsed * 0.33f) * 0.5f, 0.5f + Mathf.Sin(elapsed * 0.77f) * 0.5f);
+            }
+        }
+
         static void Main(string[] args)
         {
             Window window = new Window(1280, 720);
@@ -70,12 +103,12 @@ namespace RRTestApp
                     Material mat = new Material()
                     {
                         BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                       // Texture = texture,
-                    }; 
+                        // Texture = texture,
+                    };
 
                     dragon = scene.CreateGameObject();
                     var transform = dragon.AddComponent<Transform>();
-                    transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Right * 10f * i;
+                    transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Left * 4f * i;
                     //transform.Scale *= 0.3f;
                     var renderer = dragon.AddComponent<MeshRenderer>();
                     renderer.Mesh = dragonMesh;
@@ -87,6 +120,7 @@ namespace RRTestApp
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
                     Texture = texture,
+                    SpecularIntensity = 1f,
                 };
 
                 teapot = scene.CreateGameObject();
@@ -96,8 +130,22 @@ namespace RRTestApp
                 renderer2.Mesh = teapotMesh;
                 renderer2.Material = mat2;
 
-                scene.Init();
+                var light = scene.CreateGameObject();
+                light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
+                var pointLightComponent = light.AddComponent<PointLightComponent>();
+                pointLightComponent.Intensity = 50f;
+                light.AddComponent<RandomLight>();
+
+                var light2 = scene.CreateGameObject();
+                light2.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
+                var pointLightComponent2 = light2.AddComponent<PointLightComponent>();
+                pointLightComponent2.Intensity = 50f;
+                light2.AddComponent<RandomLight>();
+
                 sceneRenderer.Init();
+                scene.Init();
+
+                sceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
             };
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
@@ -121,7 +169,7 @@ namespace RRTestApp
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
-                GL.ClearColor(0.05f, 0.05f, 0.2f, 1f);
+                GL.ClearColor(0.05f, 0.05f, 0.1f, 1f);
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 sceneRenderer.Render();

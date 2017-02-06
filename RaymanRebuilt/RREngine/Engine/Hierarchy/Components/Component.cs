@@ -5,7 +5,22 @@ namespace RREngine.Engine.Hierarchy.Components
     public abstract class Component
     {
         public GameObject Owner { get; private set; }
-        public bool Enabled { get; set; } = true;
+
+        private bool _enabled = true;
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                if (value != _enabled)
+                    if (value)
+                        OnEnable();
+                    else
+                        OnDisable();
+
+                _enabled = value;
+            }
+        }
 
         public Component(GameObject owner)
         {
@@ -15,14 +30,14 @@ namespace RREngine.Engine.Hierarchy.Components
         #region Events
 
         /// <summary>
-        /// Called when the scene is Scene.Initialize() is called. TODO call on GameObject.AddComponent
+        /// Called when the scene is Scene.Initialize() is called.
         /// </summary>
         public virtual void OnInit() { }
-        
+
         /// <summary>
-        /// Called just before the component is removed from the GameObject. TODO: Should this be called along with OnDestroy()?
+        /// Called just before the component is removed from the GameObject. Called along with OnDestroy.
         /// </summary>
-        public virtual void OnRemove() { }
+        public virtual void OnRemove(bool destroyingGameObject) { }
 
         /// <summary>
         /// Called just before the GameObject is removed from Scene.
@@ -30,12 +45,28 @@ namespace RREngine.Engine.Hierarchy.Components
         public virtual void OnDestroy() { }
 
         /// <summary>
+        /// Called when the component or GameObject is disabled.
+        /// </summary>
+        public virtual void OnDisable()
+        {
+
+        }
+
+        /// <summary>
+        /// Called when the component or GameObject is enabled, along with OnInit.
+        /// </summary>
+        public virtual void OnEnable()
+        {
+
+        }
+
+        /// <summary>
         /// Called every frame.
         /// </summary>
         public virtual void OnUpdate() { }
 
         /// <summary>
-        /// Called every frame.
+        /// Called every frame. All drawing operations should be done here.MO
         /// </summary>
         public virtual void OnRender() { }
 

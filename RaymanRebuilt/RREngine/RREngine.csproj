@@ -69,6 +69,7 @@
     <Compile Include="Engine\Hierarchy\Components\FlyingCamera.cs" />
     <Compile Include="Engine\Hierarchy\Components\MeshRenderer.cs" />
     <Compile Include="Engine\Hierarchy\Components\PerspectiveCamera.cs" />
+    <Compile Include="Engine\Hierarchy\Components\PointLightComponent.cs" />
     <Compile Include="Engine\Hierarchy\Components\RotatingComponent.cs" />
     <Compile Include="Engine\Hierarchy\Components\PlaneGenerator.cs" />
     <Compile Include="Engine\Hierarchy\Components\Transform.cs" />

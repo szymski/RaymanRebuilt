@@ -31,9 +31,7 @@ namespace RREngine.Engine.Hierarchy
 
 
             foreach (var gameObject in _gameObjects)
-                foreach (var component in gameObject.Components)
-                    if (component.Enabled)
-                        component.OnInit();
+                gameObject.OnInit();
 
             Initialized = true;
         }

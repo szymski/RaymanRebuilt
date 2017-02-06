@@ -18,7 +18,7 @@ namespace RREngine.Engine
     {
         public Viewport Viewport { get; private set; }
         public GameWindow GameWindow { get; private set; }
-
+         
         public Window(int width = 800, int height = 600)
         {
             SetAsCurrent();

@@ -25,7 +25,8 @@ namespace RREngine.Engine.Math
         public static float Log(float d) => (float)System.Math.Log(d);
         public static float Log(float a, float newBase) => (float)System.Math.Log(a, newBase);
         public static float Log10(float d) => (float)System.Math.Log10(d);
-        public static float Min(float val1, float val2) => (float)System.Math.Min(val1, val2);
+        public static float Min(float val1, float val2) => System.Math.Min(val1, val2);
+        public static float Max(float val1, float val2) => System.Math.Max(val1, val2);
         public static float Pow(float x, float y) => (float)System.Math.Pow(x, y);
         public static float Round(float a) => (float)System.Math.Round(a);
         public static float Round(float value, MidpointRounding mode) => (float)System.Math.Round(value, mode);
@@ -37,5 +38,8 @@ namespace RREngine.Engine.Math
         public static float Tan(float a) => (float)System.Math.Tan(a);
         public static float Tanh(float value) => (float)System.Math.Tanh(value);
         public static float Truncate(float d) => (float)System.Math.Truncate(d);
+
+        public static float Clamp(float value, float min, float max)
+            => value < min ? min : (value > max) ? max : value;
     }
 }
