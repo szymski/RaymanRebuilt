@@ -19,6 +19,8 @@ namespace RREngine.Engine.Assets
             _stream = stream;
         }
 
+        public Bitmap Bitmap => new Bitmap(new Bitmap(_stream));
+
         public Texture GenerateTexture()
         {
             var bitmap = new Bitmap(_stream);

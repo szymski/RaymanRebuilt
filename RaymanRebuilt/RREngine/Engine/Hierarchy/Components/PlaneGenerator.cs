@@ -58,7 +58,7 @@ namespace RREngine.Engine.Hierarchy.Components
                 }
             };
 
-            int[] faces = { 0, 1, 2, 0, 2, 3 };
+            int[] faces = { 2, 1, 0, 3, 2, 0 };
 
             var mesh = new Mesh(vertices, faces);
 

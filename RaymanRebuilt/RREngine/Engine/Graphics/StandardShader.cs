@@ -112,7 +112,7 @@ namespace RREngine.Engine.Graphics
             if (material.Texture != null)
             {
                 GL.Enable(EnableCap.Texture2D);
-                material.Texture.Bind();
+                material.Texture.Bind(0);
                 SetUniform("u_material.texture", 0);
             }
 

@@ -114,6 +114,17 @@ namespace RREngine.Engine.Graphics
             }
         }
 
+        /// <summary>
+        /// Note: Texture has to be binded.
+        /// </summary>
+        public TextureWrapMode WrapR
+        {
+            set
+            {
+                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)value);
+            }
+        }
+
         #endregion
 
         public void Bind()

@@ -78,6 +78,25 @@ namespace RRTestApp
                 var teapotMesh = AssetManager.Instance.LoadAsset<ModelAsset>("teapot.obj").GenerateMesh();
                 var texture = AssetManager.Instance.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
 
+                #region Skybox
+
+                TextureAsset[] skyboxTextures =
+                {
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/xpos.png"),
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/xneg.png"),
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/ypos.png"),
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/yneg.png"),
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/zpos.png"),
+                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/zneg.png"),
+                };
+
+                CubemapTexture cubemapTexture = new CubemapTexture();
+                cubemapTexture.LoadImages(skyboxTextures.Select(a => a.Bitmap).ToArray());
+
+                #endregion
+
+                #region Scene populating
+
                 camera = scene.CreateGameObject();
                 camera.AddComponent<Transform>().Position = Vector3Directions.Backward * 20f;
                 var camComponent = camera.AddComponent<PerspectiveCamera>();
@@ -142,10 +161,18 @@ namespace RRTestApp
                 pointLightComponent2.Intensity = 50f;
                 light2.AddComponent<RandomLight>();
 
+                var dirLight = scene.CreateGameObject();
+                dirLight.AddComponent<Transform>().Rotation = Quaternion.FromEulerAngles(0f, Mathf.PI / 2f, -Mathf.PI / 2f);
+                var dirLightComponent = dirLight.AddComponent<DirectionalLightComponent>();
+                dirLightComponent.Intensity = 1f;
+                dirLightComponent.Color = new Vector3(1f, 0.95f, 0.9f);
+
+                #endregion
+
                 sceneRenderer.Init();
                 scene.Init();
 
-                sceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
+                sceneRenderer.CubemapTexture = cubemapTexture;
             };
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);

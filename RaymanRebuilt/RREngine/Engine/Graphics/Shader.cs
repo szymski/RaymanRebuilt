@@ -227,9 +227,6 @@ namespace RREngine.Engine.Graphics
         public void SetUniform(string name, Matrix4 value)
             => GL.UniformMatrix4(_uniforms[name], false, ref value);
 
-        public void SetUniform(string name, Texture value)
-            => GL.Uniform1(_uniforms[name], value.Id);
-
         #endregion
     }
 
