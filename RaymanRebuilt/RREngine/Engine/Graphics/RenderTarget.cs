@@ -3,57 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
     public class RenderTarget
     {
-        public Texture Texture { get; private set; }
-        public int FboId { get; private set; }
-        public int RbId { get; private set; }
-
-        private int _previousFboId = 0;
-        private int _previousRbId = 0;
+        public Texture2D Texture { get; private set; }
+        public FrameBuffer FrameBuffer { get; private set; }
+        public RenderBuffer RenderBuffer { get; private set; }
 
         public RenderTarget(int width, int height)
         {
-            Texture = new Texture(width, height);
+            Texture = new Texture2D();
+            Texture.Resize(width, height);
             GenerateFrameBufferObject();
             GenerateRenderBuffer();
-            RestoreBindings();
+            ConnectTexture();
         }
 
-        void GenerateFrameBufferObject()
+        private void GenerateFrameBufferObject()
         {
-            _previousFboId = GL.GetInteger(GetPName.FramebufferBinding);
-
-            FboId = GL.GenFramebuffer();
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, FboId);
-            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, Texture.Id, 0);
+            FrameBuffer = new FrameBuffer();
         }
 
-        void GenerateRenderBuffer()
+        private void GenerateRenderBuffer()
         {
-            _previousRbId = GL.GetInteger(GetPName.RenderbufferBinding);
-
-            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, RbId);
-            GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth32fStencil8, Texture.Width, Texture.Height);
-            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, FboId);
-            GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, RbId);
+            RenderBuffer = new RenderBuffer(Texture.Width, Texture.Height);
+            FrameBuffer.ConnectRenderBuffer(RenderBuffer);
         }
 
-        void RestoreBindings()
+        private void ConnectTexture()
         {
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, _previousFboId);
-            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, _previousRbId);
+            FrameBuffer.ConnectTexture(Texture, FramebufferAttachment.ColorAttachment0);
         }
 
         public void Destroy()
         {
-            GL.DeleteRenderbuffer(RbId);
-            GL.DeleteFramebuffer(FboId);
+            RenderBuffer.Destroy();
+            FrameBuffer.Destroy();
             Texture.Destroy();
         }
 
@@ -63,14 +51,13 @@ namespace RREngine.Engine.Graphics
                 return;
 
             // TODO: Deleting is probably not needed.
-            GL.DeleteRenderbuffer(RbId);
-            GL.DeleteFramebuffer(FboId);
-           
+            RenderBuffer.Destroy();
+            FrameBuffer.Destroy();
+
             Texture.Resize(width, height);
 
             GenerateFrameBufferObject();
             GenerateRenderBuffer();
-            RestoreBindings();
         }
 
         /// <summary>
@@ -78,16 +65,15 @@ namespace RREngine.Engine.Graphics
         /// </summary>
         public void Bind()
         {
-            _previousFboId = GL.GetInteger(GetPName.FramebufferBinding);
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, FboId);
+            FrameBuffer.Bind();
         }
 
         /// <summary>
-        /// Binds previous framebuffer.
+        /// Binds default rendertarget.
         /// </summary>
         public void Unbind()
         {
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, _previousFboId);
+            FrameBuffer.Unbind();
         }
 
         /// <summary>

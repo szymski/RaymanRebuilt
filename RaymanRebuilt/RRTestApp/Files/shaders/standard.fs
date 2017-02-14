@@ -48,6 +48,8 @@ struct PointLight {
 
 uniform PointLight u_pointLights[MAX_POINT_LIGHTS];
 
+uniform samplerCube u_cubemapTexture;
+
 in vec3 vertexPos;
 in vec3 worldVertexPos;
 in vec3 vertexNormal;
@@ -122,7 +124,10 @@ void main()
         pointLightsColor += calculateLight(light.base, normalize(worldVertexPos - light.position)) * attenuation;
     }
 
-    vec4 totalColor = materialColor * (dirLightColor + vec4(u_ambientLight, 1) + vec4(pointLightsColor, 1));
+    vec3 directionToEye = -normalize(u_cameraPosition - worldVertexPos);
+    vec4 cubemapColor = texture(u_cubemapTexture, normalize(reflect(directionToEye, vertexNormal)));
+
+    vec4 totalColor = materialColor * (dirLightColor + vec4(u_ambientLight, 1) + vec4(pointLightsColor, 1)) + cubemapColor * 0.4f;
     totalColor.w = u_material.baseColor.w * materialColor.w;
 
     gl_FragColor = totalColor;

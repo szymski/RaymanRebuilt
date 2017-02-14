@@ -16,7 +16,7 @@ namespace RREngine.Engine.Hierarchy.Components
         public Vector2 MinBounds { get; set; } = new Vector2(0.5f, 0.5f);
         public Vector2 MaxBounds { get; set; } = new Vector2(0.5f, 0.5f);
 
-        public float TexCoordScaling { get; set; } = 1f;
+        public Vector2 TexCoordScaling { get; set; } = Vector2.One;
 
         public PlaneGenerator(GameObject owner) : base(owner)
         {
@@ -30,37 +30,9 @@ namespace RREngine.Engine.Hierarchy.Components
 
         void Generate()
         {
-            Vertex[] vertices = new []
-            {
-                new Vertex()
-                {
-                    Position = new Vector3(-MinBounds.X, 0, -MinBounds.Y),
-                    Normal = Vector3Directions.Up,
-                    TexCoord = new Vector2(0, TexCoordScaling),
-                },
-                new Vertex()
-                {
-                    Position = new Vector3(MaxBounds.X, 0, -MinBounds.Y),
-                    Normal = Vector3Directions.Up,
-                    TexCoord = new Vector2(TexCoordScaling, TexCoordScaling),
-                },
-                new Vertex()
-                {
-                    Position = new Vector3(MaxBounds.X, 0, MaxBounds.Y),
-                    Normal = Vector3Directions.Up,
-                    TexCoord = new Vector2(TexCoordScaling, 0),
-                },
-                new Vertex()
-                {
-                    Position = new Vector3(-MinBounds.X, 0, MaxBounds.Y),
-                    Normal = Vector3Directions.Up,
-                    TexCoord = new Vector2(0, 0),
-                }
-            };
+            var plane = Plane.GenerateXZ(MinBounds, MaxBounds, TexCoordScaling);
 
-            int[] faces = { 2, 1, 0, 3, 2, 0 };
-
-            var mesh = new Mesh(vertices, faces);
+            var mesh = new Mesh(plane.Item1, plane.Item2);
 
             _meshRenderer.Mesh = mesh;
         }

@@ -111,7 +111,7 @@ namespace RRTestApp
                     Texture = texture,
                 };
                 var planeGen = plane.AddComponent<PlaneGenerator>();
-                planeGen.TexCoordScaling = 10f;
+                planeGen.TexCoordScaling = Vector2.One * 10f;
                 planeGen.MinBounds = Vector2.One * 10;
                 planeGen.MaxBounds = Vector2.One * 10;
 
@@ -138,6 +138,7 @@ namespace RRTestApp
                 Material mat2 = new Material()
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                    //BaseColor = new Vector4(0f, 0f, 0f, 1f),
                     Texture = texture,
                     SpecularIntensity = 1f,
                 };
@@ -173,6 +174,7 @@ namespace RRTestApp
                 scene.Init();
 
                 sceneRenderer.CubemapTexture = cubemapTexture;
+                //sceneRenderer.StandardShader.AmbientLight = Vector3.One * 0.3f; 
             };
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);

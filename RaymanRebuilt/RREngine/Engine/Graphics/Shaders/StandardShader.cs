@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 
-namespace RREngine.Engine.Graphics
+namespace RREngine.Engine.Graphics.Shaders
 {
     public class BaseLight
     {
@@ -36,6 +32,7 @@ namespace RREngine.Engine.Graphics
     {
         public const int MAX_POINT_LIGHTS = 8;
 
+        public Vector3 AmbientLight { get; set; } = new Vector3(0.1f, 0.1f, 0.1f);
         public DirectionalLight DirectionalLight { get; } = new DirectionalLight();
         public List<PointLight> PointLights { get; } = new List<PointLight>();
 
@@ -56,6 +53,8 @@ namespace RREngine.Engine.Graphics
             AddUniform("u_material.baseColor");
             AddUniform("u_material.specularPower");
             AddUniform("u_material.specularIntensity");
+
+            AddUniform("u_cubemapTexture");
 
             AddUniform("u_directionalLight.base.color");
             AddUniform("u_directionalLight.base.intensity");
@@ -97,13 +96,19 @@ namespace RREngine.Engine.Graphics
             set { SetUniform("u_cameraPosition", value); }
         }
 
-        public Vector3 AmbientLight
+        public CubemapTexture CubemapTexture
         {
-            set { SetUniform("u_ambientLight", value); }
+            set
+            {
+                value.Bind(10);
+                SetUniform("u_cubemapTexture", 10);
+            }
         }
 
         public void UseMaterial(Material material)
         {
+            SetUniform("u_ambientLight", AmbientLight);
+
             SetUniform("u_directionalLight.base.color", DirectionalLight.Color);
             SetUniform("u_directionalLight.base.intensity", DirectionalLight.Intensity);
             SetUniform("u_directionalLight.direction", DirectionalLight.Direction);

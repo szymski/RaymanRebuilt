@@ -9,7 +9,7 @@ namespace RREngine.Engine.Graphics
 {
     public class Material
     {
-        public Texture Texture { get; set; }
+        public Texture2D Texture { get; set; }
         public Vector4 BaseColor { get; set; } = new Vector4(1f, 1f, 1f, 1f);
 
         public float SpecularPower { get; set; } = 15f;

@@ -25,7 +25,7 @@ namespace RREngine.Engine.Hierarchy.Components
 
         protected void LoadMatrix()
         {
-            Owner.SceneRenderer.StandardShader.ModelMatrix = _transform.ModelMatrix;
+            Owner.SceneRenderer.FirstPassShader.ModelMatrix = _transform.ModelMatrix;
         }
 
         public override void OnRender()
@@ -33,13 +33,16 @@ namespace RREngine.Engine.Hierarchy.Components
             if (Mesh != null)
             {
                 if(Material != null) 
-                    Owner.SceneRenderer.StandardShader.UseMaterial(Material);
+                    Owner.SceneRenderer.FirstPassShader.UseMaterial(Material);
 
                 LoadMatrix();
 
                 GL.Enable(EnableCap.DepthTest);
                 GL.DepthFunc(DepthFunction.Less);
+
                 Mesh.Draw();
+
+                GL.Disable(EnableCap.TextureCubeMap);
             }
         }
     }

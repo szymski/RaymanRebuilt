@@ -38,9 +38,9 @@ namespace RREngine.Engine.Hierarchy.Components
         public override void Use()
         {
             GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-            Owner.SceneRenderer.StandardShader.ProjectionMatrix = ProjectionMatrix;
-            Owner.SceneRenderer.StandardShader.ViewMatrix = ViewMatrix;
-            Owner.SceneRenderer.StandardShader.CameraPosition = _transform.Position;
+            Owner.SceneRenderer.FirstPassShader.ProjectionMatrix = ProjectionMatrix;
+            Owner.SceneRenderer.FirstPassShader.ViewMatrix = ViewMatrix;
+            //Owner.SceneRenderer.FirstPassShader.CameraPosition = _transform.Position;
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
+﻿using OpenTK;
 
-namespace RREngine.Engine.Graphics
+namespace RREngine.Engine.Graphics.Shaders
 {
     public class SkyboxShader : Shader
     {

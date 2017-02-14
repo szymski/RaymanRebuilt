@@ -1,62 +1,51 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenTK.Graphics.OpenGL4;
 
 namespace RREngine.Engine.Graphics
 {
-    public class Texture
+    public abstract class Texture
     {
-        public int Id { get; private set; }
-        public int Width { get; private set; } = 0;
-        public int Height { get; private set; } = 0;
+        public int Id { get; protected set; }
+        public int Width { get; protected set; } = 0;
+        public int Height { get; protected set; } = 0;
 
-        private int _previousTextureId = 0; // TODO: Is this necessary?
-
-        /// <summary>
-        /// Creates an uninitialized texture.
-        /// Use LoadImage or Resize to initialize.
-        /// </summary>
-        public Texture()
-        {
-            GenerateTexture();
-        }
+        public abstract TextureTarget Target { get; }
+        public PixelInternalFormat PixelInternalFormat { get; protected set; } = PixelInternalFormat.Rgba;
+        public PixelType PixelType { get; protected set; } = PixelType.UnsignedByte;
+        public PixelFormat PixelFormat { get; protected set; } = PixelFormat.Rgba;
 
         /// <summary>
-        /// Creates a new texture with specified size.
+        /// Generates OpenGL texture ands sets filter and wrap properties.
         /// </summary>
-        public Texture(int width, int height)
+        protected virtual void GenerateTexture()
         {
-            GenerateTexture();
-            Resize(width, height);
+            Id = GL.GenTexture();
+
+            GL.BindTexture(Target, Id);
+
+            SetupParameters();
         }
 
-        public void Destroy()
+        protected virtual void SetupParameters()
+        {
+            MinFilter = TextureMinFilter.Linear;
+            MagFilter = TextureMagFilter.Linear;
+
+            WrapS = TextureWrapMode.Repeat;
+            WrapT = TextureWrapMode.Repeat;
+            WrapR = TextureWrapMode.Repeat;
+        }
+
+        public virtual void Destroy()
         {
             GL.DeleteTexture(Id);
         }
 
-        private void GenerateTexture()
-        {
-            Id = GL.GenTexture();
-
-            GL.BindTexture(TextureTarget.Texture2D, Id);
-
-            MinFilter = TextureMinFilter.Linear;
-            MagFilter = TextureMagFilter.Linear;
-
-            WrapS = TextureWrapMode.Repeat; 
-            WrapT = TextureWrapMode.Repeat;
-        }
-
-        public void LoadImage(int width, int height, IntPtr data, PixelFormat format)
-        {
-            Width = width;
-            Height = height;
-
-            Bind();
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, format, PixelType.UnsignedByte, data);
-        }
-
-        public void Resize(int width, int height)
+        public virtual void Resize(int width, int height)
         {
             if (Width == width && Height == height)
                 return;
@@ -65,7 +54,7 @@ namespace RREngine.Engine.Graphics
             Height = height;
 
             Bind();
-            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (byte[])null);
+            GL.TexImage2D(Target, 0, PixelInternalFormat, width, height, 0, PixelFormat, PixelType, IntPtr.Zero);
         }
 
         #region Texture parameters
@@ -77,7 +66,7 @@ namespace RREngine.Engine.Graphics
         {
             set
             {
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)value);
+                GL.TexParameter(Target, TextureParameterName.TextureMinFilter, (int)value);
             }
         }
 
@@ -88,7 +77,7 @@ namespace RREngine.Engine.Graphics
         {
             set
             {
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)value);
+                GL.TexParameter(Target, TextureParameterName.TextureMagFilter, (int)value);
             }
         }
 
@@ -99,7 +88,7 @@ namespace RREngine.Engine.Graphics
         {
             set
             {
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)value);
+                GL.TexParameter(Target, TextureParameterName.TextureWrapS, (int)value);
             }
         }
 
@@ -110,7 +99,7 @@ namespace RREngine.Engine.Graphics
         {
             set
             {
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)value);
+                GL.TexParameter(Target, TextureParameterName.TextureWrapT, (int)value);
             }
         }
 
@@ -121,28 +110,30 @@ namespace RREngine.Engine.Graphics
         {
             set
             {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)value);
+                GL.TexParameter(Target, TextureParameterName.TextureWrapR, (int)value);
             }
         }
 
         #endregion
 
+        #region Binding
+
         public void Bind()
         {
-            _previousTextureId = GL.GetInteger(GetPName.Texture2D);
-            GL.BindTexture(TextureTarget.Texture2D, Id);
+            GL.BindTexture(Target, Id);
         }
 
         public void Bind(int unit)
         {
             GL.ActiveTexture(TextureUnit.Texture0 + unit);
-            _previousTextureId = GL.GetInteger(GetPName.Texture2D);
-            GL.BindTexture(TextureTarget.Texture2D, Id);
+            GL.BindTexture(Target, Id);
         }
 
         public void Unbind()
         {
-            GL.BindTexture(TextureTarget.Texture2D, _previousTextureId);
+            GL.BindTexture(Target, 0);
         }
+
+        #endregion
     }
 }

@@ -5,18 +5,14 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
-using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
+using OpenTK.Graphics.OpenGL4;
+using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 
 namespace RREngine.Engine.Graphics
 {
-    public class CubemapTexture
+    public class CubemapTexture : Texture
     {
-        public int Id { get; private set; }
-        public int Width { get; private set; } = 0;
-        public int Height { get; private set; } = 0;
-
-        private int _previousTextureId = 0; // TODO: Is this necessary?
+        public override TextureTarget Target => TextureTarget.TextureCubeMap;
 
         /// <summary>
         /// Creates an uninitialized texture.
@@ -27,34 +23,20 @@ namespace RREngine.Engine.Graphics
             GenerateTexture();
         }
 
-        /// <summary>
-        /// Creates a new texture with specified size.
-        /// </summary>
-        public CubemapTexture(int width, int height)
+        protected override void SetupParameters()
         {
-            GenerateTexture();
-            Resize(width, height);
+            MinFilter = TextureMinFilter.Linear;
+            MagFilter = TextureMagFilter.Linear;
+
+            WrapR = TextureWrapMode.MirroredRepeat;
+            WrapS = TextureWrapMode.MirroredRepeat;
+            WrapT = TextureWrapMode.MirroredRepeat;
         }
 
         public void Destroy()
         {
             GL.DeleteTexture(Id);
         }
-
-        private void GenerateTexture()
-        {
-            Id = GL.GenTexture();
-
-            GL.BindTexture(TextureTarget.TextureCubeMap, Id);
-
-            MinFilter = TextureMinFilter.Linear;
-            MagFilter = TextureMagFilter.Linear;
-
-            WrapS = TextureWrapMode.ClampToEdge;
-            WrapT = TextureWrapMode.ClampToEdge;
-            WrapR = TextureWrapMode.ClampToEdge;
-        }
-
 
         public void LoadImages(Bitmap[] bitmaps)
         {
@@ -99,95 +81,6 @@ namespace RREngine.Engine.Graphics
             for (int i = 0; i < 6; i++)
                 GL.TexImage2D(CUBEMAP_POSITION[i], 0, PixelInternalFormat.Rgba, width, height, 0, format,
                     PixelType.UnsignedByte, dataPtrs[i]);
-        }
-
-        public void Resize(int width, int height)
-        {
-            if (Width == width && Height == height)
-                return;
-
-            Width = width;
-            Height = height;
-
-            Bind();
-            GL.TexImage2D(TextureTarget.TextureCubeMap, 0, PixelInternalFormat.Rgba, width, height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, (byte[])null);
-        }
-
-        #region Texture parameters
-
-        /// <summary>
-        /// Note: Texture has to be binded.
-        /// </summary>
-        public TextureMinFilter MinFilter
-        {
-            set
-            {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMinFilter, (int)value);
-            }
-        }
-
-        /// <summary>
-        /// Note: Texture has to be binded.
-        /// </summary>
-        public TextureMagFilter MagFilter
-        {
-            set
-            {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureMagFilter, (int)value);
-            }
-        }
-
-        /// <summary>
-        /// Note: Texture has to be binded.
-        /// </summary>
-        public TextureWrapMode WrapS
-        {
-            set
-            {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapS, (int)value);
-            }
-        }
-
-        /// <summary>
-        /// Note: Texture has to be binded.
-        /// </summary>
-        public TextureWrapMode WrapT
-        {
-            set
-            {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, (int)value);
-            }
-        }
-
-        /// <summary>
-        /// Note: Texture has to be binded.
-        /// </summary>
-        public TextureWrapMode WrapR
-        {
-            set
-            {
-                GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapR, (int)value);
-            }
-        }
-
-        #endregion
-
-        public void Bind()
-        {
-            _previousTextureId = GL.GetInteger(GetPName.Texture2D);
-            GL.BindTexture(TextureTarget.TextureCubeMap, Id);
-        }
-
-        public void Bind(int unit)
-        {
-            GL.ActiveTexture(TextureUnit.Texture0 + unit);
-            _previousTextureId = GL.GetInteger(GetPName.TextureCubeMap);
-            GL.BindTexture(TextureTarget.TextureCubeMap, Id);
-        }
-
-        public void Unbind()
-        {
-            GL.BindTexture(TextureTarget.Texture2D, _previousTextureId);
         }
     }
 }

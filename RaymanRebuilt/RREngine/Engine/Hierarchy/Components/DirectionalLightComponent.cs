@@ -27,19 +27,19 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void OnDisable()
         {
-            Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
+            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
         }
 
         public override void OnRemove(bool destroyingGameObject)
         {
-            Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
+            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = 0f;
         }
 
         public override void OnUpdate()
         {
-            Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Direction = _transform.Rotation * Vector3Directions.Forward;
-            Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Color = Color;
-            Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = Intensity;
+            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Direction = _transform.Rotation * Vector3Directions.Forward;
+            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Color = Color;
+            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = Intensity;
         }
     }
 }
