@@ -24,23 +24,22 @@ in vec3 vs_normal;
 in vec2 vs_texCoord;
 
 layout(location = 0) out vec4 fs_diffuseColor;
-layout(location = 1) out vec3 fs_worldPos;
-layout(location = 2) out vec3 fs_normal;
-layout(location = 3) out vec3 fs_texCoord;
-layout(location = 4) out vec2 fs_specular;
+layout(location = 1) out vec4 fs_worldPos;
+layout(location = 2) out vec4 fs_normal;
+layout(location = 3) out vec4 fs_texCoord;
+layout(location = 4) out vec4 fs_specular;
 
 void main()
 {
     vec4 diffuseColor = u_material.baseColor;
 
-    fs_worldPos = vs_worldPos;
-
+    fs_worldPos = vec4(vs_worldPos, 1.0);
 
     if(u_material.hasTexture)
         diffuseColor *= texture2D(u_material.texture, vs_texCoord);
 
     fs_diffuseColor = diffuseColor;
-    fs_normal = vs_normal;
-    fs_texCoord = vec3(vs_texCoord, 0);
-    fs_specular = vec2(u_material.specularPower, u_material.specularIntensity);
+    fs_normal = vec4(vs_normal, 1.0);
+    fs_texCoord = vec4(vs_texCoord, 0, 1.0);
+    fs_specular = vec4(u_material.specularPower, u_material.specularIntensity, 0.0, 1.0);
 }

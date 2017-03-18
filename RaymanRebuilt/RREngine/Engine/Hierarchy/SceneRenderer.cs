@@ -38,8 +38,11 @@ namespace RREngine.Engine.Hierarchy
         public GBuffer GBuffer { get; private set; }
         private Mesh _unitMesh;
 
-        public Vector3 AmbientLightColor { get; set; } = new Vector3(1f, 0.2f, 0.2f);
+        public Vector3 AmbientLightColor { get; set; } = new Vector3(0.2f, 0.2f, 0.2f);
         public AmbientLightShader AmbientLightShader { get; private set; }
+
+        public DirectionalLight DirectionalLight { get; } = new DirectionalLight();
+        public DirectionalLightShader DirectionalLightShader { get; private set; }
 
         public RenderTarget LightRenderTarget;
 
@@ -66,6 +69,9 @@ namespace RREngine.Engine.Hierarchy
 
             AmbientLightShader = new AmbientLightShader(File.ReadAllText("shaders/deferred/ambient.vs"), File.ReadAllText("shaders/deferred/ambient.fs"));
             Viewport.Current.ShaderManager.AddShader(AmbientLightShader);
+
+            DirectionalLightShader = new DirectionalLightShader(File.ReadAllText("shaders/deferred/directionallight.vs"), File.ReadAllText("shaders/deferred/directionallight.fs"));
+            Viewport.Current.ShaderManager.AddShader(DirectionalLightShader);
 
             LightRenderTarget = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
             AfterLightingScene = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
@@ -105,9 +111,9 @@ namespace RREngine.Engine.Hierarchy
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             //GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
+            //GL.CullFace(CullFaceMode.Back);
 
-            RenderScene();
+            RenderSceneObjects();
 
             GBuffer.Unbind();
 
@@ -122,7 +128,7 @@ namespace RREngine.Engine.Hierarchy
 
             RenderSkybox();
 
-            GL.DepthFunc(DepthFunction.Always);
+            GL.DepthFunc(DepthFunction.Lequal);
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.OneMinusSrcAlpha);
 
@@ -133,17 +139,18 @@ namespace RREngine.Engine.Hierarchy
             OrthoShader.ViewMatrix = Matrix4.Identity;
             OrthoShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
 
+           // GBuffer.TextureNormal.Bind(0); // TODO: Normals and positions don't respect zbuffer
             AfterLightingScene.Texture.Bind(0);
             OrthoShader.Texture = 0;
             _unitMesh.Draw();
         }
 
-        private void RenderScene()
+        private void RenderSceneObjects()
         {
             Viewport.Current.ShaderManager.BindShader(FirstPassShader);
 
             GL.Enable(EnableCap.DepthTest);
-            GL.DepthFunc(DepthFunction.Lequal);
+            GL.DepthFunc(DepthFunction.Less);
 
             PrepareCamera();
 
@@ -183,28 +190,9 @@ namespace RREngine.Engine.Hierarchy
 
         private void RenderLighting()
         {
-            // Ambient lighting
-
-            LightRenderTarget.Bind();
-
-            Viewport.Current.ShaderManager.BindShader(AmbientLightShader);
-
-            GL.ClearColor(0f, 0f, 0f, 1f);
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            AmbientLightShader.ProjectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width,
-                Viewport.Current.Screen.Height, -10f, 10f);
-            AmbientLightShader.ViewMatrix = Matrix4.Identity;
-            AmbientLightShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
-
-            AmbientLightShader.GBuffer = GBuffer;
-            AmbientLightShader.Color = AmbientLightColor;
-            _unitMesh.Draw();
-
-            LightRenderTarget.Unbind();
-
             // Rendering scene after lighting
 
+            Viewport.Current.ShaderManager.BindShader(OrthoShader);
             AfterLightingScene.Bind();
 
             GL.ClearColor(0f, 0f, 0f, 0f);
@@ -216,14 +204,49 @@ namespace RREngine.Engine.Hierarchy
             GL.Enable(EnableCap.Blend);
 
             GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
-            LightRenderTarget.Texture.Bind(0);
-            _unitMesh.Draw();
+            RenderAmbientLight();
+            RenderDirectionalLight();
+
+            Viewport.Current.ShaderManager.BindShader(OrthoShader);
 
             GL.Disable(EnableCap.Blend);
 
             AfterLightingScene.Unbind();
 
             Viewport.Current.ShaderManager.UnbindShader();
+        }
+
+        private void RenderAmbientLight()
+        {
+            Viewport.Current.ShaderManager.BindShader(AmbientLightShader);
+
+            AmbientLightShader.ProjectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width,
+                Viewport.Current.Screen.Height, -10f, 10f);
+            AmbientLightShader.ViewMatrix = Matrix4.Identity;
+            AmbientLightShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
+
+            AmbientLightShader.GBuffer = GBuffer;
+            AmbientLightShader.Color = AmbientLightColor;
+
+            _unitMesh.Draw();
+        }
+
+        private void RenderDirectionalLight()
+        {
+            Viewport.Current.ShaderManager.BindShader(DirectionalLightShader);
+
+            DirectionalLightShader.ProjectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width,
+                Viewport.Current.Screen.Height, -10f, 10f);
+            DirectionalLightShader.ViewMatrix = Matrix4.Identity;
+            DirectionalLightShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
+
+            DirectionalLightShader.GBuffer = GBuffer;
+            DirectionalLightShader.Color = DirectionalLight.Color;
+            DirectionalLightShader.Intensity = DirectionalLight.Intensity;
+            DirectionalLightShader.Direction = DirectionalLight.Direction;
+            DirectionalLightShader.CameraPosition = CurrentCamera.Position;
+
+            _unitMesh.Draw();
         }
     }
 }

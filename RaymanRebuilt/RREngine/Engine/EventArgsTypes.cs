@@ -28,6 +28,8 @@ namespace RREngine.Engine
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public int DeltaX { get; set; }
+        public int DeltaY { get; set; }
     }
 
     public class MouseWheelEventArgs : EventArgs

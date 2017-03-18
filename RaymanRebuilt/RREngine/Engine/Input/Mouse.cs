@@ -74,8 +74,7 @@ namespace RREngine.Engine.Input
                     _buttons[i] = InputState.Released;
             }
 
-            _deltaPosition.X = 0;
-            _deltaPosition.Y = 0;
+            _deltaPosition *= 0f;
         }
 
         #endregion
@@ -113,8 +112,8 @@ namespace RREngine.Engine.Input
 
         public void OnMove(MouseMoveEventArgs args)
         {
-            _deltaPosition.X = args.X - _position.X;
-            _deltaPosition.Y = args.Y - _position.Y;
+            _deltaPosition.X += args.DeltaX;
+            _deltaPosition.Y += args.DeltaY;
 
             _position.X = args.X;
             _position.Y = args.Y;

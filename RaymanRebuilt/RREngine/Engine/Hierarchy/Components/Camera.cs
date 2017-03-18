@@ -22,5 +22,7 @@ namespace RREngine.Engine.Hierarchy.Components
         public abstract Matrix4 ViewMatrix { get; }
 
         public abstract void Use();
+
+        public abstract Vector3 Position { get; }
     }
 }

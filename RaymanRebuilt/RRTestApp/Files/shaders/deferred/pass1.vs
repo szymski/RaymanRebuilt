@@ -20,7 +20,7 @@ out mat4 vs_normalMatrix;
 void main()
 {
     mat4 mv = u_viewMatrix * u_modelMatrix;
-    mat4 mvp = u_projectionMatrix *mv;
+    mat4 mvp = u_projectionMatrix * mv;
     vs_normalMatrix = transpose(inverse(u_modelMatrix));
 
     vs_vertexPos = (mv * vec4(mesh_vertexPos, 1.0)).xyz;

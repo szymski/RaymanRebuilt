@@ -42,5 +42,7 @@ namespace RREngine.Engine.Hierarchy.Components
             Owner.SceneRenderer.FirstPassShader.ViewMatrix = ViewMatrix;
             //Owner.SceneRenderer.FirstPassShader.CameraPosition = _transform.Position;
         }
+
+        public override Vector3 Position => _transform.Position;
     }
 }

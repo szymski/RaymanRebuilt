@@ -37,9 +37,9 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void OnUpdate()
         {
-            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Direction = _transform.Rotation * Vector3Directions.Forward;
-            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Color = Color;
-            //Owner.Scene.SceneRenderer.StandardShader.DirectionalLight.Intensity = Intensity;
+            Owner.Scene.SceneRenderer.DirectionalLight.Direction = _transform.Rotation * Vector3Directions.Forward;
+            Owner.Scene.SceneRenderer.DirectionalLight.Color = Color;
+            Owner.Scene.SceneRenderer.DirectionalLight.Intensity = Intensity;
         }
     }
 }

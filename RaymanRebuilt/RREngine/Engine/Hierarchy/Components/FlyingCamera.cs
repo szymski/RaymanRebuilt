@@ -27,8 +27,8 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void OnUpdate()
         {
-            _pitch -= Viewport.Current.Mouse.DeltaPosition.Y * Viewport.Current.Time.DeltaTime * 2f;
-            _yaw -= Viewport.Current.Mouse.DeltaPosition.X * Viewport.Current.Time.DeltaTime * 2f;
+            _pitch -= Viewport.Current.Mouse.DeltaPosition.Y * Viewport.Current.Time.DeltaTime * 0.4f;
+            _yaw -= Viewport.Current.Mouse.DeltaPosition.X * Viewport.Current.Time.DeltaTime * 0.4f;
 
             _pitch = Mathf.Clamp(_pitch, -Mathf.PI / 2f, Mathf.PI / 2f);
 

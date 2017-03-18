@@ -183,6 +183,8 @@ namespace RREngine.Engine
             {
                 X = e.X,
                 Y = e.Y,
+                DeltaX = e.XDelta,
+                DeltaY = e.YDelta,
             });
 
             if (_mouseCursorLocked)
