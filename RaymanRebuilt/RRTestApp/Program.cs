@@ -60,7 +60,10 @@ namespace RRTestApp
 
         static void Main(string[] args)
         {
+            Engine.Initialize();
+
             Window window = new Window(1280, 720);
+            window.GameWindow.Title = "RaymanRebuilt WIP";
 
             var viewport = window.Viewport;
 
@@ -126,6 +129,7 @@ namespace RRTestApp
                     {
                         BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
                         // Texture = texture,
+                        SpecularPower = 10f,
                     };
 
                     dragon = scene.CreateGameObject();
@@ -203,18 +207,32 @@ namespace RRTestApp
 
             viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
 
+            Vector2 resolutionBeforeChange = Vector2.Zero;
+
             viewport.UpdateFrame += (sender, eventArgs) =>
             {
                 if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
                     window.GameWindow.Close();
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
+                {
+                    if (!Viewport.Current.Screen.IsFullscreen)
+                    {
+                        resolutionBeforeChange = new Vector2(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+
+                        var device = DisplayDevice.GetDisplay(DisplayIndex.Default);
+                        Viewport.Current.Screen.SetResolution(device.Width, device.Height);
+                    }
+                    else
+                        Viewport.Current.Screen.SetResolution((int)resolutionBeforeChange.X, (int)resolutionBeforeChange.Y);
+
                     Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
+                }
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.L))
                 {
                     Viewport.Current.Mouse.Locked = !Viewport.Current.Mouse.Locked;
-                    Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
+                    //Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
                 }
 
                 scene.Update();

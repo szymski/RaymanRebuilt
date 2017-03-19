@@ -48,7 +48,7 @@ namespace RREngine.Engine.Hierarchy
         public PointLightShader PointLightShader { get; private set; }
         public List<PointLight> PointLights { get; } = new List<PointLight>();
 
-        public RenderTarget LightRenderTarget;
+        public CubemapReflectionShader CubemapReflectionShader { get; private set; }
 
         public RenderTarget AfterLightingScene;
 
@@ -80,7 +80,9 @@ namespace RREngine.Engine.Hierarchy
             PointLightShader = new PointLightShader(File.ReadAllText("shaders/deferred/pointlight.vs"), File.ReadAllText("shaders/deferred/pointlight.fs"));
             Viewport.Current.ShaderManager.AddShader(PointLightShader);
 
-            LightRenderTarget = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+            CubemapReflectionShader = new CubemapReflectionShader(File.ReadAllText("shaders/deferred/cubemapreflection.vs"), File.ReadAllText("shaders/deferred/cubemapreflection.fs"));
+            Viewport.Current.ShaderManager.AddShader(CubemapReflectionShader);
+
             AfterLightingScene = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
 
             Initialized = true;
@@ -89,6 +91,12 @@ namespace RREngine.Engine.Hierarchy
             GenerateUnitMesh();
 
             GBuffer = new GBuffer(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+
+            Viewport.Current.Screen.WindowModeChanged += (sender, args) =>
+            {
+                GBuffer.Resize(args.Width, args.Height);
+                AfterLightingScene.Resize(args.Width, args.Height);
+            };
         }
 
         private void GenerateSkyboxMesh()
@@ -212,6 +220,7 @@ namespace RREngine.Engine.Hierarchy
             RenderAmbientLight();
             RenderDirectionalLight();
             RenderPointLights();
+            RenderCubemapReflections();
 
             Viewport.Current.ShaderManager.BindShader(OrthoShader);
 
@@ -276,6 +285,23 @@ namespace RREngine.Engine.Hierarchy
 
                 _unitMesh.Draw();
             }
+        }
+
+        private void RenderCubemapReflections()
+        {
+            Viewport.Current.ShaderManager.BindShader(CubemapReflectionShader);
+
+            CubemapReflectionShader.GBuffer = GBuffer;
+            CubemapReflectionShader.CameraPosition = CurrentCamera.Position;
+
+            CubemapReflectionShader.ProjectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width,
+                Viewport.Current.Screen.Height, -10f, 10f);
+            CubemapReflectionShader.ViewMatrix = Matrix4.Identity;
+            CubemapReflectionShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
+
+            CubemapReflectionShader.Texture = CubemapTexture;
+
+            _unitMesh.Draw();
         }
     }
 }

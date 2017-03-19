@@ -58,6 +58,7 @@ namespace RREngine.Engine.Graphics
 
             GenerateFrameBufferObject();
             GenerateRenderBuffer();
+            ConnectTexture();
         }
 
         /// <summary>

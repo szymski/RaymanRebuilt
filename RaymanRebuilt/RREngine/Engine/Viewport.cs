@@ -28,20 +28,18 @@ namespace RREngine.Engine
         private Stopwatch _stopwatch = new Stopwatch();
         private Stopwatch _fpsStopwatch = new Stopwatch();
 
-        public MultiLogger Logger { get; } // TODO: Should each viewport have its own logger?
         public Time Time { get; }
         public Screen Screen { get; }
         public Input.Keyboard Keyboard { get; }
         public Input.Mouse Mouse { get; }
         public ShaderManager ShaderManager { get; set; }
+        public ILogger Logger { get; set; }
 
         public Viewport()
         {
             SetAsCurrent();
 
-            Logger = new MultiLogger();
-            Logger.Loggers.Add(new ConsoleLogger());
-            Logger.Loggers.Add(new FileLogger("log.txt"));
+            Logger = Engine.Instance.Logger;
 
             Logger.Log(new[] { "init" }, "Initializing the viewport");
 

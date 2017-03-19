@@ -21,6 +21,9 @@ namespace RREngine.Engine
          
         public Window(int width = 800, int height = 600)
         {
+            if (Engine.Instance == null)
+                throw new Exception("Engine isn't initialized.");
+
             SetAsCurrent();
 
             GameWindow = new GameWindow(width, height);
