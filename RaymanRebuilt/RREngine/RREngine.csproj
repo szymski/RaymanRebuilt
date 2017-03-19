@@ -60,6 +60,10 @@
     <Compile Include="Engine\Graphics\CubemapTexture.cs" />
     <Compile Include="Engine\Graphics\FrameBuffer.cs" />
     <Compile Include="Engine\Graphics\GBuffer.cs" />
+    <Compile Include="Engine\Graphics\Lights\Attenuation.cs" />
+    <Compile Include="Engine\Graphics\Lights\BaseLight.cs" />
+    <Compile Include="Engine\Graphics\Lights\DirectionalLight.cs" />
+    <Compile Include="Engine\Graphics\Lights\PointLight.cs" />
     <Compile Include="Engine\Graphics\Material.cs" />
     <Compile Include="Engine\Graphics\Mesh.cs" />
     <Compile Include="Engine\Graphics\RenderBuffer.cs" />
@@ -67,11 +71,11 @@
     <Compile Include="Engine\Graphics\Shader.cs" />
     <Compile Include="Engine\Graphics\ShaderManager.cs" />
     <Compile Include="Engine\Graphics\Shaders\Deferred\AmbientLightShader.cs" />
+    <Compile Include="Engine\Graphics\Shaders\Deferred\PointLightShader.cs" />
     <Compile Include="Engine\Graphics\Shaders\Deferred\FirstPassShader.cs" />
     <Compile Include="Engine\Graphics\Shaders\Deferred\DirectionalLightShader.cs" />
     <Compile Include="Engine\Graphics\Shaders\OrthoShader.cs" />
     <Compile Include="Engine\Graphics\Shaders\SkyboxShader.cs" />
-    <Compile Include="Engine\Graphics\Shaders\StandardShader.cs" />
     <Compile Include="Engine\Graphics\Texture.cs" />
     <Compile Include="Engine\Graphics\Vertex.cs" />
     <Compile Include="Engine\Hierarchy\Components\Camera.cs" />

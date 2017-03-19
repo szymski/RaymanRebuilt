@@ -21,8 +21,10 @@ namespace RREngine.Engine.Graphics.Shaders.Deferred
             //AddUniform("u_cameraPosition");
 
             AddUniform("u_material.baseColor");
-            AddUniform("u_material.hasTexture");
-            AddUniform("u_material.texture");
+            AddUniform("u_material.hasDiffuseTexture");
+            AddUniform("u_material.diffuseTexture");
+            AddUniform("u_material.hasNormalTexture");
+            AddUniform("u_material.normalTexture");
 
             AddUniform("u_material.specularPower");
             AddUniform("u_material.specularIntensity");
@@ -50,12 +52,20 @@ namespace RREngine.Engine.Graphics.Shaders.Deferred
 
         public void UseMaterial(Material material)
         {
-            SetUniform("u_material.hasTexture", material.Texture != null);
-            if (material.Texture != null)
+            SetUniform("u_material.hasDiffuseTexture", material.HasDiffuseTexture);
+            if (material.DiffuseTexture != null)
             {
                 GL.Enable(EnableCap.Texture2D);
-                material.Texture.Bind(0);
-                SetUniform("u_material.texture", 0);
+                material.DiffuseTexture.Bind(0);
+                SetUniform("u_material.diffuseTexture", 0);
+            }
+
+            SetUniform("u_material.hasNormalTexture", material.HasNormalTexture);
+            if (material.NormalTexture != null)
+            {
+                GL.Enable(EnableCap.Texture2D);
+                material.NormalTexture.Bind(1);
+                SetUniform("u_material.normalTexture", 1);
             }
 
             SetUniform("u_material.baseColor", material.BaseColor);

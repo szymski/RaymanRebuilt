@@ -76,7 +76,10 @@ namespace RRTestApp
 
                 dragonMesh = AssetManager.Instance.LoadAsset<ModelAsset>("dragon.obj").GenerateMesh();
                 var teapotMesh = AssetManager.Instance.LoadAsset<ModelAsset>("teapot.obj").GenerateMesh();
+                var sphereMesh = AssetManager.Instance.LoadAsset<ModelAsset>("sphere.obj").GenerateMesh();
                 var texture = AssetManager.Instance.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
+                var texture2 = AssetManager.Instance.LoadAsset<TextureAsset>("textures/rocks.jpg").GenerateTexture();
+                var texture2_normal = AssetManager.Instance.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
 
                 #region Skybox
 
@@ -108,7 +111,7 @@ namespace RRTestApp
                 plane.AddComponent<MeshRenderer>().Material = new Material()
                 {
                     BaseColor = new Vector4(1f, 1f, 1f, 1f),
-                    Texture = texture,
+                    DiffuseTexture = texture,
                 };
                 var planeGen = plane.AddComponent<PlaneGenerator>();
                 planeGen.TexCoordScaling = Vector2.One * 10f;
@@ -139,16 +142,37 @@ namespace RRTestApp
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
                     //BaseColor = new Vector4(0f, 0f, 0f, 1f),
-                    Texture = texture,
+                    DiffuseTexture = texture,
                     SpecularIntensity = 1f,
                 };
 
-                teapot = scene.CreateGameObject();
-                var transform2 = teapot.AddComponent<Transform>();
-                transform2.Position = Vector3Directions.Up * 2f;
-                var renderer2 = teapot.AddComponent<MeshRenderer>();
-                renderer2.Mesh = teapotMesh;
-                renderer2.Material = mat2;
+                {
+                    teapot = scene.CreateGameObject();
+                    var transform2 = teapot.AddComponent<Transform>();
+                    transform2.Position = Vector3Directions.Up * 2f;
+                    var renderer2 = teapot.AddComponent<MeshRenderer>();
+                    renderer2.Mesh = teapotMesh;
+                    renderer2.Material = mat2;
+                }
+
+                {
+                    Material mat3 = new Material()
+                    {
+                        BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                        DiffuseTexture = texture2,
+                        NormalTexture = texture2_normal,
+                        SpecularIntensity = 1f,
+                    };
+
+                    GameObject sphere = scene.CreateGameObject();
+                    var transform2 = sphere.AddComponent<Transform>();
+                    transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Left * 8f;
+                    transform2.Scale = Vector3.One * 2f;
+                    var renderer2 = sphere.AddComponent<MeshRenderer>();
+                    renderer2.Mesh = sphereMesh;
+                    renderer2.Material = mat3;
+                    sphere.AddComponent<RotatingComponent>();
+                }
 
                 var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;

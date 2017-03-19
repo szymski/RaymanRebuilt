@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using RREngine.Engine.Graphics;
 using RREngine.Engine.Graphics.Shaders;
+using RREngine.Engine.Graphics.Lights;
 
 namespace RREngine.Engine.Hierarchy.Components
 {
@@ -44,17 +45,17 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void OnEnable()
         {
-            //Owner.Scene.SceneRenderer.StandardShader.PointLights.Add(_pointLight);
+            Owner.Scene.SceneRenderer.PointLights.Add(_pointLight);
         }
 
         public override void OnDisable()
         {
-            //Owner.Scene.SceneRenderer.StandardShader.PointLights.Remove(_pointLight);
+            Owner.Scene.SceneRenderer.PointLights.Remove(_pointLight);
         }
 
         public override void OnRemove(bool destroyingGameObject)
         {
-            //Owner.Scene.SceneRenderer.StandardShader.PointLights.Remove(_pointLight);
+            Owner.Scene.SceneRenderer.PointLights.Remove(_pointLight);
         }
 
         public override void OnUpdate()

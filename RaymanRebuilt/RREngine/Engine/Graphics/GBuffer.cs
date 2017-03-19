@@ -39,8 +39,8 @@ namespace RREngine.Engine.Graphics
             TextureDiffuse = new Texture2D(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);    
             TexturePosition = new Texture2D(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
             TextureNormal = new Texture2D(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
-            TextureTexCoord = new Texture2D(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);
-            TextureSpecular = new Texture2D(PixelInternalFormat.Two, PixelFormat.Rg, PixelType.Float);
+            TextureTexCoord = new Texture2D(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
+            TextureSpecular = new Texture2D(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
             TextureDepth = new Texture2D(PixelInternalFormat.DepthComponent32f, PixelFormat.DepthComponent, PixelType.Float);
 
             Resize(Width, Height);
@@ -53,7 +53,7 @@ namespace RREngine.Engine.Graphics
             FrameBuffer.ConnectTexture(TextureDepth, FramebufferAttachment.DepthAttachment);
 
             FrameBuffer.Bind();
-            GL.DrawBuffers(4, new []
+            GL.DrawBuffers(5, new []
             {
                 DrawBuffersEnum.ColorAttachment0,
                 DrawBuffersEnum.ColorAttachment1,
@@ -63,7 +63,6 @@ namespace RREngine.Engine.Graphics
             });
 
             FrameBuffer.Bind();
-            Viewport.Current.Logger.Log(GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer).ToString());
         }
 
         public void Resize(int width, int height)

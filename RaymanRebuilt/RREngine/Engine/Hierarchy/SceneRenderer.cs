@@ -18,6 +18,7 @@ using ClearBufferMask = OpenTK.Graphics.OpenGL4.ClearBufferMask;
 using CullFaceMode = OpenTK.Graphics.OpenGL4.CullFaceMode;
 using EnableCap = OpenTK.Graphics.OpenGL4.EnableCap;
 using GL = OpenTK.Graphics.OpenGL4.GL;
+using RREngine.Engine.Graphics.Lights;
 
 namespace RREngine.Engine.Hierarchy
 {
@@ -43,6 +44,9 @@ namespace RREngine.Engine.Hierarchy
 
         public DirectionalLight DirectionalLight { get; } = new DirectionalLight();
         public DirectionalLightShader DirectionalLightShader { get; private set; }
+
+        public PointLightShader PointLightShader { get; private set; }
+        public List<PointLight> PointLights { get; } = new List<PointLight>();
 
         public RenderTarget LightRenderTarget;
 
@@ -72,6 +76,9 @@ namespace RREngine.Engine.Hierarchy
 
             DirectionalLightShader = new DirectionalLightShader(File.ReadAllText("shaders/deferred/directionallight.vs"), File.ReadAllText("shaders/deferred/directionallight.fs"));
             Viewport.Current.ShaderManager.AddShader(DirectionalLightShader);
+
+            PointLightShader = new PointLightShader(File.ReadAllText("shaders/deferred/pointlight.vs"), File.ReadAllText("shaders/deferred/pointlight.fs"));
+            Viewport.Current.ShaderManager.AddShader(PointLightShader);
 
             LightRenderTarget = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
             AfterLightingScene = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
@@ -139,7 +146,7 @@ namespace RREngine.Engine.Hierarchy
             OrthoShader.ViewMatrix = Matrix4.Identity;
             OrthoShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
 
-           // GBuffer.TextureNormal.Bind(0); // TODO: Normals and positions don't respect zbuffer
+            //GBuffer.TexturePosition.Bind(0);
             AfterLightingScene.Texture.Bind(0);
             OrthoShader.Texture = 0;
             _unitMesh.Draw();
@@ -190,8 +197,6 @@ namespace RREngine.Engine.Hierarchy
 
         private void RenderLighting()
         {
-            // Rendering scene after lighting
-
             Viewport.Current.ShaderManager.BindShader(OrthoShader);
             AfterLightingScene.Bind();
 
@@ -206,6 +211,7 @@ namespace RREngine.Engine.Hierarchy
             GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
             RenderAmbientLight();
             RenderDirectionalLight();
+            RenderPointLights();
 
             Viewport.Current.ShaderManager.BindShader(OrthoShader);
 
@@ -247,6 +253,29 @@ namespace RREngine.Engine.Hierarchy
             DirectionalLightShader.CameraPosition = CurrentCamera.Position;
 
             _unitMesh.Draw();
+        }
+
+        private void RenderPointLights()
+        {
+            Viewport.Current.ShaderManager.BindShader(PointLightShader);
+
+            PointLightShader.GBuffer = GBuffer;
+            PointLightShader.CameraPosition = CurrentCamera.Position;
+
+            PointLightShader.ProjectionMatrix = Matrix4.CreateOrthographic(Viewport.Current.Screen.Width,
+                Viewport.Current.Screen.Height, -10f, 10f);
+            PointLightShader.ViewMatrix = Matrix4.Identity;
+            PointLightShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
+
+            foreach (var light in PointLights)
+            {
+                PointLightShader.Color = light.Color;
+                PointLightShader.Intensity = light.Intensity;
+                PointLightShader.Position = light.Position;
+                PointLightShader.Attenuation = light.Attenuation;
+
+                _unitMesh.Draw();
+            }
         }
     }
 }
