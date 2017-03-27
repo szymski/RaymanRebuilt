@@ -32,5 +32,10 @@ namespace RREngine.Engine
         /// Frames per second.
         /// </summary>
         public int FPS { get; set; } = 0;
+
+        /// <summary>
+        /// Average frames per second.
+        /// </summary>
+        public int AverageFPS { get; set; } = 0;
     }
 }

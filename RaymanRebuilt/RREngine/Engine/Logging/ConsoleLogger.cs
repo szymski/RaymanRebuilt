@@ -11,7 +11,7 @@ namespace RREngine.Engine.Logging
             string tagsStr = tags.Any() ? tags.Select(t => $"({t})").Aggregate((a, b) => a + b) : "";
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write($"[{DateTime.Now.ToShortTimeString()}]");
+            Console.Write($"[{DateTime.Now.ToLongTimeString()}]");
             Console.ForegroundColor = _logTypeColorLookup[type];
             Console.Write($" {_logTypeStringLookup[type]}");
             Console.ForegroundColor = ConsoleColor.White;

@@ -4,22 +4,24 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using QuickFont;
 using RREngine.Engine;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
+using RREngine.Engine.Graphics.Shaders;
 using RREngine.Engine.Hierarchy;
 using RREngine.Engine.Hierarchy.Components;
 using RREngine.Engine.Input;
 using RREngine.Engine.Math;
-using RREngine.Engine.Objects;
-using Mesh = RREngine.Engine.Graphics.Mesh;
 using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 using ShaderType = RREngine.Engine.Graphics.ShaderType;
 using Vertex = RREngine.Engine.Graphics.Vertex;
+using Viewport = RREngine.Engine.Viewport;
 
 namespace RRTestApp
 {
@@ -67,33 +69,47 @@ namespace RRTestApp
 
             var viewport = window.Viewport;
 
-            Mesh dragonMesh = null;
+            RenderableMesh dragonRenderableMesh = null;
 
             Scene scene = new Scene();
             SceneRenderer sceneRenderer = new SceneRenderer(scene);
             GameObject camera, dragon, plane, teapot;
 
+            QFont qfont = null;
+            QFontDrawing drawing = null;
+
+            RenderableMesh unitMesh = null;
+
+            Texture2D texture = null;
+
             window.Load += (sender, eventArgs) =>
             {
                 scene.SceneRenderer = sceneRenderer;
 
-                dragonMesh = AssetManager.Instance.LoadAsset<ModelAsset>("dragon.obj").GenerateMesh();
-                var teapotMesh = AssetManager.Instance.LoadAsset<ModelAsset>("teapot.obj").GenerateMesh();
-                var sphereMesh = AssetManager.Instance.LoadAsset<ModelAsset>("sphere.obj").GenerateMesh();
-                var texture = AssetManager.Instance.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
-                var texture2 = AssetManager.Instance.LoadAsset<TextureAsset>("textures/rocks.jpg").GenerateTexture();
-                var texture2_normal = AssetManager.Instance.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
+                dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateRenderableMesh();
+                var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateRenderableMesh();
+                var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateRenderableMesh();
+                texture = Engine.AssetManager.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
+                var texture2 = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks.jpg").GenerateTexture();
+                var texture2_normal = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
+
+                var fontAsset = Engine.AssetManager.LoadAsset<FontAsset>("comic.ttf");
+                qfont = fontAsset.GetFont(20f);
+                drawing = new QFontDrawing();
+
+                var planeData = Plane.GenerateXY(Vector2.One, Vector2.One, Vector2.One, 0f);
+                unitMesh = RenderableMesh.CreateManaged(new Mesh(planeData.Item1, planeData.Item2));
 
                 #region Skybox
 
                 TextureAsset[] skyboxTextures =
                 {
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/xpos.png"),
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/xneg.png"),
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/ypos.png"),
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/yneg.png"),
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/zpos.png"),
-                    AssetManager.Instance.LoadAsset<TextureAsset>("skybox/zneg.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/xpos.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/xneg.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/ypos.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/yneg.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/zpos.png"),
+                    Engine.AssetManager.LoadAsset<TextureAsset>("skybox/zneg.png"),
                 };
 
                 CubemapTexture cubemapTexture = new CubemapTexture();
@@ -137,7 +153,7 @@ namespace RRTestApp
                     transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Left * 4f * i;
                     //transform.Scale *= 0.3f;
                     var renderer = dragon.AddComponent<MeshRenderer>();
-                    renderer.Mesh = dragonMesh;
+                    renderer.RenderableMesh = dragonRenderableMesh;
                     renderer.Material = mat;
                     dragon.AddComponent<RotatingComponent>();
                 }
@@ -155,7 +171,7 @@ namespace RRTestApp
                     var transform2 = teapot.AddComponent<Transform>();
                     transform2.Position = Vector3Directions.Up * 2f;
                     var renderer2 = teapot.AddComponent<MeshRenderer>();
-                    renderer2.Mesh = teapotMesh;
+                    renderer2.RenderableMesh = teapotMesh;
                     renderer2.Material = mat2;
                 }
 
@@ -173,9 +189,31 @@ namespace RRTestApp
                     transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Left * 8f;
                     transform2.Scale = Vector3.One * 2f;
                     var renderer2 = sphere.AddComponent<MeshRenderer>();
-                    renderer2.Mesh = sphereMesh;
+                    renderer2.RenderableMesh = sphereMesh;
                     renderer2.Material = mat3;
                     sphere.AddComponent<RotatingComponent>();
+                }
+
+                {
+                    for (int i = -3; i < 3; i++)
+                    {
+                        Material mat3 = new Material()
+                        {
+                            BaseColor = new Vector4(0.8f, 0.8f, 0.8f, 1f),
+                            SpecularIntensity = Rng.Instance.GetFloat(0f, 1.2f),
+                            SpecularPower = Rng.Instance.GetFloat(1f, 40f),
+                        };
+
+                        GameObject sphere = scene.CreateGameObject();
+                        var transform2 = sphere.AddComponent<Transform>();
+                        transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Right * 18f +
+                                              Vector3Directions.Backward * (i * 5f);
+                        transform2.Scale = Vector3.One * 2f;
+                        var renderer2 = sphere.AddComponent<MeshRenderer>();
+                        renderer2.RenderableMesh = sphereMesh;
+                        renderer2.Material = mat3;
+                        sphere.AddComponent<RotatingComponent>();
+                    }
                 }
 
                 var light = scene.CreateGameObject();
@@ -205,9 +243,21 @@ namespace RRTestApp
                 //sceneRenderer.StandardShader.AmbientLight = Vector3.One * 0.3f; 
             };
 
-            viewport.Keyboard.KeyDown += (sender, eventArgs) => Console.WriteLine(eventArgs.Key);
-
             Vector2 resolutionBeforeChange = Vector2.Zero;
+
+            Dictionary<KeyboardKey, int> keyToNumber = new Dictionary<KeyboardKey, int>()
+            {
+                { KeyboardKey.Number1, 1 },
+                { KeyboardKey.Number2, 2 },
+                { KeyboardKey.Number3, 3 },
+                { KeyboardKey.Number4, 4 },
+                { KeyboardKey.Number5, 5 },
+                { KeyboardKey.Number6, 6 },
+                { KeyboardKey.Number7, 7 },
+                { KeyboardKey.Number8, 8 },
+                { KeyboardKey.Number9, 9 },
+                { KeyboardKey.Number0, 0 },
+            };
 
             viewport.UpdateFrame += (sender, eventArgs) =>
             {
@@ -235,6 +285,18 @@ namespace RRTestApp
                     //Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
                 }
 
+                if (viewport.Keyboard.GetKeyUp(KeyboardKey.P))
+                {
+                    Engine.Logger.LogWarning("Doing something bad");
+                    Engine.ResourceManager.FreeAllResources();
+                }
+
+                foreach (var pair in keyToNumber)
+                {
+                    if (viewport.Keyboard.GetKeyDown(pair.Key))
+                        sceneRenderer.Mode = (SceneRenderer.RenderingMode)(pair.Value - 1);
+                }
+
                 scene.Update();
             };
 
@@ -244,6 +306,34 @@ namespace RRTestApp
                 GL.Clear(ClearBufferMask.DepthBufferBit | ClearBufferMask.ColorBufferBit);
 
                 sceneRenderer.Render();
+
+
+
+                var projMatrix = Matrix4.CreateOrthographic(viewport.Screen.Width, viewport.Screen.Height, -1f, 1f);
+                sceneRenderer.OrthoShader.ProjectionMatrix = projMatrix;
+                sceneRenderer.OrthoShader.ViewMatrix = Matrix4.CreateTranslation(new Vector3(viewport.Screen.Size / 2f));
+                sceneRenderer.OrthoShader.ModelMatrix = Matrix4.CreateScale(50f);
+                sceneRenderer.OrthoShader.Texture = 0;
+
+                viewport.ShaderManager.BindShader(sceneRenderer.OrthoShader);
+
+                GL.Enable(EnableCap.Texture2D);
+                texture.Bind(0);
+
+                //unitMesh.Draw();
+
+                drawing.ProjectionMatrix = projMatrix;
+
+                drawing.DrawingPrimitives.Clear();
+                drawing.Print(qfont, $"FPS: {viewport.Time.AverageFPS}", new Vector3(-viewport.Screen.Width / 2f + 5, viewport.Screen.Height / 2f - 5, 0f), QFontAlignment.Left);
+
+                drawing.RefreshBuffers();
+                drawing.Draw();
+            };
+
+            window.Unload += (sender, eventArgs) =>
+            {
+                Engine.ResourceManager.FreeAllResources();
             };
 
             window.Run();

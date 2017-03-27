@@ -16,7 +16,7 @@ namespace RREngine.Engine.Assets
 
         public TextureAsset(Stream stream) : base(stream)
         {
-            _stream = stream;
+            _stream = stream;  
         }
 
         public Bitmap Bitmap => new Bitmap(new Bitmap(_stream));
@@ -27,7 +27,7 @@ namespace RREngine.Engine.Assets
             var locked = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
                 ImageLockMode.ReadOnly, PixelFormat.Format32bppPArgb);
 
-            Texture2D texture = new Texture2D();
+            Texture2D texture = Texture2D.CreateManaged();
             texture.LoadImage(bitmap.Width, bitmap.Height, locked.Scan0, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra);
 
             bitmap.UnlockBits(locked);

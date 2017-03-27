@@ -21,7 +21,7 @@ namespace RREngine.Engine
          
         public Window(int width = 800, int height = 600)
         {
-            if (Engine.Instance == null)
+            if (!Engine.Initialized)
                 throw new Exception("Engine isn't initialized.");
 
             SetAsCurrent();
@@ -36,18 +36,12 @@ namespace RREngine.Engine
             });
 
             ConnectViewport(Viewport);
-
-            //GameWindow.TargetRenderFrequency = 0f;
-            //GameWindow.TargetRenderPeriod = 0f;
-            //GameWindow.TargetUpdateFrequency = 0f;
-            //GameWindow.TargetUpdatePeriod = 0f;
-
-            //GameWindow.VSync = VSyncMode.Off;
         }
 
         void ConnectViewport(Viewport viewport)
         {
             GameWindow.Load += OnGameWindowLoad;
+            GameWindow.Unload += OnUnload;
 
             GameWindow.Resize += OnGameWindowResize;
 
@@ -230,6 +224,13 @@ namespace RREngine.Engine
         {
             GameWindow.CursorVisible = e.Visible;
             Viewport.Mouse.OnCursorVisibleChanged(e);
+        }
+
+        public event EventHandler<EventArgs> Unload;
+
+        private void OnUnload(object sender, EventArgs e)
+        {
+            Unload?.Invoke(this, e);
         }
 
         #endregion

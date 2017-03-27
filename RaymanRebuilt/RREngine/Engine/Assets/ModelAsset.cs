@@ -8,14 +8,11 @@ using Assimp;
 using Assimp.Unmanaged;
 using OpenTK;
 using RREngine.Engine.Graphics;
-using RREngine.Engine.Objects;
-using Mesh = RREngine.Engine.Graphics.Mesh;
 using Scene = Assimp.Scene;
 using Vertex = RREngine.Engine.Graphics.Vertex;
 
 namespace RREngine.Engine.Assets
 {
-    // TODO: Create Asset class and make this inherit from it
     public class ModelAsset : Asset
     {
         public Scene Scene { get; private set; }
@@ -28,7 +25,7 @@ namespace RREngine.Engine.Assets
             stream.Close();
         }
 
-        public Mesh GenerateMesh()
+        public Graphics.Mesh GenerateMesh()
         {
             Viewport.Current.Logger.Log(new [] {"asset"}, "Generating mesh from asset");
 
@@ -46,9 +43,14 @@ namespace RREngine.Engine.Assets
 
             var indices = Scene.Meshes[0].GetIndices();
 
-            Mesh mesh = new Mesh(vertices.ToArray(), indices);
+            Graphics.Mesh mesh = new Graphics.Mesh(vertices.ToArray(), indices);
 
             return mesh;
+        }
+
+        public RenderableMesh GenerateRenderableMesh()
+        {
+            return RenderableMesh.CreateManaged(GenerateMesh());
         }
 
         private Vector3 AssimpVectorToEngine(Vector3D value)

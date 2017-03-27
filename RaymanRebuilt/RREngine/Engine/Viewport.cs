@@ -27,6 +27,7 @@ namespace RREngine.Engine
     {
         private Stopwatch _stopwatch = new Stopwatch();
         private Stopwatch _fpsStopwatch = new Stopwatch();
+        private Stopwatch _singleFrameStopwatch = new Stopwatch();
 
         public Time Time { get; }
         public Screen Screen { get; }
@@ -39,7 +40,7 @@ namespace RREngine.Engine
         {
             SetAsCurrent();
 
-            Logger = Engine.Instance.Logger;
+            Logger = Engine.Logger;
 
             Logger.Log(new[] { "init" }, "Initializing the viewport");
 
@@ -55,6 +56,7 @@ namespace RREngine.Engine
 
             _stopwatch.Start();
             _fpsStopwatch.Start();
+            _singleFrameStopwatch.Start();
         }
 
         /// <summary>
@@ -112,15 +114,18 @@ namespace RREngine.Engine
             //}
 
             // FPS counting
+
             if (_fpsStopwatch.Elapsed.TotalSeconds >= 1 - _secondsRest)
             {
                 _secondsRest = (float)_fpsStopwatch.Elapsed.TotalSeconds - 1f;
                 Time.FPS = _frames;
                 _fpsStopwatch.Restart();
                 _frames = 0;
-
-                Console.WriteLine(Time.FPS);
             }
+
+            Time.AverageFPS = (int)(Time.AverageFPS * 0.6f + (1f / (float)_singleFrameStopwatch.Elapsed.TotalSeconds) * 0.4f);
+            _singleFrameStopwatch.Restart();
+
             _frames++;
         }
 

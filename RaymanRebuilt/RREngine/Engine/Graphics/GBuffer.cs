@@ -34,14 +34,14 @@ namespace RREngine.Engine.Graphics
 
         private void GenerateTexturesAndBuffers()
         {
-            FrameBuffer = new FrameBuffer();
+            FrameBuffer = FrameBuffer.CreateManaged();
 
-            TextureDiffuse = new Texture2D(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);    
-            TexturePosition = new Texture2D(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
-            TextureNormal = new Texture2D(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
-            TextureTexCoord = new Texture2D(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
-            TextureSpecular = new Texture2D(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
-            TextureDepth = new Texture2D(PixelInternalFormat.DepthComponent32f, PixelFormat.DepthComponent, PixelType.Float);
+            TextureDiffuse = Texture2D.CreateManaged(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);    
+            TexturePosition = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
+            TextureNormal = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
+            TextureTexCoord = Texture2D.CreateManaged(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
+            TextureSpecular = Texture2D.CreateManaged(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
+            TextureDepth = Texture2D.CreateManaged(PixelInternalFormat.DepthComponent32f, PixelFormat.DepthComponent, PixelType.Float);
 
             Resize(Width, Height);
 

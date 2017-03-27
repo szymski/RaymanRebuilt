@@ -24,33 +24,52 @@ namespace RREngine.Engine.Hierarchy
 {
     public class SceneRenderer
     {
-        public Scene Scene { get; set; }
         public bool Initialized { get; set; }
+        public Scene Scene { get; set; }
 
-        public FirstPassShader FirstPassShader { get; private set; }
+        #region Shaders
+
         public SkyboxShader SkyboxShader { get; private set; }
+        public FirstPassShader FirstPassShader { get; private set; }
+        public OrthoShader OrthoShader { get; private set; }
+        public AmbientLightShader AmbientLightShader { get; private set; }
+        public DirectionalLightShader DirectionalLightShader { get; private set; }
+        public PointLightShader PointLightShader { get; private set; }
+        public CubemapReflectionShader CubemapReflectionShader { get; private set; }
+
+        #endregion
+
+        #region Rendering properties
 
         public Camera CurrentCamera { get; set; }
 
-        public CubemapTexture CubemapTexture { get; set; }
-        private Mesh _skyboxMesh;
-
-        public OrthoShader OrthoShader { get; private set; }
         public GBuffer GBuffer { get; private set; }
-        private Mesh _unitMesh;
-
-        public Vector3 AmbientLightColor { get; set; } = new Vector3(0.2f, 0.2f, 0.2f);
-        public AmbientLightShader AmbientLightShader { get; private set; }
 
         public DirectionalLight DirectionalLight { get; } = new DirectionalLight();
-        public DirectionalLightShader DirectionalLightShader { get; private set; }
-
-        public PointLightShader PointLightShader { get; private set; }
+        public Vector3 AmbientLightColor { get; set; } = new Vector3(0.2f, 0.2f, 0.2f);
         public List<PointLight> PointLights { get; } = new List<PointLight>();
 
-        public CubemapReflectionShader CubemapReflectionShader { get; private set; }
+        public CubemapTexture CubemapTexture { get; set; }
 
-        public RenderTarget AfterLightingScene;
+        public enum RenderingMode
+        {
+            Final,
+            Diffuse,
+            Position,
+            Normal,
+            TexCoord,
+            Specular,
+            Depth,
+        }
+
+        public RenderingMode Mode { get; set; } = RenderingMode.Final;
+
+        #endregion
+
+        private RenderableMesh _skyboxMesh;
+        private RenderableMesh _unitMesh;
+
+        public RenderTarget AfterLightingScene { get; set; }
 
         public SceneRenderer(Scene scene)
         {
@@ -62,6 +81,26 @@ namespace RREngine.Engine.Hierarchy
             if (Initialized)
                 throw new Exception("Already initialized.");
 
+            LoadShaders();
+
+            AfterLightingScene = RenderTarget.CreateManaged(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+
+            GenerateSkyboxMesh();
+            GenerateUnitMesh();
+
+            GBuffer = new GBuffer(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+
+            Viewport.Current.Screen.WindowModeChanged += (sender, args) =>
+            {
+                GBuffer.Resize(args.Width, args.Height);
+                AfterLightingScene.Resize(args.Width, args.Height);
+            };
+
+            Initialized = true;
+        }
+
+        private void LoadShaders()
+        {
             FirstPassShader = new FirstPassShader(File.ReadAllText("shaders/deferred/pass1.vs"), File.ReadAllText("shaders/deferred/pass1.fs"));
             Viewport.Current.ShaderManager.AddShader(FirstPassShader);
 
@@ -82,27 +121,12 @@ namespace RREngine.Engine.Hierarchy
 
             CubemapReflectionShader = new CubemapReflectionShader(File.ReadAllText("shaders/deferred/cubemapreflection.vs"), File.ReadAllText("shaders/deferred/cubemapreflection.fs"));
             Viewport.Current.ShaderManager.AddShader(CubemapReflectionShader);
-
-            AfterLightingScene = new RenderTarget(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-
-            Initialized = true;
-
-            GenerateSkyboxMesh();
-            GenerateUnitMesh();
-
-            GBuffer = new GBuffer(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-
-            Viewport.Current.Screen.WindowModeChanged += (sender, args) =>
-            {
-                GBuffer.Resize(args.Width, args.Height);
-                AfterLightingScene.Resize(args.Width, args.Height);
-            };
         }
 
         private void GenerateSkyboxMesh()
         {
             var plane = Plane.GenerateXY(Vector2.One * 10f, Vector2.One * 10f, Vector2.One, -1);
-            var mesh = new Mesh(plane.Item1, plane.Item2);
+            var mesh = RenderableMesh.CreateManaged(new Mesh(plane.Item1, plane.Item2));
 
             _skyboxMesh = mesh;
         }
@@ -110,7 +134,7 @@ namespace RREngine.Engine.Hierarchy
         private void GenerateUnitMesh()
         {
             var plane = Plane.GenerateXY(Vector2.One, Vector2.One, Vector2.One);
-            var mesh = new Mesh(plane.Item1, plane.Item2);
+            var mesh = RenderableMesh.CreateManaged(new Mesh(plane.Item1, plane.Item2));
 
             _unitMesh = mesh;
         }
@@ -120,13 +144,12 @@ namespace RREngine.Engine.Hierarchy
             if (!Initialized)
                 throw new Exception("Scene has to be initialized first.");
 
+            // Rendering the scene into GBuffer
+
             GBuffer.Bind();
 
             GL.ClearColor(0f, 0f, 0f, 0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            //GL.Enable(EnableCap.CullFace);
-            //GL.CullFace(CullFaceMode.Back);
 
             RenderSceneObjects();
 
@@ -134,7 +157,7 @@ namespace RREngine.Engine.Hierarchy
 
             RenderLighting();
 
-            // Ortho
+            // Displaying the GBuffer with lights
 
             GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
 
@@ -154,8 +177,37 @@ namespace RREngine.Engine.Hierarchy
             OrthoShader.ViewMatrix = Matrix4.Identity;
             OrthoShader.ModelMatrix = Matrix4.CreateScale(Viewport.Current.Screen.Width / 2f, -Viewport.Current.Screen.Height / 2f, 1f);
 
-            //GBuffer.TexturePosition.Bind(0);
-            AfterLightingScene.Texture.Bind(0);
+            switch (Mode)
+            {
+                case RenderingMode.Final:
+                    AfterLightingScene.Texture.Bind(0);
+                    break;
+
+                case RenderingMode.Diffuse:
+                    GBuffer.TextureDiffuse.Bind(0);
+                    break;
+
+                case RenderingMode.Position:
+                    GBuffer.TexturePosition.Bind(0);
+                    break;
+
+                case RenderingMode.Normal:
+                    GBuffer.TextureNormal.Bind(0);
+                    break;
+
+                case RenderingMode.TexCoord:
+                    GBuffer.TextureTexCoord.Bind(0);
+                    break;
+
+                case RenderingMode.Specular:
+                    GBuffer.TextureSpecular.Bind(0);
+                    break;
+
+                case RenderingMode.Depth:
+                    GBuffer.TextureDepth.Bind(0);
+                    break;
+            }
+
             OrthoShader.Texture = 0;
             _unitMesh.Draw();
         }
@@ -167,6 +219,9 @@ namespace RREngine.Engine.Hierarchy
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);
 
+            //GL.Enable(EnableCap.CullFace);
+            //GL.CullFace(CullFaceMode.Back);
+
             PrepareCamera();
 
             //GL.Enable(EnableCap.TextureCubeMap);
@@ -175,8 +230,6 @@ namespace RREngine.Engine.Hierarchy
             foreach (var gameObject in Scene.GameObjects)
                 if (gameObject.Enabled)
                     gameObject.Render();
-
-            Viewport.Current.ShaderManager.UnbindShader();
         }
 
         private void PrepareCamera()
@@ -186,21 +239,22 @@ namespace RREngine.Engine.Hierarchy
 
         private void RenderSkybox()
         {
+            if (CubemapTexture == null)
+                return;
+
             GL.DepthFunc(DepthFunction.Lequal);
 
             GL.Viewport(0, 0, Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
+
             Viewport.Current.ShaderManager.BindShader(SkyboxShader);
 
-            if (CubemapTexture != null)
-            {
-                SkyboxShader.ProjectionMatrix = CurrentCamera.ProjectionMatrix;
-                SkyboxShader.ViewMatrix = Matrix4.CreateFromQuaternion(CurrentCamera.ViewMatrix.ExtractRotation()) * Matrix4.CreateTranslation(0, 0, 0);
+            SkyboxShader.ProjectionMatrix = CurrentCamera.ProjectionMatrix;
+            SkyboxShader.ViewMatrix = CurrentCamera.ViewMatrix;
 
-                GL.Enable(EnableCap.TextureCubeMap);
-                SkyboxShader.CubemapTexture = CubemapTexture;
-                _skyboxMesh.Draw();
-                GL.Disable(EnableCap.TextureCubeMap);
-            }
+            GL.Enable(EnableCap.TextureCubeMap);
+            SkyboxShader.CubemapTexture = CubemapTexture;
+            _skyboxMesh.Draw();
+            GL.Disable(EnableCap.TextureCubeMap);
         }
 
         private void RenderLighting()
@@ -215,8 +269,8 @@ namespace RREngine.Engine.Hierarchy
             GL.Enable(EnableCap.Texture2D);
 
             GL.Enable(EnableCap.Blend);
-
             GL.BlendFunc(BlendingFactorSrc.One, BlendingFactorDest.One);
+
             RenderAmbientLight();
             RenderDirectionalLight();
             RenderPointLights();
@@ -227,8 +281,6 @@ namespace RREngine.Engine.Hierarchy
             GL.Disable(EnableCap.Blend);
 
             AfterLightingScene.Unbind();
-
-            Viewport.Current.ShaderManager.UnbindShader();
         }
 
         private void RenderAmbientLight()

@@ -11,11 +11,16 @@ namespace RREngine.Engine.Assets
     {
         private Dictionary<string, Type> _registeredTypes = new Dictionary<string, Type>();
 
-        private List<Asset> _loadedAssets = new List<Asset>();
-        public IEnumerable<Asset> LoadedAssets => _loadedAssets.AsEnumerable();
+        private Dictionary<Asset, int> _loadedAssets = new Dictionary<Asset, int>();
+        public IEnumerable<Asset> LoadedAssets => _loadedAssets.Select(p => p.Key);
 
         public AssetManager()
         {
+            RegisterType(".txt", typeof(TextAsset));
+            RegisterType(".cfg", typeof(TextAsset));
+            RegisterType(".vs", typeof(TextAsset));
+            RegisterType(".fs", typeof(TextAsset));
+
             RegisterType(".obj", typeof(ModelAsset));
             RegisterType(".dae", typeof(ModelAsset));
             RegisterType(".3ds", typeof(ModelAsset));
@@ -25,6 +30,8 @@ namespace RREngine.Engine.Assets
             RegisterType(".jpg", typeof(TextureAsset));
             RegisterType(".bmp", typeof(TextureAsset));
             RegisterType(".tga", typeof(TextureAsset));
+
+            RegisterType(".ttf", typeof(FontAsset));
         }
 
         public void RegisterType(string fileExtension, Type type)
@@ -43,7 +50,11 @@ namespace RREngine.Engine.Assets
 
             Viewport.Current.Logger.Log(new[] { "asset" }, $"Loading asset type {type} from file {filename}");
 
-            return (Asset)Activator.CreateInstance(type, stream);
+            var asset = (Asset) Activator.CreateInstance(type, stream);
+
+            asset.Location = filename;
+
+            return asset;
         }
 
         public T LoadAsset<T>(string filename) where T : Asset
@@ -66,7 +77,5 @@ namespace RREngine.Engine.Assets
         {
             _loadedAssets.Remove(asset);
         }
-
-        public static AssetManager Instance = new AssetManager(); // TODO: Is this a good idea?
     }
 }

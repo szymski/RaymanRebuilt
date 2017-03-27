@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Resources;
 
 namespace RREngine.Engine.Graphics
 {
-    public class RenderBuffer
+    public class RenderBuffer : Resource
     {
         public int Id { get; private set; }
 
-        public RenderBuffer(int width, int height)
+        private RenderBuffer(int width, int height)
         {
             Generate(width, height);
         }
@@ -25,7 +26,7 @@ namespace RREngine.Engine.Graphics
             Unbind();
         }
 
-        public void Destroy()
+        public override void Destroy()
         {
             GL.DeleteRenderbuffer(Id);
         }
@@ -38,6 +39,19 @@ namespace RREngine.Engine.Graphics
         public void Unbind()
         {
             GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, 0);
+        }
+
+        public static RenderBuffer CreateManaged(int width, int height)
+        {
+            var resource = new RenderBuffer(width, height);
+            Engine.ResourceManager.RegisterResource(resource);
+
+            return resource;
+        }
+
+        public static RenderBuffer CreateUnmanaged(int width, int height)
+        {
+            return new RenderBuffer(width, height);
         }
     }
 }

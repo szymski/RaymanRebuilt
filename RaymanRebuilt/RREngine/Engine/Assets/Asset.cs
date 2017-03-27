@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace RREngine.Engine.Assets
 {
     /// <summary>
-    /// An asset is a raw resource has to loaded into memory before it can be used.
+    /// An asset is an external resource located outside of the engine.
     /// </summary>
     public abstract class Asset
     {
+        public string Location { get; set; }
+
         public Asset(Stream stream)
         {
             

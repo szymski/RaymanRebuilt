@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SharpFont.4.0.1\build\SharpFont.props" Condition="Exists('..\packages\SharpFont.4.0.1\build\SharpFont.props')" />
+  <Import Project="..\packages\SharpFont.Dependencies.2.6\build\SharpFont.Dependencies.props" Condition="Exists('..\packages\SharpFont.Dependencies.2.6\build\SharpFont.Dependencies.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,6 +42,10 @@
       <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="QuickFont, Version=4.4.6159.26433, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RRTestApp\Files\QuickFont.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -54,8 +60,10 @@
   <ItemGroup>
     <Compile Include="Engine\Assets\Asset.cs" />
     <Compile Include="Engine\Assets\AssetManager.cs" />
+    <Compile Include="Engine\Assets\FontAsset.cs" />
     <Compile Include="Engine\Assets\ModelAsset.cs" />
     <Compile Include="Engine\Assets\RawAsset.cs" />
+    <Compile Include="Engine\Assets\TextAsset.cs" />
     <Compile Include="Engine\Assets\TextureAsset.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Engine\Graphics\CubemapTexture.cs" />
@@ -67,6 +75,7 @@
     <Compile Include="Engine\Graphics\Lights\PointLight.cs" />
     <Compile Include="Engine\Graphics\Material.cs" />
     <Compile Include="Engine\Graphics\Mesh.cs" />
+    <Compile Include="Engine\Graphics\RenderableMesh.cs" />
     <Compile Include="Engine\Graphics\RenderBuffer.cs" />
     <Compile Include="Engine\Graphics\RenderTarget.cs" />
     <Compile Include="Engine\Graphics\Shader.cs" />
@@ -80,6 +89,8 @@
     <Compile Include="Engine\Graphics\Shaders\SkyboxShader.cs" />
     <Compile Include="Engine\Graphics\Texture.cs" />
     <Compile Include="Engine\Graphics\Vertex.cs" />
+    <Compile Include="Engine\Gui\Controls\Control.cs" />
+    <Compile Include="Engine\Gui\Dock.cs" />
     <Compile Include="Engine\Hierarchy\Components\Camera.cs" />
     <Compile Include="Engine\Hierarchy\Components\Component.cs" />
     <Compile Include="Engine\Hierarchy\Components\DirectionalLightComponent.cs" />
@@ -107,13 +118,11 @@
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Math\Vector3Directions.cs" />
-    <Compile Include="Engine\Objects\Primitives.cs" />
     <Compile Include="Engine\Hierarchy\Scene.cs" />
+    <Compile Include="Engine\Resources\Resource.cs" />
+    <Compile Include="Engine\Resources\ResourceManager.cs" />
     <Compile Include="Engine\Screen.cs" />
     <Compile Include="Engine\Math\Spacial.cs" />
-    <Compile Include="Engine\Objects\Dynamic.cs" />
-    <Compile Include="Engine\Objects\EntityComponents.cs" />
-    <Compile Include="Engine\Objects\Geometry.cs" />
     <Compile Include="Engine\Graphics\Texture2D.cs" />
     <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Viewport.cs" />
@@ -132,5 +141,7 @@
       <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\AssimpNet.3.3.2\build\AssimpNet.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AssimpNet.3.3.2\build\AssimpNet.targets'))" />
+    <Error Condition="!Exists('..\packages\SharpFont.Dependencies.2.6\build\SharpFont.Dependencies.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SharpFont.Dependencies.2.6\build\SharpFont.Dependencies.props'))" />
+    <Error Condition="!Exists('..\packages\SharpFont.4.0.1\build\SharpFont.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SharpFont.4.0.1\build\SharpFont.props'))" />
   </Target>
 </Project>

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Resources;
 
 namespace RREngine.Engine.Graphics
 {
-    public abstract class Texture
+    public abstract class Texture : Resource
     {
         public int Id { get; protected set; }
         public int Width { get; protected set; } = 0;
@@ -40,7 +41,7 @@ namespace RREngine.Engine.Graphics
             WrapR = TextureWrapMode.Repeat;
         }
 
-        public virtual void Destroy()
+        public override void Destroy()
         {
             GL.DeleteTexture(Id);
         }

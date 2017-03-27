@@ -11,7 +11,7 @@ namespace RREngine.Engine.Graphics
         /// Creates an uninitialized texture.
         /// Use LoadImage or Resize to initialize.
         /// </summary>
-        public Texture2D(PixelInternalFormat pixelInternalFormat = PixelInternalFormat.Rgba, PixelFormat pixelFormat = PixelFormat.Rgba, PixelType pixelType = PixelType.UnsignedByte)
+        private Texture2D(PixelInternalFormat pixelInternalFormat = PixelInternalFormat.Rgba, PixelFormat pixelFormat = PixelFormat.Rgba, PixelType pixelType = PixelType.UnsignedByte)
         {
             PixelInternalFormat = pixelInternalFormat;
             PixelFormat = pixelFormat;
@@ -36,6 +36,19 @@ namespace RREngine.Engine.Graphics
 
             Bind();
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat, width, height, 0, format, PixelType, data);
+        }
+
+        public static Texture2D CreateManaged(PixelInternalFormat pixelInternalFormat = PixelInternalFormat.Rgba, PixelFormat pixelFormat = PixelFormat.Rgba, PixelType pixelType = PixelType.UnsignedByte)
+        {
+            var resource = CreateUnmanaged(pixelInternalFormat, pixelFormat, pixelType);
+            Engine.ResourceManager.RegisterResource(resource);
+
+            return resource;
+        }
+
+        public static Texture2D CreateUnmanaged(PixelInternalFormat pixelInternalFormat = PixelInternalFormat.Rgba, PixelFormat pixelFormat = PixelFormat.Rgba, PixelType pixelType = PixelType.UnsignedByte)
+        {
+            return new Texture2D(pixelInternalFormat, pixelFormat, pixelType);
         }
     }
 }

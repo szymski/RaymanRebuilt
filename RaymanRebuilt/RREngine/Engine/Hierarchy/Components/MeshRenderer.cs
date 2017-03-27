@@ -11,7 +11,7 @@ namespace RREngine.Engine.Hierarchy.Components
     public class MeshRenderer : Component
     {
         private Transform _transform;
-        public Mesh Mesh { get; set; }
+        public RenderableMesh RenderableMesh { get; set; }
         public Material Material { get; set; }
 
         public MeshRenderer(GameObject owner) : base(owner)
@@ -30,7 +30,7 @@ namespace RREngine.Engine.Hierarchy.Components
 
         public override void OnRender()
         {
-            if (Mesh != null)
+            if (RenderableMesh != null)
             {
                 if(Material != null) 
                     Owner.SceneRenderer.FirstPassShader.UseMaterial(Material);
@@ -40,7 +40,7 @@ namespace RREngine.Engine.Hierarchy.Components
                 GL.Enable(EnableCap.DepthTest);
                 GL.DepthFunc(DepthFunction.Less);
 
-                Mesh.Draw();
+                RenderableMesh.Draw();
 
                 GL.Disable(EnableCap.TextureCubeMap);
             }

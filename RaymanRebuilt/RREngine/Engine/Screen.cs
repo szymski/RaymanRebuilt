@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace RREngine.Engine
 {
@@ -10,6 +11,8 @@ namespace RREngine.Engine
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
+
+        public Vector2 Size => new Vector2(Width, Height);
 
         private bool _isFullscreen = false;
         public bool IsFullscreen

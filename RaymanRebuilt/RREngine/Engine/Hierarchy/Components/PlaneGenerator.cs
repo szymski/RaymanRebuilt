@@ -32,9 +32,9 @@ namespace RREngine.Engine.Hierarchy.Components
         {
             var plane = Plane.GenerateXZ(MinBounds, MaxBounds, TexCoordScaling);
 
-            var mesh = new Mesh(plane.Item1, plane.Item2);
+            var mesh = RenderableMesh.CreateManaged(new Mesh(plane.Item1, plane.Item2));
 
-            _meshRenderer.Mesh = mesh;
+            _meshRenderer.RenderableMesh = mesh;
         }
     }
 }
