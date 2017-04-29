@@ -36,6 +36,8 @@ namespace RREngine.Engine
         public ShaderManager ShaderManager { get; set; }
         public ILogger Logger { get; set; }
 
+        public BasicShapes BasicShapes { get; } // TODO: Should this be here?
+
         public Viewport()
         {
             SetAsCurrent();
@@ -57,6 +59,8 @@ namespace RREngine.Engine
             _stopwatch.Start();
             _fpsStopwatch.Start();
             _singleFrameStopwatch.Start();
+
+            BasicShapes = new BasicShapes();
         }
 
         /// <summary>

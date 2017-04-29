@@ -108,7 +108,7 @@ namespace RREngine.Engine.Graphics
 
             try
             {
-                CheckShaderCompilationError(id);
+                CheckShaderCompilationError(id, location);
             }
             catch
             {
@@ -139,7 +139,7 @@ namespace RREngine.Engine.Graphics
             }
         }
 
-        void CheckShaderCompilationError(int shaderId)
+        void CheckShaderCompilationError(int shaderId, string location)
         {
             int success;
             GL.GetShader(shaderId, ShaderParameter.CompileStatus, out success);
@@ -150,7 +150,7 @@ namespace RREngine.Engine.Graphics
                 string info;
                 GL.GetShaderInfoLog(shaderId, out info);
 
-                throw new ShaderCompilationException(info);
+                throw new ShaderCompilationException(this, info, location);
             }
         }
 
@@ -233,9 +233,13 @@ namespace RREngine.Engine.Graphics
 
     public class ShaderCompilationException : Exception
     {
-        public ShaderCompilationException(string message) : base(message)
-        {
+        public Shader Shader { get; }
+        public string Location { get;}
 
+        public ShaderCompilationException(Shader shader, string message, string location) : base($"Shader type: {shader.Type}\nLocation: {location}\nError message: {message}\n")
+        {
+            Shader = shader;
+            Location = location;
         }
     }
 

@@ -60,4 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)\..\RRTestApp\Files\* $(TargetDir)* /sy</PostBuildEvent>
+  </PropertyGroup>
 </Project>

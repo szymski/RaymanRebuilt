@@ -44,7 +44,7 @@ namespace RREngine.Engine.Graphics
 
             Sendvertices(vertices, indices);
             SendNormals(vertices, indices);
-            Sendindices(vertices, indices);
+            SendIndices(vertices, indices);
             SendTexCoords(vertices, indices);
 
             GL.BindVertexArray(0);
@@ -105,7 +105,7 @@ namespace RREngine.Engine.Graphics
             GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 0, 0);
         }
 
-        void Sendindices(Vertex[] vertices, int[] indices)
+        void SendIndices(Vertex[] vertices, int[] indices)
         {
             IndexBufferId = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBufferId);
@@ -114,10 +114,10 @@ namespace RREngine.Engine.Graphics
             GL.BufferData(BufferTarget.ElementArrayBuffer, indexData.Length * 4, indexData, BufferUsageHint.StaticDraw);
         }
 
-        public void Draw()
+        public void Draw(PrimitiveType primitiveType = PrimitiveType.Triangles)
         {
             GL.BindVertexArray(VertexArrayId);
-            GL.DrawElementsBaseVertex(PrimitiveType.Triangles, _numIndices, DrawElementsType.UnsignedInt, IntPtr.Zero, 0);
+            GL.DrawElementsBaseVertex(primitiveType, _numIndices, DrawElementsType.UnsignedInt, IntPtr.Zero, 0);
             GL.BindVertexArray(0);
         }
 
