@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.ES10;
 using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
 using RREngine.Engine.Graphics.Shaders;
 using RREngine.Engine.Graphics.Shaders.Deferred;
@@ -101,25 +102,25 @@ namespace RREngine.Engine.Hierarchy
 
         private void LoadShaders()
         {
-            FirstPassShader = new FirstPassShader(File.ReadAllText("shaders/deferred/pass1.vs"), File.ReadAllText("shaders/deferred/pass1.fs"));
+            FirstPassShader = new FirstPassShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/pass1.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/pass1.fs"));
             Viewport.Current.ShaderManager.AddShader(FirstPassShader);
 
-            SkyboxShader = new SkyboxShader(File.ReadAllText("shaders/skybox.vs"), File.ReadAllText("shaders/skybox.fs"));
+            SkyboxShader = new SkyboxShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/skybox.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/skybox.fs"));
             Viewport.Current.ShaderManager.AddShader(SkyboxShader);
 
-            OrthoShader = new OrthoShader(File.ReadAllText("shaders/ortho.vs"), File.ReadAllText("shaders/ortho.fs"));
+            OrthoShader = new OrthoShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/ortho.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/ortho.fs"));
             Viewport.Current.ShaderManager.AddShader(OrthoShader);
 
-            AmbientLightShader = new AmbientLightShader(File.ReadAllText("shaders/deferred/ambient.vs"), File.ReadAllText("shaders/deferred/ambient.fs"));
+            AmbientLightShader = new AmbientLightShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/ambient.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/ambient.fs"));
             Viewport.Current.ShaderManager.AddShader(AmbientLightShader);
 
-            DirectionalLightShader = new DirectionalLightShader(File.ReadAllText("shaders/deferred/directionallight.vs"), File.ReadAllText("shaders/deferred/directionallight.fs"));
+            DirectionalLightShader = new DirectionalLightShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/directionallight.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/directionallight.fs"));
             Viewport.Current.ShaderManager.AddShader(DirectionalLightShader);
 
-            PointLightShader = new PointLightShader(File.ReadAllText("shaders/deferred/pointlight.vs"), File.ReadAllText("shaders/deferred/pointlight.fs"));
+            PointLightShader = new PointLightShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/pointlight.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/pointlight.fs"));
             Viewport.Current.ShaderManager.AddShader(PointLightShader);
 
-            CubemapReflectionShader = new CubemapReflectionShader(File.ReadAllText("shaders/deferred/cubemapreflection.vs"), File.ReadAllText("shaders/deferred/cubemapreflection.fs"));
+            CubemapReflectionShader = new CubemapReflectionShader(Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/cubemapreflection.vs"), Engine.AssetManager.LoadAsset<TextAsset>("shaders/deferred/cubemapreflection.fs"));
             Viewport.Current.ShaderManager.AddShader(CubemapReflectionShader);
         }
 

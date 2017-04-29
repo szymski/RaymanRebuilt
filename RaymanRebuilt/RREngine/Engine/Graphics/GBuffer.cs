@@ -36,9 +36,9 @@ namespace RREngine.Engine.Graphics
         {
             FrameBuffer = FrameBuffer.CreateManaged();
 
-            TextureDiffuse = Texture2D.CreateManaged(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);    
-            TexturePosition = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
-            TextureNormal = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);    
+            TextureDiffuse = Texture2D.CreateManaged(PixelInternalFormat.Rgba32f, PixelFormat.Rgba, PixelType.Float);
+            TexturePosition = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);
+            TextureNormal = Texture2D.CreateManaged(PixelInternalFormat.Rgb32f, PixelFormat.Rgb, PixelType.Float);
             TextureTexCoord = Texture2D.CreateManaged(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
             TextureSpecular = Texture2D.CreateManaged(PixelInternalFormat.Rg32f, PixelFormat.Rg, PixelType.Float);
             TextureDepth = Texture2D.CreateManaged(PixelInternalFormat.DepthComponent32f, PixelFormat.DepthComponent, PixelType.Float);
@@ -53,7 +53,7 @@ namespace RREngine.Engine.Graphics
             FrameBuffer.ConnectTexture(TextureDepth, FramebufferAttachment.DepthAttachment);
 
             FrameBuffer.Bind();
-            GL.DrawBuffers(5, new []
+            GL.DrawBuffers(5, new[]
             {
                 DrawBuffersEnum.ColorAttachment0,
                 DrawBuffersEnum.ColorAttachment1,

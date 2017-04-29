@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
+using RREngine.Engine.Assets;
 
 namespace RREngine.Engine.Graphics.Shaders
 {
@@ -12,7 +13,7 @@ namespace RREngine.Engine.Graphics.Shaders
     /// </summary>
     public class OrthoShader : Shader
     {
-        public OrthoShader(string vertexSource, string fragmentSource) : base(ShaderType.Vertex | ShaderType.Fragment)
+        public OrthoShader(TextAsset vertexSource, TextAsset fragmentSource) : base(ShaderType.Vertex | ShaderType.Fragment)
         {
             Compile(vertexSource, fragmentSource);
 

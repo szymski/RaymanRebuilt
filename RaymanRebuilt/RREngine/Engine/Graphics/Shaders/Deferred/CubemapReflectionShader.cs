@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Assets;
 
 namespace RREngine.Engine.Graphics.Shaders.Deferred
 {
     public class CubemapReflectionShader : Shader
     {
-        public CubemapReflectionShader(string vertex, string fragment) : base(ShaderType.Fragment | ShaderType.Vertex)
+        public CubemapReflectionShader(TextAsset vertex, TextAsset fragment) : base(ShaderType.Fragment | ShaderType.Vertex)
         {
             Compile(vertex, fragment);
 

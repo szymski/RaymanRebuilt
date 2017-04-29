@@ -22,7 +22,7 @@ namespace RREngineTests.Hierarchy
             {
             }
 
-            public override void OnRemove()
+            public override void OnRemove(bool destroyingGameObject)
             {
                 removed = true;
             }

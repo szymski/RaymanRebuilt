@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Assets;
 
 namespace RREngine.Engine.Graphics
 {
@@ -50,14 +51,14 @@ namespace RREngine.Engine.Graphics
 
         #region Compiling
 
-        public void Compile(string source)
+        public void Compile(TextAsset source)
         {
             if (Compiled)
                 throw new Exception("This shader has already been compiled.");
 
             CreateProgram();
 
-            int shaderId = CompileShader(source, Type);
+            int shaderId = CompileShader(source.Text, Type, source.Location);
             GL.AttachShader(ProgramId, shaderId);
             _shaderIds.Add(shaderId);
 
@@ -66,7 +67,7 @@ namespace RREngine.Engine.Graphics
             Compiled = true;
         }
 
-        public void Compile(string vertexSource, string fragmentSource)
+        public void Compile(TextAsset vertexSource, TextAsset fragmentSource)
         {
             if (Compiled)
                 throw new Exception("This shader has already been compiled.");
@@ -76,11 +77,11 @@ namespace RREngine.Engine.Graphics
 
             CreateProgram();
 
-            int vertexId = CompileShader(vertexSource, ShaderType.Vertex);
+            int vertexId = CompileShader(vertexSource.Text, ShaderType.Vertex, vertexSource.Location);
             GL.AttachShader(ProgramId, vertexId);
             _shaderIds.Add(vertexId);
 
-            int fragmentId = CompileShader(fragmentSource, ShaderType.Fragment);
+            int fragmentId = CompileShader(fragmentSource.Text, ShaderType.Fragment, fragmentSource.Location);
             GL.AttachShader(ProgramId, fragmentId);
             _shaderIds.Add(fragmentId);
 
@@ -96,14 +97,14 @@ namespace RREngine.Engine.Graphics
         }
 
         /// <returns>ID of the compiled shader.</returns>
-        int CompileShader(string source, ShaderType type)
+        int CompileShader(string source, ShaderType type, string location)
         {
             var id = GL.CreateShader(type == ShaderType.Fragment ? OpenTK.Graphics.OpenGL4.ShaderType.FragmentShader : OpenTK.Graphics.OpenGL4.ShaderType.VertexShader);
 
             GL.ShaderSource(id, source);
             GL.CompileShader(id);
 
-            Viewport.Current.Logger.Log(new[] { "shader" }, $"Compiling shader id {id} of type {type}");
+            Viewport.Current.Logger.Log(new[] { "shader" }, $"Compiling shader id {id} of type {type} from {location}");
 
             try
             {

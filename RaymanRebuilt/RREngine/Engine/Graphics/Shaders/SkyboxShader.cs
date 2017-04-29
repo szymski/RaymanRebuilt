@@ -1,10 +1,11 @@
 ﻿using OpenTK;
+using RREngine.Engine.Assets;
 
 namespace RREngine.Engine.Graphics.Shaders
 {
     public class SkyboxShader : Shader
     {
-        public SkyboxShader(string vertex, string fragment) : base(ShaderType.Fragment | ShaderType.Vertex)
+        public SkyboxShader(TextAsset vertex, TextAsset fragment) : base(ShaderType.Fragment | ShaderType.Vertex)
         {
             Compile(vertex, fragment);
 

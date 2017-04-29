@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace RREngine.Engine.Resources
 {
+    /// <summary>
+    /// Reference counting unmanaged resource manager.
+    /// Every resource should be an instance of <seealso cref="Resource"/>.
+    /// </summary>
     public class ResourceManager
     {
         private Dictionary<Resource, int> _resources = new Dictionary<Resource, int>();
@@ -21,11 +25,18 @@ namespace RREngine.Engine.Resources
             _resources.Add(resource, 1);
         }
 
+        /// <summary>
+        /// Increments reference count by one.
+        /// </summary>
         public void IncrementReferenceCount(Resource resource)
         {
             _resources[resource]++;
         }
 
+        /// <summary>
+        /// Decrements reference count by one.
+        /// If no references afterwards, destroys the resource.
+        /// </summary>
         public void DecrementReferenceCount(Resource resource)
         {
             if (_freeingAll)
@@ -40,7 +51,7 @@ namespace RREngine.Engine.Resources
                 Engine.Logger.Log(new[] { "resource" }, $"Destroying {resource.GetType()} resource");
                 resource.Destroy();
             }
-            else if(_resources[resource] < 0)
+            else if (_resources[resource] < 0)
             {
                 Engine.Logger.LogWarning(new[] { "resource" }, $"Resource {resource.GetType()} reference count below 0");
             }
