@@ -92,7 +92,11 @@
     <Compile Include="Engine\Graphics\Texture.cs" />
     <Compile Include="Engine\Graphics\Vertex.cs" />
     <Compile Include="Engine\Gui\Controls\Control.cs" />
+    <Compile Include="Engine\Gui\Controls\Panel.cs" />
+    <Compile Include="Engine\Gui\GuiController.cs" />
     <Compile Include="Engine\Gui\Dock.cs" />
+    <Compile Include="Engine\Gui\GuiRenderer.cs" />
+    <Compile Include="Engine\Gui\IGuiRenderer.cs" />
     <Compile Include="Engine\Hierarchy\Components\Camera.cs" />
     <Compile Include="Engine\Hierarchy\Components\Component.cs" />
     <Compile Include="Engine\Hierarchy\Components\DirectionalLightComponent.cs" />
