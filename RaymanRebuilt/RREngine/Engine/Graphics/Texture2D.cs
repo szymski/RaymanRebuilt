@@ -29,6 +29,15 @@ namespace RREngine.Engine.Graphics
             Resize(width, height);
         }
 
+        public void LoadImage(int width, int height, byte[] data, PixelFormat format)
+        {
+            Width = width;
+            Height = height;
+
+            Bind();
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat, width, height, 0, format, PixelType, data);
+        }
+
         public void LoadImage(int width, int height, IntPtr data, PixelFormat format)
         {
             Width = width;

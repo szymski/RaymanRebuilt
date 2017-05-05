@@ -52,26 +52,61 @@ namespace RREngine.Engine.Math
                 new Vertex()
                 {
                     Position = new Vector3(-minBounds.X, -minBounds.Y, distance),
-                    Normal = Vector3Directions.Up,
+                    Normal = Vector3Directions.Backward,
                     TexCoord = new Vector2(0, texCoordScaling.Y),
                 },
                 new Vertex()
                 {
                     Position = new Vector3(maxBounds.X, -minBounds.Y, distance),
-                    Normal = Vector3Directions.Up,
+                    Normal = Vector3Directions.Backward,
                     TexCoord = new Vector2(texCoordScaling.X, texCoordScaling.Y),
                 },
                 new Vertex()
                 {
                     Position = new Vector3(maxBounds.X, maxBounds.Y, distance),
-                    Normal = Vector3Directions.Up,
+                    Normal = Vector3Directions.Backward,
                     TexCoord = new Vector2(texCoordScaling.X, 0),
                 },
                 new Vertex()
                 {
                     Position = new Vector3(-minBounds.X, maxBounds.Y, distance),
-                    Normal = Vector3Directions.Up,
+                    Normal = Vector3Directions.Backward,
                     TexCoord = new Vector2(0, 0),
+                }
+            };
+
+            int[] faces = { 2, 1, 0, 3, 2, 0 };
+
+            return new Tuple<Vertex[], int[]>(vertices, faces);
+        }
+
+        public static Tuple<Vertex[], int[]> GenerateXY(Vector2 minBounds, Vector2 maxBounds, Vector2 uvStart, Vector2 uvEnd, float distance = 0)
+        {
+            Vertex[] vertices = new[]
+            {
+                new Vertex()
+                {
+                    Position = new Vector3(-minBounds.X, -minBounds.Y, distance),
+                    Normal = Vector3Directions.Backward,
+                    TexCoord = new Vector2(uvStart.X, uvStart.Y),
+                },
+                new Vertex()
+                {
+                    Position = new Vector3(maxBounds.X, -minBounds.Y, distance),
+                    Normal = Vector3Directions.Backward,
+                    TexCoord = new Vector2(uvEnd.X, uvStart.Y),
+                },
+                new Vertex()
+                {
+                    Position = new Vector3(maxBounds.X, maxBounds.Y, distance),
+                    Normal = Vector3Directions.Backward,
+                    TexCoord = new Vector2(uvEnd.X, uvEnd.Y),
+                },
+                new Vertex()
+                {
+                    Position = new Vector3(-minBounds.X, maxBounds.Y, distance),
+                    Normal = Vector3Directions.Backward,
+                    TexCoord = new Vector2(uvStart.X, uvEnd.Y),
                 }
             };
 

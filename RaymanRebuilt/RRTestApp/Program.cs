@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-using QuickFont;
 using RREngine.Engine;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Graphics;
@@ -75,9 +74,6 @@ namespace RRTestApp
             SceneRenderer sceneRenderer = new SceneRenderer(scene);
             GameObject camera, dragon, plane, teapot;
 
-            QFont qfont = null;
-            QFontDrawing drawing = null;
-
             RenderableMesh unitMesh = null;
 
             Texture2D texture = null;
@@ -94,8 +90,6 @@ namespace RRTestApp
                 var texture2_normal = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
 
                 var fontAsset = Engine.AssetManager.LoadAsset<FontAsset>("comic.ttf");
-                qfont = fontAsset.GetFont(20f);
-                drawing = new QFontDrawing();
 
                 var planeData = Plane.GenerateXY(Vector2.One, Vector2.One, Vector2.One, 0f);
                 unitMesh = RenderableMesh.CreateManaged(new Mesh(planeData.Item1, planeData.Item2));
@@ -322,13 +316,7 @@ namespace RRTestApp
 
                 //unitMesh.Draw();
 
-                drawing.ProjectionMatrix = projMatrix;
-
-                drawing.DrawingPrimitives.Clear();
-                drawing.Print(qfont, $"FPS: {viewport.Time.AverageFPS}", new Vector3(-viewport.Screen.Width / 2f + 5, viewport.Screen.Height / 2f - 5, 0f), QFontAlignment.Left);
-
-                drawing.RefreshBuffers();
-                drawing.Draw();
+        
             };
 
             window.Unload += (sender, eventArgs) =>

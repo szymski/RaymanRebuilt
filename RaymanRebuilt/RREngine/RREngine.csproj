@@ -42,9 +42,9 @@
       <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="QuickFont, Version=4.4.6159.26433, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SharpFont, Version=4.0.1.200, Culture=neutral, PublicKeyToken=48add4c483071cdf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RRTestApp\Files\QuickFont.dll</HintPath>
+      <HintPath>..\RRTestApp\Files\SharpFont.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,6 +68,7 @@
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Engine\Graphics\BasicShapes.cs" />
     <Compile Include="Engine\Graphics\CubemapTexture.cs" />
+    <Compile Include="Engine\Graphics\Font.cs" />
     <Compile Include="Engine\Graphics\FrameBuffer.cs" />
     <Compile Include="Engine\Graphics\GBuffer.cs" />
     <Compile Include="Engine\Graphics\Lights\Attenuation.cs" />
@@ -91,7 +92,9 @@
     <Compile Include="Engine\Graphics\Shaders\SkyboxShader.cs" />
     <Compile Include="Engine\Graphics\Texture.cs" />
     <Compile Include="Engine\Graphics\Vertex.cs" />
+    <Compile Include="Engine\Gui\Controls\Button.cs" />
     <Compile Include="Engine\Gui\Controls\Control.cs" />
+    <Compile Include="Engine\Gui\Controls\Label.cs" />
     <Compile Include="Engine\Gui\Controls\Panel.cs" />
     <Compile Include="Engine\Gui\GuiController.cs" />
     <Compile Include="Engine\Gui\Dock.cs" />

@@ -11,12 +11,29 @@ using RREngine.Engine.Math;
 
 namespace RREngine.Engine.Graphics
 {
+    public enum HorizontalTextAlignment
+    {
+        Left,
+        Center,
+        Right,
+    }
+
+    public enum VerticalTextAlignment
+    {
+        Top,
+        Center,
+        Bottom,
+    }
+
     public class BasicShapes
     {
         public BasicShapeShader Shader { get; }
 
         public RenderableMesh PlaneXY { get; }
         public RenderableMesh Line { get; }
+        private RenderableMesh _tempMesh;
+
+        public Matrix4 Matrix { get; set; } = Matrix4.Identity;
 
         public BasicShapes()
         {
@@ -37,6 +54,8 @@ namespace RREngine.Engine.Graphics
                     Position = new Vector3(1, 0, 0),
                 }
             }, new[] {0, 1}));
+
+            _tempMesh = RenderableMesh.CreateManaged();
         }
 
 
@@ -73,8 +92,20 @@ namespace RREngine.Engine.Graphics
         public void Draw2DRectangle(Vector2 position, Vector2 size)
         {
             Shader.ModelMatrix = Matrix4.CreateScale(size.X, size.Y, 1f) *
-                                 Matrix4.CreateTranslation(position.X, position.Y, 0f);
+                                 Matrix4.CreateTranslation(position.X, position.Y, 0f) * Matrix;
             PlaneXY.Draw();
+        }
+
+        public void Draw2DRectangleUV(Vector2 position, Vector2 size, Vector2 uvStart, Vector2 uvEnd)
+        {
+            var plane = Plane.GenerateXY(Vector2.Zero, Vector2.One, uvStart, uvEnd);
+
+            _tempMesh.Update(new Mesh(plane.Item1, plane.Item2));
+
+            Shader.ModelMatrix = Matrix4.CreateScale(size.X, size.Y, 1f) *
+                                 Matrix4.CreateTranslation(position.X, position.Y, 0f) * Matrix;
+
+            _tempMesh.Draw();
         }
 
         public void Draw2DRectangleOutline(Vector2 position, Vector2 size)
@@ -91,9 +122,46 @@ namespace RREngine.Engine.Graphics
             var angle = Mathf.Atan2(diff.Y, diff.X);
 
             Shader.ModelMatrix = Matrix4.CreateScale(diff.Length) * Matrix4.CreateRotationZ(angle) *
-                                 Matrix4.CreateTranslation(startPosition.X, startPosition.Y, 0f);
+                                 Matrix4.CreateTranslation(startPosition.X, startPosition.Y, 0f) * Matrix;
 
             Line.Draw(PrimitiveType.Lines);
+        }
+
+        public void DrawText(Font font, Vector2 position, string text,
+            HorizontalTextAlignment hAlignment = HorizontalTextAlignment.Left,
+            VerticalTextAlignment vAlignment = VerticalTextAlignment.Top)
+        {
+            var textSize = MeasureText(font, text);
+            float offsetX = 0, offsetY = 0;
+
+            offsetX = hAlignment == HorizontalTextAlignment.Left ? 0
+                : (hAlignment == HorizontalTextAlignment.Center ? -textSize.X / 2f : -textSize.X);
+            offsetY = vAlignment == VerticalTextAlignment.Top ? 0
+                : (vAlignment == VerticalTextAlignment.Center ? -textSize.Y / 2f : -textSize.Y);
+
+            foreach (var c in text)
+            {
+                var glyph = font.Glyphs[c];
+
+                Draw2DRectangleUV(Mathf.Round(position + new Vector2(offsetX + glyph.space[0], -glyph.offsetY + offsetY)), new Vector2(glyph.w, glyph.h), 
+                    new Vector2(glyph.uStart, glyph.vStart),
+                    new Vector2(glyph.uEnd, glyph.vEnd));
+
+                position.X += glyph.w + glyph.space[2] + glyph.space[0];
+            }
+        }
+
+        public Vector2 MeasureText(Font font, string text)
+        {
+            float x = 0;
+
+            foreach (var c in text)
+            {
+                var glyph = font.Glyphs[c];
+                x += glyph.w + glyph.space[2] + glyph.space[0];
+            }
+
+            return new Vector2(x, font.Height);
         }
     }
 }

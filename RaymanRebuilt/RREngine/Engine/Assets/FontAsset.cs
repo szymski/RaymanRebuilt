@@ -5,31 +5,35 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuickFont;
-using QuickFont.Configuration;
+using OpenTK.Graphics.OpenGL4;
+using RREngine.Engine.Graphics;
+using SharpFont;
 
 namespace RREngine.Engine.Assets
 {
     public class FontAsset : Asset
     {
         private Stream _stream;
-        private Dictionary<float, QFont> _fonts = new Dictionary<float, QFont>();
 
         public FontAsset(Stream stream) : base(stream)
         {
             _stream = stream;
         }
 
-        public QFont GetFont(float size)
+        public Graphics.Font GetFont(float size)
         {
-            byte[] data = new byte[_stream.Length];
+            var library = new Library();
 
-            _stream.Seek(0, SeekOrigin.Begin);
-            _stream.Read(data, 0, (int)_stream.Length);
+            byte[] bytes = new byte[_stream.Length];
+            _stream.Read(bytes, 0, bytes.Length);
 
-            var font = new QFont(data, size, new QFontBuilderConfiguration());
+            var face = new Face(library, bytes, 0);
 
-            return font;
+            face.SetPixelSizes(0, (uint)size);
+
+            return Graphics.Font.CreateManaged(face);
         }
+
+
     }
 }

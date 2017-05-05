@@ -8,5 +8,9 @@ namespace RREngine.Engine.Gui.Controls
 {
     public class Panel : Control
     {
+        public Panel(Control parent = null) : base(parent)
+        {
+            
+        }
     }
 }

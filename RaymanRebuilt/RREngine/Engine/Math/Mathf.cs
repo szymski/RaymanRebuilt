@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace RREngine.Engine.Math
 {
@@ -41,5 +42,8 @@ namespace RREngine.Engine.Math
 
         public static float Clamp(float value, float min, float max)
             => value < min ? min : (value > max) ? max : value;
+
+        public static Vector2 Round(Vector2 value) => new Vector2(Round(value[0]), Round(value[1]));
+        public static Vector3 Round(Vector3 value) => new Vector3(Round(value[0]), Round(value[1]), Round(value[2]));
     }
 }

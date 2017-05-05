@@ -13,6 +13,8 @@ namespace RREngine.Engine.Graphics
     /// </summary>
     public class RenderableMesh : Resource
     {
+        private bool _initialized = false;
+
         public int VertexArrayId { get; private set; }
 
         public int VertexBufferId { get; private set; }
@@ -21,6 +23,11 @@ namespace RREngine.Engine.Graphics
         public int IndexBufferId { get; private set; }
 
         private int _numIndices = 0;
+
+        private RenderableMesh()
+        {
+
+        }
 
         private RenderableMesh(Mesh mesh)
         {
@@ -34,7 +41,8 @@ namespace RREngine.Engine.Graphics
 
         public override void Destroy()
         {
-            GL.DeleteVertexArray(VertexArrayId);
+            if (_initialized)
+                GL.DeleteVertexArray(VertexArrayId);
         }
 
         void GenerateBuffer(Vertex[] vertices, int[] indices)
@@ -42,16 +50,43 @@ namespace RREngine.Engine.Graphics
             VertexArrayId = GL.GenVertexArray();
             GL.BindVertexArray(VertexArrayId);
 
-            Sendvertices(vertices, indices);
+            SendVertices(vertices, indices);
             SendNormals(vertices, indices);
             SendIndices(vertices, indices);
             SendTexCoords(vertices, indices);
 
             GL.BindVertexArray(0);
+
+            _initialized = true;
         }
 
-        void Sendvertices(Vertex[] vertices, int[] indices) {
-            VertexBufferId = GL.GenBuffer();
+        public void Update(Mesh mesh)
+        {
+            var vertices = mesh.Vertices;
+            var indices = mesh.Indices;
+
+            _numIndices = indices.Length;
+
+            if (!_initialized)
+                VertexArrayId = GL.GenVertexArray();
+
+            GL.BindVertexArray(VertexArrayId);
+
+            SendVertices(vertices, indices);
+            SendNormals(vertices, indices);
+            SendIndices(vertices, indices);
+            SendTexCoords(vertices, indices);
+
+            GL.BindVertexArray(0);
+
+            _initialized = true;
+        }
+
+        void SendVertices(Vertex[] vertices, int[] indices)
+        {
+            if (!_initialized)
+                VertexBufferId = GL.GenBuffer();
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, VertexBufferId);
 
             float[] data = new float[vertices.Length * 3];
@@ -70,7 +105,9 @@ namespace RREngine.Engine.Graphics
 
         void SendNormals(Vertex[] vertices, int[] indices)
         {
-            NormalBufferId = GL.GenBuffer();
+            if (!_initialized)
+                NormalBufferId = GL.GenBuffer();
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, NormalBufferId);
 
             float[] data = new float[vertices.Length * 3];
@@ -89,7 +126,9 @@ namespace RREngine.Engine.Graphics
 
         void SendTexCoords(Vertex[] vertices, int[] indices)
         {
-            TexCoordBufferId = GL.GenBuffer();
+            if (!_initialized)
+                TexCoordBufferId = GL.GenBuffer();
+
             GL.BindBuffer(BufferTarget.ArrayBuffer, TexCoordBufferId);
 
             float[] data = new float[vertices.Length * 3];
@@ -107,7 +146,9 @@ namespace RREngine.Engine.Graphics
 
         void SendIndices(Vertex[] vertices, int[] indices)
         {
-            IndexBufferId = GL.GenBuffer();
+            if (!_initialized)
+                IndexBufferId = GL.GenBuffer();
+
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, IndexBufferId);
 
             int[] indexData = indices;
@@ -129,9 +170,22 @@ namespace RREngine.Engine.Graphics
             return resource;
         }
 
+        public static RenderableMesh CreateManaged()
+        {
+            var resource = new RenderableMesh();
+            Engine.ResourceManager.RegisterResource(resource);
+
+            return resource;
+        }
+
         public static RenderableMesh CreateUnmanaged(Mesh mesh)
         {
             return new RenderableMesh(mesh);
+        }
+
+        public static RenderableMesh CreateUnmanaged()
+        {
+            return new RenderableMesh();
         }
     }
 }
