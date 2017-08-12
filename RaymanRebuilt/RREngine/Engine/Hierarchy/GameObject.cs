@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using RREngine.Engine.Hierarchy.Components;
+using RREngine.Engine.Protobuf.Scene;
 
 namespace RREngine.Engine.Hierarchy
 {
@@ -55,6 +56,25 @@ namespace RREngine.Engine.Hierarchy
                 if (component.Enabled)
                     component.OnRender();
         }
+
+        #region Serialization
+
+        public Protobuf.Scene.SceneSerialization.GameObjectProto Serialize()
+        {
+            var gameObjectProto = new RREngine.Engine.Protobuf.Scene.SceneSerialization.GameObjectProto();
+
+            Protobuf.Scene.SceneSerialization.TransformProto transformProto = GetComponent<Components.Transform>().Serialize();
+            gameObjectProto.Transform = transformProto;
+
+            // TODO: this includes the transform component already added seperately
+            foreach(Component component in Components) {
+                gameObjectProto.Components.Add(component.Serialize());
+            }
+
+            return gameObjectProto;
+        }
+
+        #endregion
 
         #region Components
 

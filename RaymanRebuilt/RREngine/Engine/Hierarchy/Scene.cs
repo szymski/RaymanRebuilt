@@ -46,6 +46,20 @@ namespace RREngine.Engine.Hierarchy
                     gameObject.Update();
         }
 
+        #region Serialization
+
+        public Protobuf.Scene.SceneSerialization.SceneProto Serialize()
+        {
+            var protoScene = new Protobuf.Scene.SceneSerialization.SceneProto();
+            foreach (var gameObject in GameObjects)
+            {
+                protoScene.Objects.Add(gameObject.Serialize());
+            }
+            return protoScene;
+        }
+
+        #endregion
+
         #region Game objects
 
         public GameObject CreateGameObject()

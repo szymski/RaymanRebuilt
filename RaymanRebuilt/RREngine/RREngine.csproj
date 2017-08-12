@@ -38,6 +38,10 @@
       <HintPath>..\packages\AssimpNet.3.3.2\lib\net45\AssimpNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Google.Protobuf, Version=3.3.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.3.0\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +115,7 @@
     <Compile Include="Engine\Hierarchy\Components\PlaneGenerator.cs" />
     <Compile Include="Engine\Hierarchy\Components\Transform.cs" />
     <Compile Include="Engine\Hierarchy\GameObject.cs" />
+    <Compile Include="Engine\Hierarchy\SceneManager.cs" />
     <Compile Include="Engine\Hierarchy\SceneRenderer.cs" />
     <Compile Include="Engine\Input\InputState.cs" />
     <Compile Include="Engine\Input\KeyboardKey.cs" />
@@ -128,6 +133,8 @@
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Math\Vector3Directions.cs" />
     <Compile Include="Engine\Hierarchy\Scene.cs" />
+    <Compile Include="Engine\Protobuf\Scene\SceneSerialization.cs" />
+    <Compile Include="Engine\Protobuf\Scene\SceneSerializationUtil.cs" />
     <Compile Include="Engine\Resources\Resource.cs" />
     <Compile Include="Engine\Resources\ResourceManager.cs" />
     <Compile Include="Engine\Screen.cs" />

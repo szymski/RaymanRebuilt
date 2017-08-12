@@ -258,6 +258,11 @@ namespace RRTestApp
                 if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
                     window.GameWindow.Close();
 
+                if (viewport.Keyboard.GetKeyUp(KeyboardKey.K))
+                {
+                    Engine.SceneManager.SaveSceneToFile(scene, "test.scene");
+                }
+
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
                 {
                     if (!Viewport.Current.Screen.IsFullscreen)

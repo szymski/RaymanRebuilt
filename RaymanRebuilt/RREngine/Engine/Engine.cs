@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RREngine.Engine.Assets;
 using RREngine.Engine.Resources;
+using RREngine.Engine.Hierarchy;
 
 namespace RREngine.Engine
 {
@@ -20,6 +21,7 @@ namespace RREngine.Engine
         public static MultiLogger Logger { get; private set; }
         public static AssetManager AssetManager { get; private set; }
         public static ResourceManager ResourceManager { get; private set; }
+        public static SceneManager SceneManager { get; private set; }
 
         public static void Initialize()
         {
@@ -34,6 +36,7 @@ namespace RREngine.Engine
 
             AssetManager = new AssetManager();
             ResourceManager = new ResourceManager();
+            SceneManager = new SceneManager();
 
             Initialized = true;
         }

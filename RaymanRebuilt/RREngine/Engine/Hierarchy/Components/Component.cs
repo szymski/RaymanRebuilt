@@ -1,4 +1,5 @@
 ﻿using System;
+using RREngine.Engine.Protobuf.Scene.SceneSerialization;
 
 namespace RREngine.Engine.Hierarchy.Components
 {
@@ -69,6 +70,17 @@ namespace RREngine.Engine.Hierarchy.Components
         /// Called every frame. All drawing operations should be done here.MO
         /// </summary>
         public virtual void OnRender() { }
+
+        #endregion
+
+        #region Serialization
+
+        internal ComponentProto Serialize()
+        {
+            var componentProto = new ComponentProto();
+            componentProto.ComponentName = "<UnknownComponent>";
+            return componentProto;
+        }
 
         #endregion
     }

@@ -1,0 +1,36 @@
+syntax = "proto3";
+package RaymanRebuilt;
+
+option csharp_namespace = 'RREngine.Engine.Protobuf.Scene.SceneSerialization';
+
+message Vector3Proto {
+	float x = 1;
+	float y = 2;
+	float z = 3;
+}
+
+message QuaternionProto {
+	float x = 1;
+	float y = 2;
+	float z = 3;
+	float w = 4;
+}
+
+message TransformProto {
+	Vector3Proto position = 1;
+	QuaternionProto quaternion = 2;
+	Vector3Proto scale = 3;
+}
+
+message SceneProto {
+	repeated GameObjectProto objects = 1;
+}
+
+message ComponentProto {
+	string componentName = 1;
+}
+
+message GameObjectProto {
+	TransformProto transform = 1;
+	repeated ComponentProto components = 2;
+}
