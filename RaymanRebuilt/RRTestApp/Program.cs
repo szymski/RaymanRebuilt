@@ -131,7 +131,7 @@ namespace RRTestApp
                 plane = scene.CreateGameObject();
                 plane.AddComponent<Transform>();
                 RigidBodyComponent planeBody = plane.AddComponent<RigidBodyComponent>();
-                planeBody.Shape = new BoxShape(40, 0, 40);
+                planeBody.Shape = new BoxShape(80, 0, 80);
                 planeBody.Material = new Jitter.Dynamics.Material()
                 {
                     Restitution = 0.1f,
@@ -147,17 +147,18 @@ namespace RRTestApp
                 };
                 var planeGen = plane.AddComponent<PlaneGenerator>();
                 planeGen.TexCoordScaling = Vector2.One * 10f;
-                planeGen.MinBounds = Vector2.One * 20;
-                planeGen.MaxBounds = Vector2.One * 20;
+                planeGen.MinBounds = Vector2.One * 40;
+                planeGen.MaxBounds = Vector2.One * 40;
 
                 #endregion
 
                 #region Falling Boxes
 
-                for (int i = -5; i < 5; i++)
+                for (int i = -3; i < 3; i++)
                 {
-                    for (int j = -5; j < 5; j++)
+                    for (int j = -3; j < 3; j++)
                     {
+                        
                         Material boxMat = new Material()
                         {
                             BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
@@ -167,9 +168,9 @@ namespace RRTestApp
 
                         var box = scene.CreateGameObject();
                         var boxTransform = box.AddComponent<Transform>();
-                        boxTransform.Position = new Vector3(i*1.3f, 10 + (float)rand.NextDouble()*10, j*1.5f);
-                        boxTransform.Rotation = new Quaternion((float)rand.NextDouble()*Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
-
+                        boxTransform.Position = new Vector3(i * 3f, 5 + (float)rand.NextDouble() * 10, j * 4f);
+                        boxTransform.Rotation = new Quaternion((float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
+                        
                         //transform.Scale *= 0.3f;
                         var boxRenderer = box.AddComponent<MeshRenderer>();
                         var boxMeshGenerator = box.AddComponent<CubeGenerator>();
@@ -193,7 +194,7 @@ namespace RRTestApp
                 #endregion
 
                 #region Dragons
-                /*
+
                 Material mat = new Material()
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
@@ -204,17 +205,17 @@ namespace RRTestApp
                 dragon = scene.CreateGameObject();
                 var transform = dragon.AddComponent<Transform>();
                 transform.Position = new Vector3(0, 0, 0);
-                    
+
                 //transform.Scale *= 0.3f;
                 var renderer = dragon.AddComponent<MeshRenderer>();
                 renderer.RenderableMesh = dragonRenderableMesh;
                 renderer.Material = mat;
-                    
-                */
+
+
                 #endregion
 
                 #region Teapots and balls
-                /*
+
                 Material mat2 = new Material()
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
@@ -272,7 +273,7 @@ namespace RRTestApp
                         sphere.AddComponent<RotatingComponent>();
                     }
                 }
-                */
+
                 var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
                 var pointLightComponent = light.AddComponent<PointLightComponent>();
@@ -321,11 +322,6 @@ namespace RRTestApp
             {
                 if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
                     window.GameWindow.Close();
-
-                if (viewport.Keyboard.GetKey(KeyboardKey.Z))
-                {
-                    scene.PhysicsWorld.Step(Viewport.Current.Time.DeltaTime, true);
-                }
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.K))
                 {
