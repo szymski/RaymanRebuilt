@@ -21,6 +21,7 @@ using PixelFormat = OpenTK.Graphics.OpenGL4.PixelFormat;
 using ShaderType = RREngine.Engine.Graphics.ShaderType;
 using Vertex = RREngine.Engine.Graphics.Vertex;
 using Viewport = RREngine.Engine.Viewport;
+using Jitter.Collision.Shapes;
 
 namespace RRTestApp
 {
@@ -82,6 +83,8 @@ namespace RRTestApp
             {
                 scene.SceneRenderer = sceneRenderer;
 
+                #region Asset Loading/Generation
+
                 dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateRenderableMesh();
                 var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateRenderableMesh();
                 var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateRenderableMesh();
@@ -93,6 +96,7 @@ namespace RRTestApp
 
                 var planeData = Plane.GenerateXY(Vector2.One, Vector2.One, Vector2.One, 0f);
                 unitMesh = RenderableMesh.CreateManaged(new Mesh(planeData.Item1, planeData.Item2));
+                #endregion
 
                 #region Skybox
 
@@ -113,14 +117,29 @@ namespace RRTestApp
 
                 #region Scene populating
 
+                Random rand = new Random();
+
+                #region Camera
                 camera = scene.CreateGameObject();
                 camera.AddComponent<Transform>().Position = Vector3Directions.Backward * 20f;
                 var camComponent = camera.AddComponent<PerspectiveCamera>();
                 sceneRenderer.CurrentCamera = camComponent;
                 camera.AddComponent<FlyingCamera>();
+                #endregion
 
+                #region Ground plane
                 plane = scene.CreateGameObject();
                 plane.AddComponent<Transform>();
+                RigidBodyComponent planeBody = plane.AddComponent<RigidBodyComponent>();
+                planeBody.Shape = new BoxShape(40, 0, 40);
+                planeBody.Material = new Jitter.Dynamics.Material()
+                {
+                    Restitution = 0.1f,
+                    StaticFriction = 0.2f,
+                    KineticFriction = 0.2f
+                };
+                planeBody.Static = true;
+
                 plane.AddComponent<MeshRenderer>().Material = new Material()
                 {
                     BaseColor = new Vector4(1f, 1f, 1f, 1f),
@@ -128,30 +147,74 @@ namespace RRTestApp
                 };
                 var planeGen = plane.AddComponent<PlaneGenerator>();
                 planeGen.TexCoordScaling = Vector2.One * 10f;
-                planeGen.MinBounds = Vector2.One * 10;
-                planeGen.MaxBounds = Vector2.One * 10;
+                planeGen.MinBounds = Vector2.One * 20;
+                planeGen.MaxBounds = Vector2.One * 20;
 
-                Random rand = new Random();
+                #endregion
 
-                for (int i = -2; i < -1; i++)
+                #region Falling Boxes
+
+                for (int i = -5; i < 5; i++)
                 {
-                    Material mat = new Material()
+                    for (int j = -5; j < 5; j++)
                     {
-                        BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                        // Texture = texture,
-                        SpecularPower = 10f,
-                    };
+                        Material boxMat = new Material()
+                        {
+                            BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                            // Texture = texture,
+                            SpecularPower = 10f,
+                        };
 
-                    dragon = scene.CreateGameObject();
-                    var transform = dragon.AddComponent<Transform>();
-                    transform.Position = Vector3Directions.Forward * 10f + Vector3Directions.Left * 4f * i;
-                    //transform.Scale *= 0.3f;
-                    var renderer = dragon.AddComponent<MeshRenderer>();
-                    renderer.RenderableMesh = dragonRenderableMesh;
-                    renderer.Material = mat;
-                    dragon.AddComponent<RotatingComponent>();
+                        var box = scene.CreateGameObject();
+                        var boxTransform = box.AddComponent<Transform>();
+                        boxTransform.Position = new Vector3(i*1.3f, 10 + (float)rand.NextDouble()*10, j*1.5f);
+                        boxTransform.Rotation = new Quaternion((float)rand.NextDouble()*Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
+
+                        //transform.Scale *= 0.3f;
+                        var boxRenderer = box.AddComponent<MeshRenderer>();
+                        var boxMeshGenerator = box.AddComponent<CubeGenerator>();
+
+                        Vector3 boxSize = new Vector3(0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2);
+
+                        boxMeshGenerator.Size = new Vector3(boxSize);
+                        boxRenderer.Material = boxMat;
+
+                        RigidBodyComponent rigidBody = box.AddComponent<RigidBodyComponent>();
+                        rigidBody.Shape = new BoxShape(boxSize.X, boxSize.Y, boxSize.Z);
+                        rigidBody.Material = new Jitter.Dynamics.Material()
+                        {
+                            Restitution = 0.25f,
+                            KineticFriction = 0.1f,
+                            StaticFriction = 0.1f
+                        };
+                    }
                 }
 
+                #endregion
+
+                #region Dragons
+                /*
+                Material mat = new Material()
+                {
+                    BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                    // Texture = texture,
+                    SpecularPower = 10f,
+                };
+
+                dragon = scene.CreateGameObject();
+                var transform = dragon.AddComponent<Transform>();
+                transform.Position = new Vector3(0, 0, 0);
+                    
+                //transform.Scale *= 0.3f;
+                var renderer = dragon.AddComponent<MeshRenderer>();
+                renderer.RenderableMesh = dragonRenderableMesh;
+                renderer.Material = mat;
+                    
+                */
+                #endregion
+
+                #region Teapots and balls
+                /*
                 Material mat2 = new Material()
                 {
                     BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
@@ -209,7 +272,7 @@ namespace RRTestApp
                         sphere.AddComponent<RotatingComponent>();
                     }
                 }
-
+                */
                 var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
                 var pointLightComponent = light.AddComponent<PointLightComponent>();
@@ -228,6 +291,7 @@ namespace RRTestApp
                 dirLightComponent.Intensity = 1f;
                 dirLightComponent.Color = new Vector3(1f, 0.95f, 0.9f);
 
+                #endregion
                 #endregion
 
                 sceneRenderer.Init();
@@ -257,6 +321,11 @@ namespace RRTestApp
             {
                 if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
                     window.GameWindow.Close();
+
+                if (viewport.Keyboard.GetKey(KeyboardKey.Z))
+                {
+                    scene.PhysicsWorld.Step(Viewport.Current.Time.DeltaTime, true);
+                }
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.K))
                 {
@@ -321,7 +390,7 @@ namespace RRTestApp
 
                 //unitMesh.Draw();
 
-        
+
             };
 
             window.Unload += (sender, eventArgs) =>

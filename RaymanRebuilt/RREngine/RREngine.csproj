@@ -42,6 +42,10 @@
       <HintPath>..\packages\Google.Protobuf.3.3.0\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Jitter, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JitterPhysics.0.2.0.20\lib\net4\Jitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
       <Private>True</Private>
@@ -110,7 +114,9 @@
     <Compile Include="Engine\Hierarchy\Components\FlyingCamera.cs" />
     <Compile Include="Engine\Hierarchy\Components\MeshRenderer.cs" />
     <Compile Include="Engine\Hierarchy\Components\PerspectiveCamera.cs" />
+    <Compile Include="Engine\Hierarchy\Components\CubeGenerator.cs" />
     <Compile Include="Engine\Hierarchy\Components\PointLightComponent.cs" />
+    <Compile Include="Engine\Hierarchy\Components\RigidBodyComponent.cs" />
     <Compile Include="Engine\Hierarchy\Components\RotatingComponent.cs" />
     <Compile Include="Engine\Hierarchy\Components\PlaneGenerator.cs" />
     <Compile Include="Engine\Hierarchy\Components\Transform.cs" />
@@ -127,7 +133,9 @@
     <Compile Include="Engine\Logging\ILogger.cs" />
     <Compile Include="Engine\Logging\MultiLogger.cs" />
     <Compile Include="Engine\Logging\SimplifiedLogger.cs" />
+    <Compile Include="Engine\Math\Cube.cs" />
     <Compile Include="Engine\Math\Plane.cs" />
+    <Compile Include="Engine\Math\QuaternionUtil.cs" />
     <Compile Include="Engine\Math\Rng.cs" />
     <Compile Include="Engine\Math\Mathf.cs" />
     <Compile Include="Engine\EventArgsTypes.cs" />

@@ -8,6 +8,9 @@ using Assimp;
 using RREngine.Engine.Graphics;
 using RREngine.Engine.Hierarchy.Components;
 using Camera = RREngine.Engine.Hierarchy.Components.Camera;
+using Jitter;
+using Jitter.Collision;
+using Jitter.LinearMath;
 
 namespace RREngine.Engine.Hierarchy
 {
@@ -21,6 +24,7 @@ namespace RREngine.Engine.Hierarchy
         private uint _lastGameObjectId = 0;
         private List<GameObject> _gameObjects = new List<GameObject>();
         public IEnumerable<GameObject> GameObjects => _gameObjects.AsEnumerable();
+        public World PhysicsWorld { get; set; }
 
         public SceneRenderer SceneRenderer { get; set; }
 
@@ -29,6 +33,9 @@ namespace RREngine.Engine.Hierarchy
             if (Initialized)
                 throw new Exception("Already initialized.");
 
+            var collisionSystem = new CollisionSystemSAP();
+            PhysicsWorld = new World(collisionSystem);
+            PhysicsWorld.Gravity = new JVector(0, -9.81f, 0);
 
             foreach (var gameObject in _gameObjects)
                 gameObject.OnInit();
@@ -40,6 +47,8 @@ namespace RREngine.Engine.Hierarchy
         {
             if (!Initialized)
                 throw new Exception("Scene has to be initialized first.");
+
+            //PhysicsWorld.Step(Viewport.Current.Time.DeltaTime, true);
 
             foreach (var gameObject in _gameObjects)
                 if (gameObject.Enabled)
