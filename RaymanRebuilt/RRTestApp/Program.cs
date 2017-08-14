@@ -70,6 +70,7 @@ namespace RRTestApp
             var viewport = window.Viewport;
 
             RenderableMesh dragonRenderableMesh = null;
+            RenderableMesh learn30mesh = null;
 
             Scene scene = new Scene();
             SceneRenderer sceneRenderer = new SceneRenderer(scene);
@@ -86,11 +87,14 @@ namespace RRTestApp
                 #region Asset Loading/Generation
 
                 dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateRenderableMesh();
+                learn30mesh = Engine.AssetManager.LoadAsset<ModelAsset>("FullLearn30.obj").GenerateRenderableMesh();
+
                 var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateRenderableMesh();
                 var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateRenderableMesh();
                 texture = Engine.AssetManager.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
                 var texture2 = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks.jpg").GenerateTexture();
                 var texture2_normal = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
+
 
                 var fontAsset = Engine.AssetManager.LoadAsset<FontAsset>("comic.ttf");
 
@@ -152,127 +156,143 @@ namespace RRTestApp
 
                 #endregion
 
-                #region Falling Boxes
-
-                for (int i = -3; i < 3; i++)
+                #region Disabled
+                if (false)
                 {
-                    for (int j = -3; j < 3; j++)
+                    #region Falling Boxes
+
+                    for (int i = -10; i <= 10; i++)
                     {
-                        
-                        Material boxMat = new Material()
+                        for (int j = -10; j <= 10; j++)
                         {
-                            BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                            // Texture = texture,
-                            SpecularPower = 10f,
-                        };
 
-                        var box = scene.CreateGameObject();
-                        var boxTransform = box.AddComponent<Transform>();
-                        boxTransform.Position = new Vector3(i * 3f, 5 + (float)rand.NextDouble() * 10, j * 4f);
-                        boxTransform.Rotation = new Quaternion((float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
-                        
-                        //transform.Scale *= 0.3f;
-                        var boxRenderer = box.AddComponent<MeshRenderer>();
-                        var boxMeshGenerator = box.AddComponent<CubeGenerator>();
+                            Material boxMat = new Material()
+                            {
+                                BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                                // Texture = texture,
+                                SpecularPower = 10f,
+                            };
 
-                        Vector3 boxSize = new Vector3(0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2);
+                            var box = scene.CreateGameObject();
+                            var boxTransform = box.AddComponent<Transform>();
+                            boxTransform.Position = new Vector3(i * 0.3f, 15 + (float)rand.NextDouble() * 10, j * 0.4f);
+                            boxTransform.Rotation = new Quaternion((float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
 
-                        boxMeshGenerator.Size = new Vector3(boxSize);
-                        boxRenderer.Material = boxMat;
+                            //transform.Scale *= 0.3f;
+                            var boxRenderer = box.AddComponent<MeshRenderer>();
+                            var boxMeshGenerator = box.AddComponent<CubeGenerator>();
 
-                        RigidBodyComponent rigidBody = box.AddComponent<RigidBodyComponent>();
-                        rigidBody.Shape = new BoxShape(boxSize.X, boxSize.Y, boxSize.Z);
-                        rigidBody.Material = new Jitter.Dynamics.Material()
-                        {
-                            Restitution = 0.25f,
-                            KineticFriction = 0.1f,
-                            StaticFriction = 0.1f
-                        };
+                            Vector3 boxSize = new Vector3(0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2);
+
+                            boxMeshGenerator.Size = new Vector3(boxSize);
+                            boxRenderer.Material = boxMat;
+
+                            RigidBodyComponent rigidBody = box.AddComponent<RigidBodyComponent>();
+                            rigidBody.Shape = new BoxShape(boxSize.X, boxSize.Y, boxSize.Z);
+                            rigidBody.Material = new Jitter.Dynamics.Material()
+                            {
+                                Restitution = 0.25f,
+                                KineticFriction = 0.1f,
+                                StaticFriction = 0.1f
+                            };
+                        }
                     }
-                }
 
-                #endregion
+                    #endregion
 
-                #region Dragons
+                    #region Dragons
 
-                Material mat = new Material()
-                {
-                    BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                    // Texture = texture,
-                    SpecularPower = 10f,
-                };
-
-                dragon = scene.CreateGameObject();
-                var transform = dragon.AddComponent<Transform>();
-                transform.Position = new Vector3(0, 0, 0);
-
-                //transform.Scale *= 0.3f;
-                var renderer = dragon.AddComponent<MeshRenderer>();
-                renderer.RenderableMesh = dragonRenderableMesh;
-                renderer.Material = mat;
-
-
-                #endregion
-
-                #region Teapots and balls
-
-                Material mat2 = new Material()
-                {
-                    BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                    //BaseColor = new Vector4(0f, 0f, 0f, 1f),
-                    DiffuseTexture = texture,
-                    SpecularIntensity = 1f,
-                };
-
-                {
-                    teapot = scene.CreateGameObject();
-                    var transform2 = teapot.AddComponent<Transform>();
-                    transform2.Position = Vector3Directions.Up * 2f;
-                    var renderer2 = teapot.AddComponent<MeshRenderer>();
-                    renderer2.RenderableMesh = teapotMesh;
-                    renderer2.Material = mat2;
-                }
-
-                {
-                    Material mat3 = new Material()
+                    Material mat = new Material()
                     {
-                        BaseColor = new Vector4(1f, 1f, 1f, 1f),
-                        DiffuseTexture = texture2,
-                        NormalTexture = texture2_normal,
+                        BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                        // Texture = texture,
+                        SpecularPower = 10f,
+                    };
+
+                    dragon = scene.CreateGameObject();
+                    var transform = dragon.AddComponent<Transform>();
+                    transform.Position = new Vector3(0, 0, 0);
+
+                    //transform.Scale *= 0.3f;
+                    var renderer = dragon.AddComponent<MeshRenderer>();
+                    renderer.RenderableMesh = dragonRenderableMesh;
+                    renderer.Material = mat;
+
+
+                    #endregion
+
+                    #region Teapots and balls
+
+                    Material mat2 = new Material()
+                    {
+                        BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                        //BaseColor = new Vector4(0f, 0f, 0f, 1f),
+                        DiffuseTexture = texture,
                         SpecularIntensity = 1f,
                     };
 
-                    GameObject sphere = scene.CreateGameObject();
-                    var transform2 = sphere.AddComponent<Transform>();
-                    transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Left * 8f;
-                    transform2.Scale = Vector3.One * 2f;
-                    var renderer2 = sphere.AddComponent<MeshRenderer>();
-                    renderer2.RenderableMesh = sphereMesh;
-                    renderer2.Material = mat3;
-                    sphere.AddComponent<RotatingComponent>();
-                }
+                    {
+                        teapot = scene.CreateGameObject();
+                        var transform2 = teapot.AddComponent<Transform>();
+                        transform2.Position = Vector3Directions.Up * 2f;
+                        var renderer2 = teapot.AddComponent<MeshRenderer>();
+                        renderer2.RenderableMesh = teapotMesh;
+                        renderer2.Material = mat2;
+                    }
 
-                {
-                    for (int i = -3; i < 3; i++)
                     {
                         Material mat3 = new Material()
                         {
-                            BaseColor = new Vector4(0.8f, 0.8f, 0.8f, 1f),
-                            SpecularIntensity = Rng.Instance.GetFloat(0f, 1.2f),
-                            SpecularPower = Rng.Instance.GetFloat(1f, 40f),
+                            BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                            DiffuseTexture = texture2,
+                            NormalTexture = texture2_normal,
+                            SpecularIntensity = 1f,
                         };
 
                         GameObject sphere = scene.CreateGameObject();
                         var transform2 = sphere.AddComponent<Transform>();
-                        transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Right * 18f +
-                                              Vector3Directions.Backward * (i * 5f);
+                        transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Left * 8f;
                         transform2.Scale = Vector3.One * 2f;
                         var renderer2 = sphere.AddComponent<MeshRenderer>();
                         renderer2.RenderableMesh = sphereMesh;
                         renderer2.Material = mat3;
                         sphere.AddComponent<RotatingComponent>();
                     }
+
+                    {
+                        for (int i = -3; i < 3; i++)
+                        {
+                            Material mat3 = new Material()
+                            {
+                                BaseColor = new Vector4(0.8f, 0.8f, 0.8f, 1f),
+                                SpecularIntensity = Rng.Instance.GetFloat(0f, 1.2f),
+                                SpecularPower = Rng.Instance.GetFloat(1f, 40f),
+                            };
+
+                            GameObject sphere = scene.CreateGameObject();
+                            var transform2 = sphere.AddComponent<Transform>();
+                            transform2.Position = Vector3Directions.Up * 2f + Vector3Directions.Right * 18f +
+                                                  Vector3Directions.Backward * (i * 5f);
+                            transform2.Scale = Vector3.One * 2f;
+                            var renderer2 = sphere.AddComponent<MeshRenderer>();
+                            renderer2.RenderableMesh = sphereMesh;
+                            renderer2.Material = mat3;
+                            sphere.AddComponent<RotatingComponent>();
+                        }
+                    }
                 }
+                #endregion
+                #endregion
+
+                var learn30gameObject = scene.CreateGameObject();
+                learn30gameObject.AddComponent<Transform>();
+                var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
+                learn30renderer.RenderableMesh = learn30mesh;
+                learn30renderer.Material = new Material()
+                {
+                    BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                    DiffuseTexture = texture,
+                };
 
                 var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
@@ -292,7 +312,6 @@ namespace RRTestApp
                 dirLightComponent.Intensity = 1f;
                 dirLightComponent.Color = new Vector3(1f, 0.95f, 0.9f);
 
-                #endregion
                 #endregion
 
                 sceneRenderer.Init();
@@ -346,8 +365,8 @@ namespace RRTestApp
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.L))
                 {
                     Viewport.Current.Mouse.Locked = !Viewport.Current.Mouse.Locked;
-                    //Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
-                }
+                        //Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
+                    }
 
                 if (viewport.Keyboard.GetKeyUp(KeyboardKey.P))
                 {
@@ -384,10 +403,10 @@ namespace RRTestApp
                 GL.Enable(EnableCap.Texture2D);
                 texture.Bind(0);
 
-                //unitMesh.Draw();
+                    //unitMesh.Draw();
 
 
-            };
+                };
 
             window.Unload += (sender, eventArgs) =>
             {

@@ -1,0 +1,2235 @@
+# Blender MTL File: 'None'
+# Material Count: 203
+
+newmtl default.006
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_cahute01.gf.png
+
+newmtl default.007
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.008
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.009
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.010
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.011
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\grottdoc_contrescalier01.gf.png
+
+newmtl default.012
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere01_txy_nz.gf.png
+
+newmtl default.013
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere02_txy_nz.gf.png
+
+newmtl default.014
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_pierre\stele_aide_nz.gf.png
+
+newmtl default.015
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc03_ty.gf.png
+
+newmtl default.016
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fen+trc_txy.gf.png
+
+newmtl default.017
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.018
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.019
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.020
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_side_tynz.gf.png
+
+newmtl default.021
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.022
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.023
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_bordtri_nz.gf.png
+
+newmtl default.024
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc04_txy.gf.png
+
+newmtl default.025
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.026
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.027
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.028
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.029
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_hublot01txy.gf.png
+
+newmtl default.030
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_hublot04txy.gf.png
+
+newmtl default.031
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\grottdoc_rampetxynz.gf.png
+
+newmtl default.032
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_plafondt01txy.gf.png
+
+newmtl default.033
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.034
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.035
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.036
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive02_ty.gf.png
+
+newmtl default.037
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.038
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.039
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.040
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere01_txy_nz.gf.png
+
+newmtl default.041
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere02_txy_nz.gf.png
+
+newmtl default.042
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere01_txy_nz.gf.png
+
+newmtl default.043
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere02_txy_nz.gf.png
+
+newmtl default.044
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.045
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc03_ty.gf.png
+
+newmtl default.046
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.047
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_cahute01.gf.png
+
+newmtl default.048
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fen+trc_txy.gf.png
+
+newmtl default.049
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.050
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive02_ty.gf.png
+
+newmtl default.051
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc01_ty.gf.png
+
+newmtl default.052
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc02_txy.gf.png
+
+newmtl default.053
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_side_tynz.gf.png
+
+newmtl default.054
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.055
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.056
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.057
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_bordtri_nz.gf.png
+
+newmtl default.058
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc04_txy.gf.png
+
+newmtl default.059
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_toitbord_tynz.gf.png
+
+newmtl default.060
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_toit_tynz.gf.png
+
+newmtl default.061
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_pierre\stele_spirale.gf.png
+
+newmtl default.062
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_cinematique_rhop\cine_soleil_mxy_anu.gf.png
+
+newmtl default.063
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_pon_ty_nz.gf.png
+
+newmtl default.064
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_pont_mi_tx_nz.gf.png
+
+newmtl default.065
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe01_txy.gf.png
+
+newmtl default.066
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe02_txy.gf.png
+
+newmtl default.067
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\lomortel_nz.gf.png
+
+newmtl default.068
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_cinematique_rhop\cine_soleil_mxy_anu.gf.png
+
+newmtl default.069
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_fer01txy.gf.png
+
+newmtl default.070
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_lampe01.gf.png
+
+newmtl default.071
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_lampetoit01.gf.png
+
+newmtl default.072
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\epineux02_txy_nz.gf.png
+
+newmtl default.073
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere01_txy_nz.gf.png
+
+newmtl default.074
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere02_txy_nz.gf.png
+
+newmtl default.075
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_bois_txy.gf.png
+
+newmtl default.076
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_rac01_txy.gf.png
+
+newmtl default.077
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_blk01_txy.gf.png
+
+newmtl default.078
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe01_txy.gf.png
+
+newmtl default.079
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe02_txy.gf.png
+
+newmtl default.080
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_bois_txy.gf.png
+
+newmtl default.081
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_toit_tynz.gf.png
+
+newmtl default.082
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.083
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.084
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.085
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_bois_txy.gf.png
+
+newmtl default.086
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe02_txy.gf.png
+
+newmtl default.087
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc03_ty.gf.png
+
+newmtl default.088
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.089
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.090
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.091
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.092
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_pierre\stele_aide_nz.gf.png
+
+newmtl default.093
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.094
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.095
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.096
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.097
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_hublot01txy.gf.png
+
+newmtl default.098
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_bois_txy.gf.png
+
+newmtl default.099
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.100
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.101
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.102
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.103
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_cordagetxynz.gf.png
+
+newmtl default.104
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_marais\racine_varappe02_txy.gf.png
+
+newmtl default.105
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\lomortel_nz.gf.png
+
+newmtl default.106
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\epineux02_txy_nz.gf.png
+
+newmtl default.107
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_mas01txy.gf.png
+
+newmtl default.108
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\lomortel_nz.gf.png
+
+newmtl default.109
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\lomortel_nz.gf.png
+
+newmtl default.110
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_objets\divers\chaine01txynz.gf.png
+
+newmtl default.111
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere01_txy_nz.gf.png
+
+newmtl default.112
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\foret_fougere02_txy_nz.gf.png
+
+newmtl default.113
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc03_ty.gf.png
+
+newmtl default.114
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.115
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_cahute01.gf.png
+
+newmtl default.116
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fen+trc_txy.gf.png
+
+newmtl default.117
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.118
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc01_ty.gf.png
+
+newmtl default.119
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc02_txy.gf.png
+
+newmtl default.120
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_side_tynz.gf.png
+
+newmtl default.121
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.122
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.123
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.124
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_bordtri_nz.gf.png
+
+newmtl default.125
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc04_txy.gf.png
+
+newmtl default.126
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_toitbord_tynz.gf.png
+
+newmtl default.127
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_toit_tynz.gf.png
+
+newmtl default.128
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.129
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_pierre\stele_aide_nz.gf.png
+
+newmtl default.130
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\fleurettre_nz.gf.png
+
+newmtl default.131
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_porte.gf.png
+
+newmtl default.132
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.133
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_porte.gf.png
+
+newmtl default.134
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.135
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.136
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_rampe01_txynz.gf.png
+
+newmtl default.137
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy02_txy.gf.png
+
+newmtl default.138
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.139
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_pass01_txynz.gf.png
+
+newmtl default.140
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_hublot01_haut_ty_mx.gf.png
+
+newmtl default.141
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\nenuphar_nz.gf.png
+
+newmtl default.142
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\fleurettre_nz.gf.png
+
+newmtl default.143
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_porte.gf.png
+
+newmtl default.144
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.145
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_porte.gf.png
+
+newmtl default.146
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.147
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\nenuphar_nz.gf.png
+
+newmtl default.148
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\fleurettre_nz.gf.png
+
+newmtl default.149
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\nenuphar_nz.gf.png
+
+newmtl default.150
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\epineux01_txy_nz.gf.png
+
+newmtl default.151
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_branchty_nz.gf.png
+
+newmtl default.152
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_cordagetxynz.gf.png
+
+newmtl default.153
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.154
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc03_ty.gf.png
+
+newmtl default.155
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.156
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive02_ty.gf.png
+
+newmtl default.157
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc01_ty.gf.png
+
+newmtl default.158
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_roc02_txy.gf.png
+
+newmtl default.159
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_side_tynz.gf.png
+
+newmtl default.160
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.161
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc01_ty.gf.png
+
+newmtl default.162
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc02_txy.gf.png
+
+newmtl default.163
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_bordtri_nz.gf.png
+
+newmtl default.164
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_tronc04_txy.gf.png
+
+newmtl default.165
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.166
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.167
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_beach\beach_sky2_txy.gf.png
+
+newmtl default.168
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_beach\beach_sky2_txy.gf.png
+
+newmtl default.169
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.170
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.171
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.172
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_eau_nzwtxy_aaa.gf.png
+
+newmtl default.173
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy02_txy.gf.png
+
+newmtl default.174
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.175
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_cahute01.gf.png
+
+newmtl default.176
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.177
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_pierre\stele_aide_nz.gf.png
+
+newmtl default.178
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_vegetaux\epineux01_txy_nz.gf.png
+
+newmtl default.179
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_rampe01_txynz.gf.png
+
+newmtl default.180
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.181
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_pass01_txynz.gf.png
+
+newmtl default.182
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.183
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_bato_amiral\amiral_vitro2_txynz.gf.png
+
+newmtl default.184
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.185
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_morbide\morbide_fond01txy.gf.png
+
+newmtl default.186
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_mas01txy.gf.png
+
+newmtl default.187
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.188
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.189
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive02_ty.gf.png
+
+newmtl default.190
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\effets_speciaux\cime_lumierety_adnzw.gf.png
+
+newmtl default.191
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_beach\beach_sky2_txy.gf.png
+
+newmtl default.192
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.193
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_cheminee_nz.gf.png
+
+newmtl default.194
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_mas01txy.gf.png
+
+newmtl default.195
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\lomortel_nz.gf.png
+
+newmtl default.196
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\machines_rampe01_txynz.gf.png
+
+newmtl default.197
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy02_txy.gf.png
+
+newmtl default.198
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_machines\cime_tuy03_txy.gf.png
+
+newmtl default.199
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\mine_petrole02_tx_nz.gf.png
+
+newmtl default.200
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_cahute01.gf.png
+
+newmtl default.201
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.202
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_fondriv_txy.gf.png
+
+newmtl default.203
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_piratebastion\pirates_plaqtxy01.gf.png
+
+newmtl default.204
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_mous_pend_nz.gf.png
+
+newmtl default.205
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive_ty.gf.png
+
+newmtl default.206
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_rive02_ty.gf.png
+
+newmtl default.207
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_foret\foret_sol0_txy.gf.png
+
+newmtl default.208
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Zooi\Rayman\R2\LevelGeometry\textures\textures_beach\beach_sky2_txy.gf.png
