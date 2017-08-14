@@ -13,6 +13,7 @@ namespace RREngine.Engine.Assets
     public class TextureAsset : Asset
     {
         private Stream _stream;
+        public bool isPartlyTransparent { get; set; } = false;
 
         public TextureAsset(Stream stream) : base(stream)
         {
@@ -29,6 +30,7 @@ namespace RREngine.Engine.Assets
 
             Texture2D texture = Texture2D.CreateManaged();
             texture.LoadImage(bitmap.Width, bitmap.Height, locked.Scan0, OpenTK.Graphics.OpenGL4.PixelFormat.Bgra);
+
 
             bitmap.UnlockBits(locked);
 

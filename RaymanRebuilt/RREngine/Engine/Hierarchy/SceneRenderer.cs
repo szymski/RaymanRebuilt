@@ -228,9 +228,16 @@ namespace RREngine.Engine.Hierarchy
             //GL.Enable(EnableCap.TextureCubeMap);
             //StandardShader.CubemapTexture = CubemapTexture;
 
-            foreach (var gameObject in Scene.GameObjects)
+            var sortedList = Scene.GameObjects.OrderBy(o => {
+                return o.RenderOrder;
+            }).ToList();
+
+            foreach (var gameObject in sortedList)
+            {
                 if (gameObject.Enabled)
                     gameObject.Render();
+            }
+
         }
 
         private void PrepareCamera()
@@ -275,7 +282,7 @@ namespace RREngine.Engine.Hierarchy
             RenderAmbientLight();
             RenderDirectionalLight();
             RenderPointLights();
-            RenderCubemapReflections();
+            //RenderCubemapReflections(); TODO: Re-enable this?
 
             Viewport.Current.ShaderManager.BindShader(OrthoShader);
 

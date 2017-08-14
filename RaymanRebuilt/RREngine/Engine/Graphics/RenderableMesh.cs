@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using RREngine.Engine.Resources;
+using OpenTK;
 
 namespace RREngine.Engine.Graphics
 {
@@ -21,6 +22,7 @@ namespace RREngine.Engine.Graphics
         public int NormalBufferId { get; private set; }
         public int TexCoordBufferId { get; private set; }
         public int IndexBufferId { get; private set; }
+        public Vector3 AverageVertex { get; private set; }
 
         private int _numIndices = 0;
 
@@ -36,6 +38,7 @@ namespace RREngine.Engine.Graphics
 
             _numIndices = indices.Length;
 
+            CalculateAverageVertex(vertices);
             GenerateBuffer(vertices, indices);
         }
 
@@ -64,6 +67,8 @@ namespace RREngine.Engine.Graphics
         {
             var vertices = mesh.Vertices;
             var indices = mesh.Indices;
+
+            CalculateAverageVertex(vertices);
 
             _numIndices = indices.Length;
 
@@ -186,6 +191,20 @@ namespace RREngine.Engine.Graphics
         public static RenderableMesh CreateUnmanaged()
         {
             return new RenderableMesh();
+        }
+
+        private void CalculateAverageVertex(Vertex[] vertices)
+        {
+            Vector3 avgVertex = Vector3.Zero;
+            if (vertices.Length > 0)
+            {
+                foreach (Vertex v in vertices)
+                {
+                    avgVertex += v.Position;
+                }
+                avgVertex = Vector3.Multiply(avgVertex, 1f / vertices.Length);
+            }
+            AverageVertex = avgVertex;
         }
     }
 }

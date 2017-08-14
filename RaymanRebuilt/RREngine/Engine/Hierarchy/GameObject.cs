@@ -36,6 +36,8 @@ namespace RREngine.Engine.Hierarchy
         public IEnumerable<Component> Components => _components.AsEnumerable();
 
         public DateTime TimeCreated { get; } = DateTime.Now;
+        public bool UsesTransparency { get; internal set; } = false;
+        public int RenderOrder { get; internal set; } = 0;
 
         public GameObject(Scene scene, uint id)
         {

@@ -70,7 +70,6 @@ namespace RRTestApp
             var viewport = window.Viewport;
 
             RenderableMesh dragonRenderableMesh = null;
-            RenderableMesh learn30mesh = null;
 
             Scene scene = new Scene();
             SceneRenderer sceneRenderer = new SceneRenderer(scene);
@@ -86,11 +85,20 @@ namespace RRTestApp
 
                 #region Asset Loading/Generation
 
-                dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateRenderableMesh();
-                learn30mesh = Engine.AssetManager.LoadAsset<ModelAsset>("FullLearn30.obj").GenerateRenderableMesh();
+                dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateFirstRenderableMesh();
 
-                var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateRenderableMesh();
-                var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateRenderableMesh();
+                List <RenderableMesh> learn_30_meshes = new List<RenderableMesh>();
+                var learn_30_files = Directory.GetFiles("Learn_30");
+                foreach(var file in learn_30_files)
+                {
+                    if (file.Substring(file.Length-4, 4)==".obj")
+                    learn_30_meshes.Add(Engine.AssetManager.LoadAsset<ModelAsset>(file).GenerateFirstRenderableMesh());
+                }
+
+                var learn30fullmesh = Engine.AssetManager.LoadAsset<ModelAsset>("Learn_30.dae").GenerateAllRenderableMeshesAndMaterials(true);
+
+                var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateFirstRenderableMesh();
+                var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateFirstRenderableMesh();
                 texture = Engine.AssetManager.LoadAsset<TextureAsset>("debug.png").GenerateTexture();
                 var texture2 = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks.jpg").GenerateTexture();
                 var texture2_normal = Engine.AssetManager.LoadAsset<TextureAsset>("textures/rocks_normal.jpg").GenerateTexture();
@@ -284,15 +292,26 @@ namespace RRTestApp
                 #endregion
                 #endregion
 
-                var learn30gameObject = scene.CreateGameObject();
-                learn30gameObject.AddComponent<Transform>();
-                var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
-                learn30renderer.RenderableMesh = learn30mesh;
-                learn30renderer.Material = new Material()
-                {
-                    BaseColor = new Vector4(1f, 1f, 1f, 1f),
-                    DiffuseTexture = texture,
-                };
+                foreach (var learn30mesh in learn30fullmesh) {
+
+                    var learn30gameObject = scene.CreateGameObject();
+                    learn30gameObject.AddComponent<Transform>();
+                    var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
+                    learn30renderer.RenderableMesh = learn30mesh.Item1;
+                    learn30renderer.Material = learn30mesh.Item2;
+                }
+
+                /*foreach (var mesh in learn_30_meshes) {
+                    var learn30gameObject = scene.CreateGameObject();
+                    learn30gameObject.AddComponent<Transform>();
+                    var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
+                    learn30renderer.RenderableMesh = mesh;
+                    learn30renderer.Material = new Material()
+                    {
+                        BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                        DiffuseTexture = texture,
+                    };
+                }*/
 
                 var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
@@ -318,7 +337,7 @@ namespace RRTestApp
                 scene.Init();
 
                 sceneRenderer.CubemapTexture = cubemapTexture;
-                //sceneRenderer.StandardShader.AmbientLight = Vector3.One * 0.3f; 
+                sceneRenderer.AmbientLightColor = new Vector3(0.8f, 0.8f, 0.8f);
             };
 
             Vector2 resolutionBeforeChange = Vector2.Zero;
