@@ -219,6 +219,7 @@ namespace RREngine.Engine.Hierarchy
 
             GL.Enable(EnableCap.DepthTest);
             GL.DepthFunc(DepthFunction.Less);
+            GL.Enable(EnableCap.CullFace);
 
             //GL.Enable(EnableCap.CullFace);
             //GL.CullFace(CullFaceMode.Back);
@@ -259,6 +260,7 @@ namespace RREngine.Engine.Hierarchy
             SkyboxShader.ProjectionMatrix = CurrentCamera.ProjectionMatrix;
             SkyboxShader.ViewMatrix = CurrentCamera.ViewMatrix;
 
+            GL.Disable(EnableCap.CullFace);
             GL.Enable(EnableCap.TextureCubeMap);
             SkyboxShader.CubemapTexture = CubemapTexture;
             _skyboxMesh.Draw();

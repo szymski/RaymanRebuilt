@@ -47,7 +47,7 @@ namespace RREngine.Engine.Hierarchy
         {
             if (!Initialized)
                 throw new Exception("Scene has to be initialized first.");
-
+            
             // Limit the delta time if it's too big
             float delta = (Viewport.Current.Time.DeltaTime < 0.1f ? Viewport.Current.Time.DeltaTime : 0.1f); 
             PhysicsWorld.Step(delta, true);

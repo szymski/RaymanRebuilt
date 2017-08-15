@@ -34,15 +34,18 @@ namespace RREngine.Engine.Hierarchy.Components
         {
             if (RenderableMesh != null && Material != null)
             {
-                Owner.UsesTransparency = (Material.DiffuseTexture.HasTransparentPixels);
-
-                if (Material.DiffuseTexture.HasTransparentPixels)
+                if (Material.DiffuseTexture != null)
                 {
-                    Vector3 myPos = Owner.GetComponent<Transform>().Position + RenderableMesh.AverageVertex;
-                    Vector3 cameraPos = Owner.Scene.SceneRenderer.CurrentCamera.Position;
-                    Vector3 delta = Vector3.Subtract(cameraPos, myPos);
-                    
-                    Owner.RenderOrder = Int32.MaxValue - ((int)Mathf.Round(delta.LengthSquared));
+                    Owner.UsesTransparency = (Material.DiffuseTexture.HasTransparentPixels);
+
+                    if (Material.DiffuseTexture.HasTransparentPixels)
+                    {
+                        Vector3 myPos = Owner.GetComponent<Transform>().Position + RenderableMesh.AverageVertex;
+                        Vector3 cameraPos = Owner.Scene.SceneRenderer.CurrentCamera.Position;
+                        Vector3 delta = Vector3.Subtract(cameraPos, myPos);
+
+                        Owner.RenderOrder = Int32.MaxValue - ((int)Mathf.Round(delta.LengthSquared));
+                    }
                 }
             }
         }

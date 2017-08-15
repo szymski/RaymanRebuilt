@@ -141,6 +141,7 @@
     <Compile Include="Engine\EventArgsTypes.cs" />
     <Compile Include="Engine\Math\Vector3Directions.cs" />
     <Compile Include="Engine\Hierarchy\Scene.cs" />
+    <Compile Include="Engine\Physics\PhysicsUtil.cs" />
     <Compile Include="Engine\Protobuf\Scene\SceneSerialization.cs" />
     <Compile Include="Engine\Protobuf\Scene\SceneSerializationUtil.cs" />
     <Compile Include="Engine\Resources\Resource.cs" />

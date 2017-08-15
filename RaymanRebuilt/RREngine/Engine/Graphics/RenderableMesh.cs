@@ -24,6 +24,9 @@ namespace RREngine.Engine.Graphics
         public int IndexBufferId { get; private set; }
         public Vector3 AverageVertex { get; private set; }
 
+        public Vertex[] Vertices { get; internal set; }
+        public int[] Indices { get; internal set; }
+
         private int _numIndices = 0;
 
         private RenderableMesh()
@@ -33,13 +36,13 @@ namespace RREngine.Engine.Graphics
 
         private RenderableMesh(Mesh mesh)
         {
-            var vertices = mesh.Vertices;
-            var indices = mesh.Indices;
+            Vertices = mesh.Vertices;
+            Indices = mesh.Indices;
 
-            _numIndices = indices.Length;
+            _numIndices = Indices.Length;
 
-            CalculateAverageVertex(vertices);
-            GenerateBuffer(vertices, indices);
+            CalculateAverageVertex(Vertices);
+            GenerateBuffer(Vertices, Indices);
         }
 
         public override void Destroy()
@@ -65,22 +68,22 @@ namespace RREngine.Engine.Graphics
 
         public void Update(Mesh mesh)
         {
-            var vertices = mesh.Vertices;
-            var indices = mesh.Indices;
+            Vertices = mesh.Vertices;
+            Indices = mesh.Indices;
 
-            CalculateAverageVertex(vertices);
+            CalculateAverageVertex(Vertices);
 
-            _numIndices = indices.Length;
+            _numIndices = Indices.Length;
 
             if (!_initialized)
                 VertexArrayId = GL.GenVertexArray();
 
             GL.BindVertexArray(VertexArrayId);
 
-            SendVertices(vertices, indices);
-            SendNormals(vertices, indices);
-            SendIndices(vertices, indices);
-            SendTexCoords(vertices, indices);
+            SendVertices(Vertices, Indices);
+            SendNormals(Vertices, Indices);
+            SendIndices(Vertices, Indices);
+            SendTexCoords(Vertices,Indices);
 
             GL.BindVertexArray(0);
 

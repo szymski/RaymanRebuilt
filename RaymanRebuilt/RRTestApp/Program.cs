@@ -22,6 +22,7 @@ using ShaderType = RREngine.Engine.Graphics.ShaderType;
 using Vertex = RREngine.Engine.Graphics.Vertex;
 using Viewport = RREngine.Engine.Viewport;
 using Jitter.Collision.Shapes;
+using RREngine.Engine.Physics;
 
 namespace RRTestApp
 {
@@ -87,15 +88,7 @@ namespace RRTestApp
 
                 dragonRenderableMesh = Engine.AssetManager.LoadAsset<ModelAsset>("dragon.obj").GenerateFirstRenderableMesh();
 
-                List <RenderableMesh> learn_30_meshes = new List<RenderableMesh>();
-                var learn_30_files = Directory.GetFiles("Learn_30");
-                foreach(var file in learn_30_files)
-                {
-                    if (file.Substring(file.Length-4, 4)==".obj")
-                    learn_30_meshes.Add(Engine.AssetManager.LoadAsset<ModelAsset>(file).GenerateFirstRenderableMesh());
-                }
-
-                var learn30fullmesh = Engine.AssetManager.LoadAsset<ModelAsset>("Learn_30.dae").GenerateAllRenderableMeshesAndMaterials(true);
+                var learn30fullmesh = Engine.AssetManager.LoadAsset<ModelAsset>("testmap/testmap.dae").GenerateAllRenderableMeshesAndMaterials(true);
 
                 var teapotMesh = Engine.AssetManager.LoadAsset<ModelAsset>("teapot.obj").GenerateFirstRenderableMesh();
                 var sphereMesh = Engine.AssetManager.LoadAsset<ModelAsset>("sphere.obj").GenerateFirstRenderableMesh();
@@ -139,75 +132,76 @@ namespace RRTestApp
                 camera.AddComponent<FlyingCamera>();
                 #endregion
 
-                #region Ground plane
-                plane = scene.CreateGameObject();
-                plane.AddComponent<Transform>();
-                RigidBodyComponent planeBody = plane.AddComponent<RigidBodyComponent>();
-                planeBody.Shape = new BoxShape(80, 0, 80);
-                planeBody.Material = new Jitter.Dynamics.Material()
+                if (false)
                 {
-                    Restitution = 0.1f,
-                    StaticFriction = 0.2f,
-                    KineticFriction = 0.2f
-                };
-                planeBody.Static = true;
+                    #region Ground plane
+                    plane = scene.CreateGameObject();
+                    plane.AddComponent<Transform>();
+                    RigidBodyComponent planeBody = plane.AddComponent<RigidBodyComponent>();
+                    planeBody.Shape = new BoxShape(80, 0, 80);
+                    planeBody.Material = new Jitter.Dynamics.Material()
+                    {
+                        Restitution = 0.1f,
+                        StaticFriction = 0.2f,
+                        KineticFriction = 0.2f
+                    };
+                    planeBody.Static = true;
 
-                plane.AddComponent<MeshRenderer>().Material = new Material()
+                    plane.AddComponent<MeshRenderer>().Material = new Material()
+                    {
+                        BaseColor = new Vector4(1f, 1f, 1f, 1f),
+                        DiffuseTexture = texture,
+                    };
+                    var planeGen = plane.AddComponent<PlaneGenerator>();
+                    planeGen.TexCoordScaling = Vector2.One * 10f;
+                    planeGen.MinBounds = Vector2.One * 40;
+                    planeGen.MaxBounds = Vector2.One * 40;
+
+                    #endregion
+                }
+
+                #region Falling Spheres
+
+                for (int i = -3; i <= 3; i++)
                 {
-                    BaseColor = new Vector4(1f, 1f, 1f, 1f),
-                    DiffuseTexture = texture,
-                };
-                var planeGen = plane.AddComponent<PlaneGenerator>();
-                planeGen.TexCoordScaling = Vector2.One * 10f;
-                planeGen.MinBounds = Vector2.One * 40;
-                planeGen.MaxBounds = Vector2.One * 40;
+                    for (int j = -3; j <= 3; j++)
+                    {
+
+                        Material boxMat = new Material()
+                        {
+                            BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
+                            // Texture = texture,
+                            SpecularPower = 10f,
+                        };
+
+                        var box = scene.CreateGameObject();
+                        var boxTransform = box.AddComponent<Transform>();
+                        boxTransform.Position = new Vector3(i * 0.3f, 15 + (float)rand.NextDouble() * 30, j * 0.4f);
+                        boxTransform.Rotation = new Quaternion((float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
+
+                        //transform.Scale *= 0.3f;
+                        var boxRenderer = box.AddComponent<MeshRenderer>();
+                        boxRenderer.RenderableMesh = sphereMesh;
+
+                        float boxSize = 1f;
+                        
+                        boxRenderer.Material = boxMat;
+
+                        RigidBodyComponent rigidBody = box.AddComponent<RigidBodyComponent>();
+                        rigidBody.Shape = new SphereShape(boxSize);
+                        rigidBody.Material = new Jitter.Dynamics.Material()
+                        {
+                            Restitution = 0.25f,
+                            KineticFriction = 0.1f,
+                            StaticFriction = 0.1f
+                        };
+                    }
+                }
 
                 #endregion
 
-                #region Disabled
                 if (false)
                 {
-                    #region Falling Boxes
-
-                    for (int i = -10; i <= 10; i++)
-                    {
-                        for (int j = -10; j <= 10; j++)
-                        {
-
-                            Material boxMat = new Material()
-                            {
-                                BaseColor = new Vector4((float)rand.NextDouble(), (float)rand.NextDouble(), (float)rand.NextDouble(), 1),
-                                // Texture = texture,
-                                SpecularPower = 10f,
-                            };
-
-                            var box = scene.CreateGameObject();
-                            var boxTransform = box.AddComponent<Transform>();
-                            boxTransform.Position = new Vector3(i * 0.3f, 15 + (float)rand.NextDouble() * 10, j * 0.4f);
-                            boxTransform.Rotation = new Quaternion((float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI, (float)rand.NextDouble() * Mathf.PI);
-
-                            //transform.Scale *= 0.3f;
-                            var boxRenderer = box.AddComponent<MeshRenderer>();
-                            var boxMeshGenerator = box.AddComponent<CubeGenerator>();
-
-                            Vector3 boxSize = new Vector3(0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2, 0.5f + (float)rand.NextDouble() * 2);
-
-                            boxMeshGenerator.Size = new Vector3(boxSize);
-                            boxRenderer.Material = boxMat;
-
-                            RigidBodyComponent rigidBody = box.AddComponent<RigidBodyComponent>();
-                            rigidBody.Shape = new BoxShape(boxSize.X, boxSize.Y, boxSize.Z);
-                            rigidBody.Material = new Jitter.Dynamics.Material()
-                            {
-                                Restitution = 0.25f,
-                                KineticFriction = 0.1f,
-                                StaticFriction = 0.1f
-                            };
-                        }
-                    }
-
-                    #endregion
-
                     #region Dragons
 
                     Material mat = new Material()
@@ -288,19 +282,24 @@ namespace RRTestApp
                             sphere.AddComponent<RotatingComponent>();
                         }
                     }
-                }
-                #endregion
-                #endregion
+                    #endregion
 
-                foreach (var learn30mesh in learn30fullmesh) {
-
-                    var learn30gameObject = scene.CreateGameObject();
-                    learn30gameObject.AddComponent<Transform>();
-                    var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
-                    learn30renderer.RenderableMesh = learn30mesh.Item1;
-                    learn30renderer.Material = learn30mesh.Item2;
                 }
 
+                // Generate GameObjects for level mesh
+                foreach (var learn30mesh in learn30fullmesh)
+                    {
+
+                        var learn30gameObject = scene.CreateGameObject();
+                        learn30gameObject.AddComponent<Transform>();
+                        var learn30renderer = learn30gameObject.AddComponent<MeshRenderer>();
+                        learn30renderer.RenderableMesh = learn30mesh.Item1;
+                        learn30renderer.Material = learn30mesh.Item2;
+                        var collision = learn30gameObject.AddComponent<RigidBodyComponent>();
+                        collision.Material = new Jitter.Dynamics.Material();
+                        collision.Static = true;
+                        collision.Shape = PhysicsUtil.CreateTriangleMeshShapeFromRenderableMesh(learn30mesh.Item1);
+                    }
                 /*foreach (var mesh in learn_30_meshes) {
                     var learn30gameObject = scene.CreateGameObject();
                     learn30gameObject.AddComponent<Transform>();
@@ -313,7 +312,7 @@ namespace RRTestApp
                     };
                 }*/
 
-                var light = scene.CreateGameObject();
+                /*var light = scene.CreateGameObject();
                 light.AddComponent<Transform>().Position = Vector3Directions.Up * 2f;
                 var pointLightComponent = light.AddComponent<PointLightComponent>();
                 pointLightComponent.Intensity = 50f;
@@ -324,7 +323,7 @@ namespace RRTestApp
                 var pointLightComponent2 = light2.AddComponent<PointLightComponent>();
                 pointLightComponent2.Intensity = 50f;
                 light2.AddComponent<RandomLight>();
-
+                */
                 var dirLight = scene.CreateGameObject();
                 dirLight.AddComponent<Transform>().Rotation = Quaternion.FromEulerAngles(0f, Mathf.PI / 2f, -Mathf.PI / 2f);
                 var dirLightComponent = dirLight.AddComponent<DirectionalLightComponent>();
@@ -357,50 +356,50 @@ namespace RRTestApp
             };
 
             viewport.UpdateFrame += (sender, eventArgs) =>
-            {
-                if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
-                    window.GameWindow.Close();
-
-                if (viewport.Keyboard.GetKeyUp(KeyboardKey.K))
                 {
-                    Engine.SceneManager.SaveSceneToFile(scene, "test.scene");
-                }
+                    if (viewport.Keyboard.GetKeyDown(KeyboardKey.Escape))
+                        window.GameWindow.Close();
 
-                if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
-                {
-                    if (!Viewport.Current.Screen.IsFullscreen)
+                    if (viewport.Keyboard.GetKeyUp(KeyboardKey.K))
                     {
-                        resolutionBeforeChange = new Vector2(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
-
-                        var device = DisplayDevice.GetDisplay(DisplayIndex.Default);
-                        Viewport.Current.Screen.SetResolution(device.Width, device.Height);
+                        Engine.SceneManager.SaveSceneToFile(scene, "test.scene");
                     }
-                    else
-                        Viewport.Current.Screen.SetResolution((int)resolutionBeforeChange.X, (int)resolutionBeforeChange.Y);
 
-                    Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
-                }
+                    if (viewport.Keyboard.GetKeyUp(KeyboardKey.F))
+                    {
+                        if (!Viewport.Current.Screen.IsFullscreen)
+                        {
+                            resolutionBeforeChange = new Vector2(Viewport.Current.Screen.Width, Viewport.Current.Screen.Height);
 
-                if (viewport.Keyboard.GetKeyUp(KeyboardKey.L))
-                {
-                    Viewport.Current.Mouse.Locked = !Viewport.Current.Mouse.Locked;
+                            var device = DisplayDevice.GetDisplay(DisplayIndex.Default);
+                            Viewport.Current.Screen.SetResolution(device.Width, device.Height);
+                        }
+                        else
+                            Viewport.Current.Screen.SetResolution((int)resolutionBeforeChange.X, (int)resolutionBeforeChange.Y);
+
+                        Viewport.Current.Screen.IsFullscreen = !Viewport.Current.Screen.IsFullscreen;
+                    }
+
+                    if (viewport.Keyboard.GetKeyUp(KeyboardKey.L))
+                    {
+                        Viewport.Current.Mouse.Locked = !Viewport.Current.Mouse.Locked;
                         //Viewport.Current.Mouse.CursorVisible = !Viewport.Current.Mouse.Locked;
                     }
 
-                if (viewport.Keyboard.GetKeyUp(KeyboardKey.P))
-                {
-                    Engine.Logger.LogWarning("Doing something bad");
-                    Engine.ResourceManager.FreeAllResources();
-                }
+                    if (viewport.Keyboard.GetKeyUp(KeyboardKey.P))
+                    {
+                        Engine.Logger.LogWarning("Doing something bad");
+                        Engine.ResourceManager.FreeAllResources();
+                    }
 
-                foreach (var pair in keyToNumber)
-                {
-                    if (viewport.Keyboard.GetKeyDown(pair.Key))
-                        sceneRenderer.Mode = (SceneRenderer.RenderingMode)(pair.Value - 1);
-                }
+                    foreach (var pair in keyToNumber)
+                    {
+                        if (viewport.Keyboard.GetKeyDown(pair.Key))
+                            sceneRenderer.Mode = (SceneRenderer.RenderingMode)(pair.Value - 1);
+                    }
 
-                scene.Update();
-            };
+                    scene.Update();
+                };
 
             viewport.RenderFrame += (sender, eventArgs) =>
             {
@@ -422,10 +421,10 @@ namespace RRTestApp
                 GL.Enable(EnableCap.Texture2D);
                 texture.Bind(0);
 
-                    //unitMesh.Draw();
+                //unitMesh.Draw();
 
 
-                };
+            };
 
             window.Unload += (sender, eventArgs) =>
             {

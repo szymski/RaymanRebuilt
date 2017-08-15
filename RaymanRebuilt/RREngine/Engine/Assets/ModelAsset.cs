@@ -25,18 +25,24 @@ namespace RREngine.Engine.Assets
             stream.Close();
         }
 
-        public List<Tuple<Graphics.Mesh, Graphics.Material>> GenerateAllMeshesAndMaterials(bool flipTextureCoordinates = false)
+        private List<Tuple<Graphics.Mesh, Graphics.Material>> GenerateAllMeshesAndMaterialsForNode(List<Tuple<Graphics.Mesh, Graphics.Material>> currentList, Node parentNode, bool flipTextureCoordinates = false, bool swapYZ = false)
+        {
+            foreach (Node child in parentNode.Children) {
+
+                foreach (int mesh in child.MeshIndices) {
+                    currentList.Add(GenerateMeshAndMaterial(child, Scene.Meshes[mesh], flipTextureCoordinates, swapYZ));
+                }
+                currentList.AddRange(GenerateAllMeshesAndMaterialsForNode(currentList, child, flipTextureCoordinates, swapYZ));
+            }
+            return currentList;
+        }
+
+        public List<Tuple<Graphics.Mesh, Graphics.Material>> GenerateAllMeshesAndMaterials(bool flipTextureCoordinates = false, bool swapYZ = false)
         {
             Viewport.Current.Logger.Log(new[] { "asset" }, "Generating " + Scene.MeshCount + " meshes and materials from asset");
             List<Tuple<Graphics.Mesh, Graphics.Material>> list = new List<Tuple<Graphics.Mesh, Graphics.Material>>();
 
-            foreach (var assimpMesh in Scene.Meshes)
-            {
-                list.Add(GenerateMeshAndMaterial(assimpMesh, flipTextureCoordinates));
-            }
-
-
-            return list;
+            return GenerateAllMeshesAndMaterialsForNode(list, Scene.RootNode, flipTextureCoordinates, swapYZ);
         }
 
         public List<Graphics.Mesh> GenerateAllMeshes()
@@ -69,15 +75,24 @@ namespace RREngine.Engine.Assets
             return new Graphics.Mesh(vertices.ToArray(), indices);
         }
 
-        public Tuple<Graphics.Mesh, Graphics.Material> GenerateMeshAndMaterial(Assimp.Mesh assimpMesh, bool flipTextureCoordinates = false)
+        public Tuple<Graphics.Mesh, Graphics.Material> GenerateMeshAndMaterial(Assimp.Node assimpNode, Assimp.Mesh assimpMesh, bool flipTextureCoordinates = false, bool swapYZ = false)
         {
             var vertices = new List<Vertex>(assimpMesh.VertexCount);
+
+            // Transform
+            Matrix4x4 transform = assimpNode.Transform;
+            Assimp.Node parent = assimpNode.Parent;
+            while(parent != null)
+            {
+                transform *= parent.Transform;
+                parent = parent.Parent;
+            }
 
             for (int i = 0; i < assimpMesh.Vertices.Count; i++)
             {
                 vertices.Add(new Vertex()
                 {
-                    Position = AssimpVectorToEngine(assimpMesh.Vertices[i]),
+                    Position = AssimpVectorToEngine(MultiplyAssimpVectorAndMatrix(assimpMesh.Vertices[i], transform), swapYZ),
                     Normal = AssimpVectorToEngine(assimpMesh.Normals[i]),
                     TexCoord = (assimpMesh.TextureCoordinateChannels[0].Count > 0) ?
                         new Vector2(
@@ -116,10 +131,10 @@ namespace RREngine.Engine.Assets
             return components;
         }
 
-        public List<Tuple<RenderableMesh, Graphics.Material>> GenerateAllRenderableMeshesAndMaterials(bool flipTextureCoordinates = false)
+        public List<Tuple<RenderableMesh, Graphics.Material>> GenerateAllRenderableMeshesAndMaterials(bool flipTextureCoordinates = false, bool swapYZ = false)
         {
             List<Tuple<RenderableMesh, Graphics.Material>> components = new List<Tuple<RenderableMesh, Graphics.Material>>();
-            List<Tuple<Graphics.Mesh, Graphics.Material>> meshes = GenerateAllMeshesAndMaterials(flipTextureCoordinates);
+            List<Tuple<Graphics.Mesh, Graphics.Material>> meshes = GenerateAllMeshesAndMaterials(flipTextureCoordinates, swapYZ);
             foreach (var mesh in meshes)
             {
                 components.Add(new Tuple<RenderableMesh, Graphics.Material>(RenderableMesh.CreateManaged(mesh.Item1), mesh.Item2));
@@ -127,9 +142,24 @@ namespace RREngine.Engine.Assets
             return components;
         }
 
-        private Vector3 AssimpVectorToEngine(Vector3D value)
+        private Vector3D MultiplyAssimpVectorAndMatrix(Vector3D vector, Matrix4x4 mat)
         {
-            return new Vector3(value.X, value.Y, value.Z);
+            Vector3D newVector = new Vector3D(0,0,0);
+            
+            newVector.X = mat.A1 * vector.X + mat.A2 * vector.Y + mat.A3 * vector.Z + mat.A4 * 1;
+            newVector.Y = mat.B1 * vector.X + mat.B2 * vector.Y + mat.B3 * vector.Z + mat.B4 * 1;
+            newVector.Z = mat.C1 * vector.X + mat.C2 * vector.Y + mat.C3 * vector.Z + mat.C4 * 1;
+
+            return newVector;
+            
+        }
+
+        private Vector3 AssimpVectorToEngine(Vector3D value, bool swapYZ=false)
+        {
+            if (swapYZ)
+                return new Vector3(value.X, value.Z, value.Y);
+            else
+                return new Vector3(value.X, value.Y, value.Z);
         }
     }
 }
